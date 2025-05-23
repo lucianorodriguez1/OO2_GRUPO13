@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${USERNAME}
+    password: $ {PASSWORD}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+  thymeleaf:
+    cache: false
