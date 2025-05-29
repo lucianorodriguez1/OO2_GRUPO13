@@ -1,4 +1,4 @@
-package com.oo2.grupo13.models;
+package com.oo2.grupo13.entities;
 
 public class Cliente extends Usuario {
     private Area area;

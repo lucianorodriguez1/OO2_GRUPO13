@@ -1,4 +1,4 @@
-package com.oo2.grupo13.models;
+package com.oo2.grupo13.entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
