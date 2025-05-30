@@ -9,6 +9,7 @@ public class Soporte extends Usuario{
     private String cuil;
     private LocalDate fechaIngreso;
     private TURNO turno;
+    
 
     public Soporte(String nombre, String apellido, String email, String password, String fotoPerfil, String rol, String cuil, LocalDate fechaIngreso, TURNO turno) {
         super(nombre, apellido, email, password, fotoPerfil, rol);
