@@ -2,47 +2,42 @@ package com.oo2.grupo13.entities;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Size;
+
+@Entity
+@Getter @Setter @NoArgsConstructor
 public class Valoracion {
+
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Min(value = 1, message = "El puntaje debe ser al menos 1")
+    @Max(value = 10, message = "El puntaje no puede ser mayor a 10")
     private int puntaje;
-    private LocalDateTime fecha;
+
+    @CreationTimestamp
+    private LocalDateTime fecha; 
+
+    @Size (max = 300)
     private String comentario;
 
-    public Valoracion(int puntaje, LocalDateTime fecha, String comentario) {
-        this.puntaje = puntaje;
-        this.fecha = fecha;
-        this.comentario = comentario;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    // Constructor completo
+     public Valoracion(int id, int puntaje, LocalDateTime fecha, String comentario) {
         this.id = id;
-    }
-
-    public int getPuntaje() {
-        return puntaje;
-    }
-
-    public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
-    }
-
-    public LocalDateTime getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
-    }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
         this.comentario = comentario;
     }
 }
