@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.oo2.grupo13.entities.TURNO;
+
 
 public class SoporteDTO extends UsuarioDTO{
 	private List<EspecialidadDTO> especialidades;
