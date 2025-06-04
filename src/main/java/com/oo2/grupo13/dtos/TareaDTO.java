@@ -1,10 +1,8 @@
 package com.oo2.grupo13.dtos;
-
-import java.time.LocalDateTime;
-
 import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Ticket;
 
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
