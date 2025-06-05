@@ -50,8 +50,9 @@ public class SoporteService implements ISoporteService{
 	}
 	@Override
 	public SoporteDTO insertOrUpdate(SoporteDTO soporteDto) {
-		// TODO Auto-generated method stub
-		return null;
+	    Soporte soporte = modelMapper.map(soporteDto, Soporte.class);
+	    Soporte soporteGuardado = soporteRepository.save(soporte);
+	    return modelMapper.map(soporteGuardado, SoporteDTO.class);
 	}
 	@Override
 	public boolean remove(int id) {

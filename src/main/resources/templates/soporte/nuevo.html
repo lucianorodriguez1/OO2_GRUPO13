@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nuevo Soporte</title>
+</head>
+<body>
+    <h1>Crear Soporte</h1>
+    <form th:action="@{/soporte/create}" th:object="${soporte}" method="post">
+        <input type="text" th:field="*{nombre}" placeholder="Nombre"/><br/>
+        <input type="text" th:field="*{apellido}" placeholder="Apellido"/><br/>
+        <input type="email" th:field="*{email}" placeholder="Email"/><br/>
+        <input type="password" th:field="*{password}" placeholder="Password"/><br/>
+        <input type="text" th:field="*{cuil}" placeholder="CUIL"/><br/>
+        <input type="date" th:field="*{fechaIngreso}" /><br/>
+        <select th:field="*{turno}">
+            <option value="MAÑANA">MAÑANA</option>
+            <option value="TARDE">TARDE</option>
+        </select><br/>
+        <button type="submit">Crear</button>
+    </form>
+</body>
+</html>
