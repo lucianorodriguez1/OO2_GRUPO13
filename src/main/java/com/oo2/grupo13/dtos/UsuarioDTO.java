@@ -1,5 +1,17 @@
 package com.oo2.grupo13.dtos;
 
-public class UsuarioDTO {
+import com.oo2.grupo13.entities.UsuarioRol;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter @NoArgsConstructor @AllArgsConstructor 
+public class UsuarioDTO {
+	private String nombre;
+	private String apellido;
+	private String email;
+	private String password;
+	private String fotoPerfil;
+	private UsuarioRol rol; 
 }
