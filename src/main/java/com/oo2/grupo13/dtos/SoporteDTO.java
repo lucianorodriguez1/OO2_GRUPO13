@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.oo2.grupo13.entities.TURNO;
+import com.oo2.grupo13.entities.UsuarioRol;
 
 
 public class SoporteDTO extends UsuarioDTO{
@@ -17,7 +18,7 @@ public class SoporteDTO extends UsuarioDTO{
 		super();
 	}
 	
-	public SoporteDTO(String nombre, String apellido, String email, String password, String fotoPerfil, String rol,
+	public SoporteDTO(String nombre, String apellido, String email, String password, String fotoPerfil, UsuarioRol rol,
 			String cuil, LocalDate fechaIngreso, TURNO turno) {
 		super(nombre, apellido, email, password, fotoPerfil, rol);
 		this.especialidades = new ArrayList<EspecialidadDTO>();

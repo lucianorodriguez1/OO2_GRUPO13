@@ -24,7 +24,7 @@ public class Soporte extends Usuario {
 		super();
 	}
 	
-	public Soporte(String nombre, String apellido, String email, String password, String fotoPerfil, String rol,
+	public Soporte(String nombre, String apellido, String email, String password, String fotoPerfil, UsuarioRol rol,
 			String cuil, LocalDate fechaIngreso, TURNO turno) {
 		super(nombre, apellido, email, password, fotoPerfil, rol);
 		this.especialidades = new ArrayList<>();
