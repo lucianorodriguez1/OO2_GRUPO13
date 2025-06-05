@@ -29,6 +29,16 @@ public class SoporteController {
 
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("soporte") SoporteDTO soporteDto) {
+	    System.out.println("Nombre: " + soporteDto.getNombre());
+	    System.out.println("Apellido: " + soporteDto.getApellido());
+	    System.out.println("Email: " + soporteDto.getEmail());
+	    System.out.println("Password: " + soporteDto.getPassword());
+	    System.out.println("Foto Perfil: " + soporteDto.getFotoPerfil());
+	    System.out.println("CUIL: " + soporteDto.getCuil());
+	    System.out.println("Fecha Ingreso: " + soporteDto.getFechaIngreso());
+	    System.out.println("Turno: " + soporteDto.getTurno());
+	    System.out.println("Rol (ENUM): " + (soporteDto.getRol() != null ? soporteDto.getRol().getRol() : "rol es null"));
+		
 		soporteService.insertOrUpdate(soporteDto);
 		return new RedirectView("/soporte/nuevo"); 
 	}

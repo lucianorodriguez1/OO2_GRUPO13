@@ -5,8 +5,9 @@ import com.oo2.grupo13.entities.UsuarioRol;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter @NoArgsConstructor @AllArgsConstructor 
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor 
 public class UsuarioDTO {
 	private String nombre;
 	private String apellido;
