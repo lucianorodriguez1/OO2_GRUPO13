@@ -1,18 +1,28 @@
 package com.oo2.grupo13.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Cliente extends Usuario {
-    private Area area;
-
-    public Cliente(String nombre, String apellido, String email, String password, String fotoPerfil, String rol, Area area) {
-        super(nombre, apellido, email, password, fotoPerfil, rol);
-        this.area = area;
-    }
-
-    public Area getArea() {
-        return area;
-    }
-
-    public void setArea(Area area) {
-        this.area = area;
-    }
+	
+	@ManyToMany
+	@JoinTable(
+		name = "cliente_area",
+	    joinColumns = @JoinColumn(name = "cliente_id"),
+	    inverseJoinColumns = @JoinColumn(name = "area_id")
+	)
+	
+	private Set<Area> areas = new HashSet<>();
+	
 }
