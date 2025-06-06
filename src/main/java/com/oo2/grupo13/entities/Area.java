@@ -18,10 +18,7 @@ public class Area {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-	
     private String nombre;
-    
     @ManyToMany(mappedBy = "areas")
     private Set<Cliente> clientes;
-  
 }
