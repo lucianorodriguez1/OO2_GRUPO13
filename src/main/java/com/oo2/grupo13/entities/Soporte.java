@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Soporte extends Usuario{
+   
     private List<Especialidad> especialidades;
     private String cuil;
     private LocalDate fechaIngreso;

@@ -1,43 +1,25 @@
 package com.oo2.grupo13.dtos;
 import com.oo2.grupo13.entities.Soporte;
-import com.oo2.grupo13.entities.Ticket;
-
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor 
 public class TareaDTO {
-    
     private long id; 
-
     private String descripcion;
-
     private String nombre; 
-
     private boolean completada;
-
-    private LocalDateTime fechaCreacion;
-
     private Soporte soporte;
+    private Long ticketId;
 
-    private Ticket ticket;
-
-    // Constructor vista cliente
-    public TareaDTO(String descripcion, String nombre, boolean completada) {
-        this.descripcion = descripcion; 
-        this.nombre = nombre; 
-        this.completada = completada;
-    }
-    // Constructor completo, vista soporte/ admin
-    public TareaDTO(long id, String descripcion, String nombre, boolean completada, LocalDateTime fechaCreacion, Soporte soporte, Ticket ticket) {
+    // Constructor completo sin id, vista soporte/ admin
+    public TareaDTO(long id, String descripcion, String nombre, boolean completada, Soporte soporte, long ticketId) {
         this.id = id;
         this.descripcion = descripcion; 
         this.nombre = nombre; 
         this.completada = completada;
-        this.fechaCreacion = fechaCreacion;
         this.soporte = soporte;
-        this.ticket = ticket;
+        this.ticketId = ticketId;
     }
 }

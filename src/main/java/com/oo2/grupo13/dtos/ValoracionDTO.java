@@ -7,26 +7,18 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor
 public class ValoracionDTO {
-   
     private int id;
-
     private int puntaje; 
-
     private LocalDateTime fecha; 
-
     private String comentario; 
+    private Long ticketId; 
 
     // Constructor completo
-    public ValoracionDTO(int id, int puntaje, LocalDateTime fecha, String comentario) {
-        this.id = id;
+    public ValoracionDTO(int id, int puntaje, LocalDateTime fecha, String comentario, Long ticketId) {
+        this.setId(id);
         this.puntaje = puntaje;
-        this.fecha = fecha; 
+        this.setFecha(fecha);
         this.comentario = comentario;
+        this.ticketId = ticketId;
     }
-    // Constructor sin fecha ni id, se generan automáticamente
-    public ValoracionDTO(int puntaje, String comentario) {
-        this.puntaje = puntaje;
-        this.comentario = comentario;
-    }
-
 }
