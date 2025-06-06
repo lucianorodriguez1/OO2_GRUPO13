@@ -2,11 +2,15 @@ package com.oo2.grupo13.entities;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.OneToOne;
+
 public class Valoracion {
     private int id;
     private int puntaje;
     private LocalDateTime fecha;
     private String comentario;
+    @OneToOne(mappedBy = "valoracion")
+    private Ticket ticketAsociado;
 
     public Valoracion(int puntaje, LocalDateTime fecha, String comentario) {
         this.puntaje = puntaje;
