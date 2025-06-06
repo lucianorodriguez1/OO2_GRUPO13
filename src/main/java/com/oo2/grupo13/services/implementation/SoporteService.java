@@ -20,10 +20,12 @@ import com.oo2.grupo13.services.ISoporteService;
 public class SoporteService implements ISoporteService{
 	private ISoporteRepository soporteRepository;
 	private IUsuarioRolRepository usuarioRolRepository;
+	private UsuarioService usuarioService;
 	private ModelMapper modelMapper = new ModelMapper();
-	public SoporteService(ISoporteRepository soporteRepository, IUsuarioRolRepository usuarioRolRepository) {
+	public SoporteService(ISoporteRepository soporteRepository, IUsuarioRolRepository usuarioRolRepository, UsuarioService usuarioService) {
 		this.soporteRepository = soporteRepository;
 		this.usuarioRolRepository = usuarioRolRepository;
+		this.usuarioService = usuarioService;
 	}
 	
 	@Override
@@ -72,7 +74,10 @@ public class SoporteService implements ISoporteService{
 		soporte.setCuil(soporteDto.getCuil());
 		soporte.setFechaIngreso(soporteDto.getFechaIngreso());
 		soporte.setTurno(soporteDto.getTurno());
-
+		
+		// Validar si el email ya existe 
+		usuarioService.validarEmailUnico(soporte.getEmail());
+		
 		// Guardar en base de datos
 		Soporte guardado = soporteRepository.save(soporte);
 
