@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,15 +21,20 @@ import lombok.Setter;
 @Entity
 @Getter @Setter @NoArgsConstructor
 public class Ticket {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(name ="descripcion", nullable = false)
     private String descripcion;
+    @Column(name = "asunto", nullable = false)
     private String asunto;
+    @Column(name = "fecha_alta", nullable = false)
     private LocalDateTime fechaAlta;
+    @Column(name = "fecha_baja", nullable = false)
     private LocalDateTime fechaBaja;
+    @Column(name = "prioridad", nullable = false)
     private PRIORIDAD prioridad;
+    @Column(name = "estado", nullable = false)
     private ESTADO estado;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
@@ -53,6 +58,5 @@ public class Ticket {
         this.cliente = cliente;
         this.tareas = new ArrayList<>();
     }
-
-   
+  
 }
