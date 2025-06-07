@@ -1,9 +1,6 @@
 package com.oo2.grupo13.services.implementation;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 import com.oo2.grupo13.dtos.TareaDTO;
 import com.oo2.grupo13.entities.Tarea;
 import com.oo2.grupo13.exceptions.TareaNoEncontradaException;
@@ -30,7 +27,7 @@ public class TareaService implements ITareaService{
         return Optional.of(modelMapper.map(tarea, TareaDTO.class));
     }
 
-@Override
+    @Override
     public List<Tarea> getAll() {
         return tareaRepository.findAll();
     }
@@ -50,9 +47,8 @@ public class TareaService implements ITareaService{
     }
 
     @Override
-    public List<TareaDTO> filtrarPorEstado(boolean estado) {
-        List<Tarea> tareas = tareaRepository.findByCompletada(estado);
-        return tareas.stream().map(tarea -> modelMapper.map(tarea, TareaDTO.class)).toList();
+    public List<Tarea> filtrarPorEstado(boolean estado) {
+        return tareaRepository.findByCompletada(estado);
     }
 
     /* 

@@ -13,7 +13,6 @@ public class TareaDTO {
     private Soporte soporte;
     private Long ticketId;
 
-    // Constructor completo sin id, vista soporte/ admin
     public TareaDTO(long id, String descripcion, String nombre, boolean completada, Soporte soporte, long ticketId) {
         this.id = id;
         this.descripcion = descripcion; 

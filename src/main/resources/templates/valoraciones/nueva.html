@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nueva valoracion</title>
+</head>
+<body>
+
+    <form th:action="@{/valoraciones/crear}" th:object="${valoracion}" method="post">
+        <input type="text" th:field="*{Comentario}" placeholder="Comentario" /><br/>
+        <label >
+            <input type="number" th:field="*{Puntaje}" placeholder= "Puntaje"/><br/>
+            Puntaje (1-5)
+        </label>
+        <!-- falta ticket y soporte -->
+        <button type="submit">Crear</button>
+    </form>
+
+    <a th:href="@{/valoraciones/lista}">Volver al listado</a>
+</body>
+</html>

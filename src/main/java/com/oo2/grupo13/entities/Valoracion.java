@@ -30,7 +30,6 @@ public class Valoracion {
     /*@OneToOne(mappedBy = "valoracion")
     private Ticket ticket; */
 
-    // Constructor completo
      public Valoracion(int id, int puntaje, LocalDateTime fecha, String comentario) {  
         this.id = id;
         this.puntaje = puntaje;

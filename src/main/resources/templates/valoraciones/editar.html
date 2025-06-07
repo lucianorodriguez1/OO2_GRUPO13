@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar valoracion</title>
+</head>
+<body>
+    <h1>Editar valoracion</h1>
+    
+    <form action="#" th:action="@{/valoraciones/editar}" th:object="${valoracion}" method="post">
+        <p>
+            <input type="hidden" th:field="*{id}" />
+        </p>
+        <p>
+            Comentario: <input type="text" th:field="*{comentario}" />
+        </p>
+        <p>
+            Puntaje: <input type="number" th:field="*{puntaje}" />
+            <span>(1-5)</span>
+        </p>
+        <input type="submit" value="Editar" />
+        <a th:href="@{/valoraciones/lista}">Volver al listado</a>
+    </form>
+</body>
+</html>

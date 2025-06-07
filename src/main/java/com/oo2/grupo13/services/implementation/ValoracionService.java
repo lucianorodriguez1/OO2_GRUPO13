@@ -1,9 +1,8 @@
 package com.oo2.grupo13.services.implementation;
-
-import com.oo2.grupo13.dtos.ValoracionDTO;
 import com.oo2.grupo13.entities.Valoracion;
 import com.oo2.grupo13.exceptions.TareaNoEncontradaException;
 import com.oo2.grupo13.exceptions.ValoracionInvalidaException;
+import com.oo2.grupo13.exceptions.ValoracionNoEncontradaException;
 import com.oo2.grupo13.repositories.IValoracionRepository;
 import com.oo2.grupo13.services.IValoracionService;
 import java.util.List;
@@ -25,15 +24,15 @@ public class ValoracionService implements IValoracionService{
 	public List<Valoracion> getAll() {
 		return valoracionRepository.findAll();
 	}
+    
     // falta agregar que si el ticket no se encuentra no se puede agregar la valoracion
-    @Override
-    public void insertOrUpdate(ValoracionDTO nuevaValoracion) {
+    public void insertOrUpdate(Valoracion nuevaValoracion) {
         Valoracion valoracion = modelMapper.map(nuevaValoracion, Valoracion.class);
         validarValoracion(valoracion);
         valoracionRepository.save(valoracion);
     }
 
-	 @Override
+	@Override
     public boolean delete(long id) {
         Valoracion valoracion = valoracionRepository.findById(id).orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + id));
         valoracionRepository.delete(valoracion);
@@ -46,9 +45,9 @@ public class ValoracionService implements IValoracionService{
         }
     }
 
-    @Override
-    public Valoracion getById(long id) {
-        return valoracionRepository.findById(id).orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + id));
+    public Valoracion findById(long id) {
+    return valoracionRepository.findById(id)
+        .orElseThrow(() -> new ValoracionNoEncontradaException("No se encontró la valoración con ID: " + id));
     }
 
     @Override   
@@ -64,6 +63,8 @@ public class ValoracionService implements IValoracionService{
     public List<Valoracion> getByPuntaje(int puntaje) {
         return valoracionRepository.findAllByOrderByPuntajeDesc();
     }
+
+    
 
 }
 

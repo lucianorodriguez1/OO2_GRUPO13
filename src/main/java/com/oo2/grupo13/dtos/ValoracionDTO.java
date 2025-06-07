@@ -13,7 +13,6 @@ public class ValoracionDTO {
     private String comentario; 
     private Long ticketId; 
 
-    // Constructor completo
     public ValoracionDTO(int id, int puntaje, LocalDateTime fecha, String comentario, Long ticketId) {
         this.setId(id);
         this.puntaje = puntaje;

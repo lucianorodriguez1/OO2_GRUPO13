@@ -1,6 +1,4 @@
 package com.oo2.grupo13.controllers;
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import com.oo2.grupo13.dtos.TareaDTO;
@@ -16,10 +13,6 @@ import com.oo2.grupo13.entities.Tarea;
 import com.oo2.grupo13.exceptions.TareaNoEncontradaException;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
 import com.oo2.grupo13.services.ITareaService;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 @Controller
 @RequestMapping ("/tareas")
@@ -83,7 +76,4 @@ public class TareaController {
 		tareaService.delete(id);
         return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
     }
-
-
-    
 }
