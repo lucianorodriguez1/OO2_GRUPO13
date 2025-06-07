@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Tareas</title>
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+
+</table>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Completada</th>
+                <th>Editar Tarea</th>
+                <th>Eliminar Tarea</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="tarea : ${tareas}">
+                <td th:text="${tarea.id}"></td>
+                <td th:text="${tarea.nombre}"></td>
+                <td th:text="${tarea.descripcion}"></td>
+                <td th:text="${tarea.completada} ? 'Sí' : 'No'"></td>
+
+                <td>
+                    <a th:href="@{'/tareas/' + ${tarea.id}}">Editar</a>
+                </td>
+                
+                <td>
+                    <form th:action="@{/tareas/eliminar/{id}(id=${tarea.id})}" method="post" style="display:inline;">
+                        <input type="submit" value="Eliminar" onclick="return confirm('¿Estás seguro que querés eliminar esta tarea?');" />
+                    </form>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/tareas/nueva}">Crear nueva tarea</a>
+</body>
+</html>
+

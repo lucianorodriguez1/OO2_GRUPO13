@@ -1,69 +1,58 @@
 package com.oo2.grupo13.entities;
 
 import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter @Setter @NoArgsConstructor
 public class Tarea {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String descripcion;
+
     private String nombre;
+
+    @CreationTimestamp
     private LocalDateTime fechaCreacion;
+
+    @UpdateTimestamp
+    private LocalDateTime fechaActualizacion; 
+
     private boolean completada;
+ 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ticket_id", nullable = false)
+    private Ticket ticketAsociado;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "soporte_id", nullable = false)
     private Soporte soporte;
 
-    public Tarea(String descripcion, String nombre, LocalDateTime fechaCreacion, boolean completada, Soporte soporte) {
+
+    public Tarea(String descripcion, String nombre, boolean completada, Ticket ticketAsociado, Soporte soporte) {
         this.descripcion = descripcion;
         this.nombre = nombre;
-        this.fechaCreacion = fechaCreacion;
         this.completada = completada;
         this.soporte = soporte;
+        this.ticketAsociado = ticketAsociado;
     }
-
-    // Getters and Setters
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public LocalDateTime getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(LocalDateTime fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public boolean isCompletada() {
-        return completada;
-    }
-
-    public void setCompletada(boolean completada) {
-        this.completada = completada;
-    }
-
-    public Soporte getSoporte() {
-        return soporte;
-    }
-
-    public void setSoporte(Soporte soporte) {
-        this.soporte = soporte;
-    }
+    
 }

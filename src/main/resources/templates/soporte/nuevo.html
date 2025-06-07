@@ -4,6 +4,7 @@
     <title>Nuevo Soporte</title>
 </head>
 <body>
+
     <h1>Crear Soporte</h1>
     <form th:action="@{/soporte/create}" th:object="${soporte}" method="post">
         <input type="text" th:field="*{nombre}" placeholder="Nombre"/><br/>
