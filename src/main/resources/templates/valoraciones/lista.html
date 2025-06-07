@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Valoraciones</title>
+</head>
+<body>
+    <h1>Lista de Valoraciones</h1>
+
+</table>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Puntaje</th>
+                <th>Comentario</th>
+                <th>Editar valoracion</th>
+                <th>Eliminar valoracion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="valoracion : ${valoraciones}">
+                <td th:text="${valoracion.id}"></td>
+                <td th:text="${valoracion.puntaje}"></td>
+                <td th:text="${valoracion.comentario}"></td>
+
+                <td>
+                    <a th:href="@{/valoraciones/editar/{id}(id=${valoracion.id})}">Editar</a>
+                
+                </td>
+               <td>
+                    <form th:action="@{/valoraciones/eliminar/{id}(id=${valoracion.id})}" method="post" style="display:inline;">
+                        <input type="submit" value="Eliminar" onclick="return confirm('¿Estás seguro que querés eliminar esta valoracion?');" />
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/valoraciones/nueva}">Crear nueva valoracion</a>
+</body>
+</html>

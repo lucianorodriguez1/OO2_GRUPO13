@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nueva Tarea</title>
+</head>
+<body>
+
+    <form th:action="@{/tareas/crear}" th:object="${tarea}" method="post">
+        <input type="text" th:field="*{Nombre}" placeholder="Nombre" /><br/>
+        <input type="text" th:field="*{Descripcion}" placeholder= "Descripcion"/><br/>
+        <label>
+        <input type="checkbox" th:field="*{completada}" />
+        Completada
+        </label><br/>
+    
+        <!-- falta ticket y soporte -->
+        <button type="submit">Crear</button>
+    </form>
+
+    <a th:href="@{/tareas/lista}">Volver al listado</a>
+</body>
+</html>
