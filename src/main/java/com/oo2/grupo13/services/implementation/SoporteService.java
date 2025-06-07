@@ -77,7 +77,7 @@ public class SoporteService implements ISoporteService{
 		// Guardar en base de datos
 		Soporte guardado = soporteRepository.save(soporte);
 
-		return soporteDto;
+        return modelMapper.map(guardado, SoporteDTO.class);
 	}
 
 	@Override

@@ -9,15 +9,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.oo2.grupo13.dtos.SoporteDTO;
+import com.oo2.grupo13.services.IEmailService;
 import com.oo2.grupo13.services.ISoporteService;
 
 @Controller
 @RequestMapping("/soporte")
 public class SoporteController {
 	private ISoporteService soporteService;
-	
-	public SoporteController(ISoporteService soporteService) {
+    private IEmailService emailService;
+
+	public SoporteController(ISoporteService soporteService, IEmailService emailService) {
 		this.soporteService = soporteService;
+        this.emailService = emailService;
+
 	}
 
 	@GetMapping("/nuevo")
@@ -29,6 +33,7 @@ public class SoporteController {
 
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("soporte") SoporteDTO soporteDto) {
+		/*
 	    System.out.println("Nombre: " + soporteDto.getNombre());
 	    System.out.println("Apellido: " + soporteDto.getApellido());
 	    System.out.println("Email: " + soporteDto.getEmail());
@@ -38,8 +43,20 @@ public class SoporteController {
 	    System.out.println("Fecha Ingreso: " + soporteDto.getFechaIngreso());
 	    System.out.println("Turno: " + soporteDto.getTurno());
 	    System.out.println("Rol (ENUM): " + (soporteDto.getRol() != null ? soporteDto.getRol().getRol() : "rol es null"));
-		
-		soporteService.insertOrUpdate(soporteDto);
-		return new RedirectView("/soporte/nuevo"); 
+		*/
+	    SoporteDTO soporteGuardado = soporteService.insertOrUpdate(soporteDto);
+
+        String[] destinatario = new String[] { soporteGuardado.getEmail() };
+        String asunto = "Registro exitoso como soporte";
+        String mensaje = "Hola " + soporteGuardado.getNombre() + ", ya estás registrado en el sistema como soporte.";
+
+        try {
+            emailService.sendEmail(destinatario, asunto, mensaje);
+        } catch (Exception e) {
+            System.err.println("Error al enviar el correo: " + e.getMessage());
+        }
+
+        return new RedirectView("/soporte/nuevo");
+
 	}
 }
