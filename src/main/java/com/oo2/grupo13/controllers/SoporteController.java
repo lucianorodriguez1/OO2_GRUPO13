@@ -15,7 +15,7 @@ import com.oo2.grupo13.services.ISoporteService;
 @RequestMapping("/soporte")
 public class SoporteController {
 	private ISoporteService soporteService;
-
+	
 	public SoporteController(ISoporteService soporteService) {
 		this.soporteService = soporteService;
 	}
