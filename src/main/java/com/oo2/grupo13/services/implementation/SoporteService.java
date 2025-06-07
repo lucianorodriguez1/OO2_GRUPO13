@@ -56,11 +56,8 @@ public class SoporteService implements ISoporteService{
 	@Override
 	public SoporteDTO insertOrUpdate(SoporteDTO soporteDto) {
 		Soporte soporte = new Soporte();
-		   // Traer el rol desde la base según el enum que venga en el DTO
 	    Optional<UsuarioRol> rolPorDefecto = usuarioRolRepository.findByRol(ROL.USUARIO);
-
 	    
-		// Campos heredados de Usuario
 		soporte.setNombre(soporteDto.getNombre());
 		soporte.setApellido(soporteDto.getApellido());
 		soporte.setEmail(soporteDto.getEmail());
@@ -68,33 +65,27 @@ public class SoporteService implements ISoporteService{
 		soporte.setFotoPerfil(soporteDto.getFotoPerfil());
 		soporte.setRol(rolPorDefecto.get());
 
-		// Campos propios de Soporte
 		soporte.setCuil(soporteDto.getCuil());
 		soporte.setFechaIngreso(soporteDto.getFechaIngreso());
 		soporte.setTurno(soporteDto.getTurno());
 
-		// Guardar en base de datos
 		Soporte guardado = soporteRepository.save(soporte);
 
-		// Podés devolver el mismo DTO o crear uno nuevo si querés
 		return soporteDto;
 	}
 
 	@Override
 	public boolean remove(int id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public SoporteDTO findByCuil(String cuil) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<SoporteDTO> findByTurno(TURNO turno) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
