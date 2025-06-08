@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Soportes</title>
+</head>
+<body>
+    <h2>Soportes Registrados</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>CUIL</th>
+                <th>Fecha de Ingreso</th>
+                <th>Turno</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="soporte : ${soportes}">
+                <td th:text="${soporte.nombre}">Nombre</td>
+                <td th:text="${soporte.apellido}">Apellido</td>
+                <td th:text="${soporte.email}">Email</td>
+                <td th:text="${soporte.cuil}">CUIL</td>
+                <td th:text="${soporte.fechaIngreso}">Fecha Ingreso</td>
+                <td th:text="${soporte.turno}">Turno</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/soporte/nuevo">Crear nuevo soporte</a>
+</body>
+</html>
