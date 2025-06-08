@@ -8,8 +8,7 @@ public interface ITareaService{
     
     public Optional<TareaDTO> findById(long id);
     public List<Tarea> getAll();
-    public Tarea insertOrUpdate (Tarea tareaEditar);
+    public Tarea insertOrUpdate (TareaDTO tareaModel);
     public boolean delete (long id);
     public List<Tarea> filtrarPorEstado(boolean estado);
-   //public List<TareaDTO> filtrarPorUsuario(Long usuarioId);
 }

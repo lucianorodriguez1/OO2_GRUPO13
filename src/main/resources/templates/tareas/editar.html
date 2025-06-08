@@ -19,6 +19,27 @@
         <p>
             Completada: <input type="checkbox" th:field="*{completada}" />
         </p>
+
+        <p>
+            
+            <label for="soporte">Soporte asignado:</label>
+            <select th:field="*{soporte}" id="soporte">
+                <option value="">-- Ningún soporte --</option>
+                <option th:each="soporte : ${soportes}"
+                        th:value="${soporte.id}"
+                        th:text="${soporte.nombre}"></option>
+            </select>
+        </p>
+
+        <p>
+            <label for="ticketAsociado">Ticket asociado:</label>
+            <select th:field="*{ticketAsociado}" id="ticket">
+                <option value="">-- Ningún ticket --</option>
+                <option th:each="ticket : ${tickets}"
+                        th:value="${ticket.id}"
+                        th:text="${ticket.asunto}"></option>
+            </select>
+
         <input type="submit" value="Editar" />
         <a th:href="@{/tareas/lista}">Volver al listado</a>
     </form>

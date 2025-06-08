@@ -11,3 +11,12 @@ spring:
       dialect: org.hibernate.dialect.MySQL5Dialect
   thymeleaf:
     cache: false
+    cache: false
+  email:
+    sender: morenarioscarnevale5@gmail.com
+    password: Toto301004
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB

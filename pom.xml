@@ -68,6 +68,7 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -83,6 +84,11 @@
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>3.2.0</version>
+		</dependency>
+		<dependency>
+  			<groupId>io.github.cdimascio</groupId>
+  			<artifactId>dotenv-java</artifactId>
+  			<version>3.0.0</version>
 		</dependency>
 	</dependencies>
 
