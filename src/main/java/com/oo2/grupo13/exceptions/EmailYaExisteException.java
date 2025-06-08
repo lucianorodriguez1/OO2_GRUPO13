@@ -10,3 +10,4 @@ public class EmailYaExisteException extends RuntimeException {
         super(mensaje);
     }
 }
+

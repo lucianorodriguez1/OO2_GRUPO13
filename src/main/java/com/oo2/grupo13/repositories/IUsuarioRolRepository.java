@@ -10,6 +10,5 @@ import com.oo2.grupo13.enums.ROL;
 
 @Repository("usuarioRolRepository")
 public interface IUsuarioRolRepository extends JpaRepository<UsuarioRol, Integer> {
-    Optional<UsuarioRol> findByRol(ROL rol);
-
+	Optional<UsuarioRol> findByRol(ROL rol);
 }
