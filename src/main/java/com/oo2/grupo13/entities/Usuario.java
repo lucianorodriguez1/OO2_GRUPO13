@@ -1,15 +1,55 @@
 package com.oo2.grupo13.entities;
 
-public abstract class Usuario {
-    protected long id;
-    protected String nombre;
-    protected String apellido;
-    protected String email;
-    protected String password;
-    protected String fotoPerfil;
-    protected String rol;
+import java.time.LocalDateTime;
 
-    public Usuario(String nombre, String apellido, String email, String password, String fotoPerfil, String rol) {
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Getter @Setter @NoArgsConstructor
+public abstract class Usuario {
+	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    
+    private String nombre;
+    
+    private String apellido;
+    
+    @Column(name="email", unique=true, nullable=false)
+    private String email;
+    
+    @Column(name="password", nullable=false)
+    private String password;
+    
+    private String fotoPerfil;
+    
+    @ManyToOne
+    @JoinColumn(name="rol_id", nullable=false)
+    private UsuarioRol rol;
+    
+    @CreationTimestamp
+    private LocalDateTime fechaCreacion;
+    
+	@UpdateTimestamp
+	private LocalDateTime fechaActualizacion;
+    
+    public Usuario(String nombre, String apellido, String email, String password, String fotoPerfil, UsuarioRol rol) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
@@ -17,6 +57,5 @@ public abstract class Usuario {
         this.fotoPerfil = fotoPerfil;
         this.rol = rol;
     }
-    
     
 }

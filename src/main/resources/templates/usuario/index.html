@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+	<meta charset="UTF-8">
+	<title>Usuarios</title>
+</head>
+<body>
+	<div class="container mt-4">
+		<h2>Lista de Usuarios</h2>
+		<div class="mb-3">
+			<a th:href="@{/cliente/nuevo}" class="btn btn-primary">Crear Cliente</a>
+			<a th:href="@{/soporte/nuevo}" class="btn btn-success">Crear Soporte</a>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="usuario, iterStat : ${usuarios}">
+					<th th:text="${iterStat.index + 1}">1</th>
+					<td th:text="${usuario.nombre}">Nombre</td>
+					<td th:text="${usuario.apellido}">Apellido</td>
+					<td th:text="${usuario.email}">Email</td>
+					<td>
+						<a th:href="@{/usuario/editar/{id}(id=${usuario.id})}" class="btn btn-warning btn-sm">
+							Editar
+						</a>
+						<form th:action="@{/usuario/eliminar/{id}(id=${usuario.id})}" method="post" style="display:inline;">
+						    <button type="submit" class="btn btn-danger btn-sm"
+						            onclick="return confirm('¿Estás seguro que deseas eliminar este usuario?');">
+						        Eliminar
+						    </button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
+
+
