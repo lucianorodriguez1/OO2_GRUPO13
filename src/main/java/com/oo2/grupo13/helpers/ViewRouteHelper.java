@@ -1,21 +1,8 @@
 package com.oo2.grupo13.helpers;
 
-public class ViewRouterHelper {
-	/*** Views ***/
-	
-	// USUARIO
-	public final static String USUARIO_INDEX = "usuario/index";
-	
-	// CLIENTE
-	public final static String CLIENTE_CREAR_FORM = "cliente/crear-form";
-	public final static String CLIENTE_EDITAR_FORM = "cliente/editar-form";
-	
-	// ERRORES
-	public final static String EMAIL_EXISTE_ERROR = "error/email-ya-existe";
-	public final static String TAREA_NO_ENCONTRADA_ERROR = "error/errorTarea";
-	public final static String VALORACION_INCORRECTA_ERROR = "error/errorValoracion"; 
+public class ViewRouteHelper {
 
-	// TAREA
+    // TAREA
     public static final String TAREA_LISTA = "tareas/lista";
     public static final String TAREA_NUEVA = "tareas/nueva";
     public static final String TAREA_EDITAR = "tareas/editar";
@@ -30,4 +17,18 @@ public class ViewRouterHelper {
     //Redirect 
     public static final String TAREA_REDIRECT_LISTA = "redirect:/tareas/lista";
     public static final String VALORACION_REDIRECT_LISTA = "redirect:/valoraciones/lista";
+    
+    //TICKETS
+    public static final String VER_TICKETS_CLIENTE = "ticket/ver_tickets_cliente";
+	
+	// USUARIO
+	public final static String USUARIO_INDEX = "usuario/index";
+	
+	// CLIENTE
+	public final static String CLIENTE_CREAR_FORM = "cliente/crear-form";
+	public final static String CLIENTE_EDITAR_FORM = "cliente/editar-form";
+	
+	// ERRORES
+	public final static String EMAIL_EXISTE_ERROR = "error/email-ya-existe";
+
 }

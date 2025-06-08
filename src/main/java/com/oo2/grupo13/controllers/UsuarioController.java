@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oo2.grupo13.dtos.ClienteDTO;
 import com.oo2.grupo13.entities.Cliente;
 import com.oo2.grupo13.entities.Usuario;
-import com.oo2.grupo13.helpers.ViewRouterHelper;
+import com.oo2.grupo13.helpers.ViewRouteHelper;
 import com.oo2.grupo13.services.implementation.UsuarioService;
 
 @Controller
@@ -25,7 +25,7 @@ public class UsuarioController {
 	
 	@GetMapping("")
 	public ModelAndView index() {
-		ModelAndView mAV = new ModelAndView(ViewRouterHelper.USUARIO_INDEX);
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USUARIO_INDEX);
 		mAV.addObject("usuarios", usuarioService.getAll());
 		return mAV;
 	}
@@ -54,7 +54,7 @@ public class UsuarioController {
 	        dto.setFotoPerfil(cliente.getFotoPerfil());
 	        dto.setRol(cliente.getRol());
 
-	        ModelAndView mAV = new ModelAndView(ViewRouterHelper.CLIENTE_EDITAR_FORM);
+	        ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_EDITAR_FORM);
 	        mAV.addObject("cliente", dto);
 	        return mAV;
 	    }

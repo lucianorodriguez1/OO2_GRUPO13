@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.oo2.grupo13.dto.TicketDTOCliente;
-import com.oo2.grupo13.dto.TicketDTOSoporte;
+import com.oo2.grupo13.dtos.TicketDTOCliente;
+import com.oo2.grupo13.dtos.TicketDTOSoporte;
 import com.oo2.grupo13.entities.Ticket;
 import com.oo2.grupo13.services.ITicketService;
 import com.oo2.grupo13.repositories.ITicketRepository;

@@ -1,4 +1,4 @@
-package com.oo2.grupo13.dto;
+package com.oo2.grupo13.dtos;
 
 import java.time.LocalDateTime;
 import java.util.List;
