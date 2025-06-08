@@ -33,7 +33,7 @@ public class ClienteService {
 		this.usuarioService = usuarioService;
 	}
 
-	public void crearCliente(Cliente cliente) {
+	public void crearOActualizarCliente(Cliente cliente) {
 	    // Asignar el rol USUARIO
 	    UsuarioRol rolUsuario = usuarioRolRepository.findByRol(ROL.USUARIO)
 	            .orElseThrow();
@@ -46,14 +46,6 @@ public class ClienteService {
 		Cliente cliente = clienteRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Cliente con id {0} no encontrado",id)));
 		return cliente;
-	}
-	
-	public void actualizarCliente(Cliente cliente) {
-	    // Asignar el rol USUARIO
-	    UsuarioRol rolUsuario = usuarioRolRepository.findByRol(ROL.USUARIO)
-	            .orElseThrow();
-	    cliente.setRol(rolUsuario);
-	    clienteRepository.save(cliente);
 	}
 
 }

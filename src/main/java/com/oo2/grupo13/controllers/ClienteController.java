@@ -50,7 +50,7 @@ public class ClienteController {
 		cliente.setFotoPerfil(clienteDTO.getFotoPerfil());
 		cliente.setRol(clienteDTO.getRol());
 
-		clienteService.crearCliente(cliente);
+		clienteService.crearOActualizarCliente(cliente);
 
 		return new ModelAndView("redirect:/usuario");
 	}
@@ -72,11 +72,10 @@ public class ClienteController {
 	    existente.setNombre(clienteDTO.getNombre());
 	    existente.setApellido(clienteDTO.getApellido());
 	    existente.setEmail(clienteDTO.getEmail());
-	   // existente.setPassword(clienteDTO.getPassword());
 	    existente.setFotoPerfil(clienteDTO.getFotoPerfil());
 	    existente.setRol(clienteDTO.getRol());
 
-	    clienteService.actualizarCliente(existente);
+	    clienteService.crearOActualizarCliente(existente);
 
 	    return new ModelAndView("redirect:/usuario");
 	}
