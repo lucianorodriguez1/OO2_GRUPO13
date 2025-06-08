@@ -9,5 +9,5 @@ import com.oo2.grupo13.entities.Cliente;
 public interface IClienteRepository extends JpaRepository<Cliente, Integer>{
 
 	boolean existsByEmail(String email);
-	
+
 }
