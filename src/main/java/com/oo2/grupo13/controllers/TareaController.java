@@ -6,7 +6,7 @@ import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Tarea;
 import com.oo2.grupo13.entities.Ticket;
 import com.oo2.grupo13.exceptions.TareaNoEncontradaException;
-import com.oo2.grupo13.helpers.ViewRouteHelper;
+import com.oo2.grupo13.helpers.ViewRouterHelper;
 import com.oo2.grupo13.services.ITareaService;
 import com.oo2.grupo13.services.ISoporteService;
 import java.util.List;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping ("/tareas")
 public class TareaController {
 
-    private final TicketService ticketService;
+    private TicketService ticketService;
     private ITareaService tareaService;
     private ISoporteService soporteService;
     private ModelMapper modelMapper = new ModelMapper();
@@ -58,15 +58,13 @@ public class TareaController {
     @PostMapping("/crear")
     public RedirectView crearTarea(TareaDTO dto) {
     tareaService.insertOrUpdate(dto);
-    System.out.println("Soporte ID recibido: " + 
-    (dto.getSoporte() != null ? dto.getSoporte().getId() : "null"));
-    return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
+    return new RedirectView(ViewRouterHelper.TAREA_REDIRECT_LISTA);
     }
 
 //obtengo la tarea a editar por el id 
     @GetMapping("/{id}")
     public  ModelAndView getEdit(@PathVariable("id") long id) {
-        ModelAndView mav = new ModelAndView(ViewRouteHelper.TAREA_EDITAR);
+        ModelAndView mav = new ModelAndView(ViewRouterHelper.TAREA_EDITAR);
         TareaDTO tareaDTO = tareaService.findById(id)
             .map(tarea -> modelMapper.map(tarea, TareaDTO.class))
             .orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + id));
@@ -92,14 +90,14 @@ public class TareaController {
     }
     tareaEditar.setTicketAsociado(tareaDTO.getTicketAsociado() != null ? modelMapper.map(tareaDTO.getTicketAsociado(), Ticket.class) : null); //para probar el ticket puede ser nulo
     tareaService.insertOrUpdate(modelMapper.map(tareaEditar, TareaDTO.class));
-    return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
+    return new RedirectView(ViewRouterHelper.TAREA_REDIRECT_LISTA);
     }
 
     // Elimino la tarea por el id
     @PostMapping("/eliminar/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
 		tareaService.delete(id);
-        return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
+        return new RedirectView(ViewRouterHelper.TAREA_REDIRECT_LISTA);
     }    
     
     // Filtrar tareas por estado (completada o no completada)

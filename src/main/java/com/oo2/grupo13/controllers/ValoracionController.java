@@ -1,7 +1,7 @@
 package com.oo2.grupo13.controllers;
 import com.oo2.grupo13.dtos.ValoracionDTO;
 import com.oo2.grupo13.entities.Valoracion;
-import com.oo2.grupo13.helpers.ViewRouteHelper;
+import com.oo2.grupo13.helpers.ViewRouterHelper;
 import com.oo2.grupo13.services.IValoracionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class ValoracionController {
 
     @GetMapping("/lista")
      public ModelAndView listaTareas() {
-        ModelAndView mav = new ModelAndView(ViewRouteHelper.VALORACION_LISTA);
+        ModelAndView mav = new ModelAndView(ViewRouterHelper.VALORACION_LISTA);
         mav.addObject("valoraciones", valoracionService.getAll());
         mav.addObject("valoracion", new ValoracionDTO());
         return mav;
@@ -28,7 +28,7 @@ public class ValoracionController {
 
      @GetMapping("/nueva")
     public ModelAndView nuevaValoracion() {
-        ModelAndView mav = new ModelAndView(ViewRouteHelper.VALORACION_NUEVA);
+        ModelAndView mav = new ModelAndView(ViewRouterHelper.VALORACION_NUEVA);
         mav.addObject("valoracion", new ValoracionDTO());
         //mav.addObject("tickets", ticketService.getAll());
         return mav;
@@ -37,7 +37,7 @@ public class ValoracionController {
     @PostMapping("/crear")
     public RedirectView crearValoracion(@ModelAttribute ("valoracion") Valoracion valoracion) {
         valoracionService.insertOrUpdate(valoracion);
-        return new RedirectView(ViewRouteHelper.VALORACION_REDIRECT_LISTA);
+        return new RedirectView(ViewRouterHelper.VALORACION_REDIRECT_LISTA);
        // ticketService.findById(ticketId).orElseThrow(() -> new TicketInexistenteException(ticketId));
     }
     
@@ -62,6 +62,6 @@ public class ValoracionController {
     @PostMapping("/eliminar/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
 		valoracionService.delete(id);
-        return new RedirectView(ViewRouteHelper.VALORACION_REDIRECT_LISTA);
+        return new RedirectView(ViewRouterHelper.VALORACION_REDIRECT_LISTA);
     }
 }

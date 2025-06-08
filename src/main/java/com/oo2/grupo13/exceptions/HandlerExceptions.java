@@ -20,21 +20,17 @@ public class HandlerExceptions {
     }
     
     @ExceptionHandler(TareaNoEncontradaException.class)
-    public String manejarTareaNoEncontrada(TareaNoEncontradaException ex, Model model) {
-        model.addAttribute("mensaje", ex.getMessage());
-        return "errorTarea";
-    }
-
-     @ExceptionHandler(ValoracionNoEncontradaException.class)
-    public String manejarValoracionNoEncontrada(ValoracionNoEncontradaException ex, Model model) {
-        model.addAttribute("mensaje", ex.getMessage());
-        return "errorValoracion";
+    public ModelAndView manejarTareaNoEncontrada(TareaNoEncontradaException ex) {
+        ModelAndView mAV = new ModelAndView(ViewRouterHelper.TAREA_NO_ENCONTRADA_ERROR);
+    	mAV.addObject("mensaje", ex.getMessage());
+        return mAV;
     }
 
     @ExceptionHandler(ValoracionInvalidaException.class)
-    public String manejarValoracionInvalida(ValoracionInvalidaException ex, Model model) {
-        model.addAttribute("mensaje", ex.getMessage());
-        return "errorValoracion";
+    public ModelAndView manejarValoracionInvalida(ValoracionInvalidaException ex) {
+        ModelAndView mAV = new ModelAndView(ViewRouterHelper.VALORACION_INCORRECTA_ERROR);
+    	mAV.addObject("mensaje", ex.getMessage());
+        return mAV; 
     }
 
     @ExceptionHandler(Exception.class)
