@@ -1,7 +1,6 @@
 package com.oo2.grupo13.dtos;
 
 import com.oo2.grupo13.entities.UsuarioRol;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

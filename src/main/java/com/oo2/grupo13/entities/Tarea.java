@@ -1,5 +1,4 @@
 package com.oo2.grupo13.entities;
-
 import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -10,10 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,20 +34,19 @@ public class Tarea {
     private boolean completada;
  
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ticket_id", nullable = false)
+    @JoinColumn(name = "soporte_id", nullable = true)
+    private Soporte soporte;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ticket_id", nullable = true)
     private Ticket ticketAsociado;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "soporte_id", nullable = false)
-    private Soporte soporte;
-
-
-    public Tarea(String descripcion, String nombre, boolean completada, Ticket ticketAsociado, Soporte soporte) {
+    public Tarea(String descripcion, String nombre, boolean completada, Soporte soporte, Ticket ticket) {
         this.descripcion = descripcion;
         this.nombre = nombre;
         this.completada = completada;
         this.soporte = soporte;
-        this.ticketAsociado = ticketAsociado;
+        this.ticketAsociado = ticket;
     }
     
 }

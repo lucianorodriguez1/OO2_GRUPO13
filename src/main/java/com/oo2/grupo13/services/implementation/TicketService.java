@@ -46,8 +46,4 @@ public class TicketService implements ITicketService {
             return false;
         }
     }
-
-    
-
-
 }

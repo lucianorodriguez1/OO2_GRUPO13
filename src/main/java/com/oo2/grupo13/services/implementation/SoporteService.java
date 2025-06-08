@@ -34,11 +34,11 @@ public class SoporteService implements ISoporteService{
 	        .map(soporte -> modelMapper.map(soporte, SoporteDTO.class))
 	        .toList();
 	}
-	
+
 	@Override
-	public Optional<SoporteDTO> findById(int id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+	public Optional<SoporteDTO> findById(long id) {
+		Optional<Soporte> soporteOpt = soporteRepository.findById((long) id);
+		return soporteOpt.map(soporte -> modelMapper.map(soporte, SoporteDTO.class));
 	}
 	@Override
 	public List<SoporteDTO> findByEspecialidad(String nombreEspecialidad) {
@@ -58,7 +58,7 @@ public class SoporteService implements ISoporteService{
 	@Override
 	public SoporteDTO insertOrUpdate(SoporteDTO soporteDto) {
 		Soporte soporte = new Soporte();
-	    Optional<UsuarioRol> rolPorDefecto = usuarioRolRepository.findByRol(ROL.USUARIO);
+		Optional<UsuarioRol> rolPorDefecto = Optional.of(usuarioRolRepository.findByRol(ROL.USUARIO).orElseThrow(() -> new RuntimeException("Rol no encontrado")));
 	    
 		soporte.setNombre(soporteDto.getNombre());
 		soporte.setApellido(soporteDto.getApellido());

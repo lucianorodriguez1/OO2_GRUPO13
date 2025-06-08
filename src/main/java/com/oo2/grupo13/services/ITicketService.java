@@ -7,6 +7,7 @@ import com.oo2.grupo13.dto.TicketDTOSoporte;
 import com.oo2.grupo13.entities.Ticket;
 
 public interface ITicketService {
+    public Ticket findById(long id);
     public List<Ticket> getAll();
     public TicketDTOCliente insertOrUpdateCliente(TicketDTOCliente ticketModel);
     public TicketDTOSoporte insertOrUpdateSoporte(TicketDTOSoporte ticketModel);

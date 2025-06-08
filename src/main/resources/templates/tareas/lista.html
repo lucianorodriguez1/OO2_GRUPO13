@@ -6,6 +6,16 @@
 <body>
     <h1>Lista de Tareas</h1>
 
+    <form th:action="@{/tareas/filtrarEstado}" method="get">
+    <label for="estado">Filtrar por estado:</label>
+    <select name="estado" id="estado">
+        <option value="">Todas</option>
+        <option value="true">Completadas</option>
+        <option value="false">Incompletas</option>
+    </select>
+    <button type="submit">Filtrar</button>
+    </form>
+
 </table>
     <table border="1">
         <thead>
@@ -14,16 +24,21 @@
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Completada</th>
+                <th>Soporte asignado</th>
+                <th>ID Ticket</th>
                 <th>Editar Tarea</th>
                 <th>Eliminar Tarea</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="tarea : ${tareas}">
+
                 <td th:text="${tarea.id}"></td>
                 <td th:text="${tarea.nombre}"></td>
                 <td th:text="${tarea.descripcion}"></td>
                 <td th:text="${tarea.completada} ? 'Sí' : 'No'"></td>
+                <td th:text="${tarea.soporte != null ? tarea.soporte.nombre : 'Ningún soporte asignado'}"></td>
+                <td th:text="${tarea.ticketAsociado!= null ? tarea.ticketAsociado.id : 'Ningún ticket asignado'}"></td>
 
                 <td>
                     <a th:href="@{'/tareas/' + ${tarea.id}}">Editar</a>
@@ -42,4 +57,3 @@
     <a th:href="@{/tareas/nueva}">Crear nueva tarea</a>
 </body>
 </html>
-

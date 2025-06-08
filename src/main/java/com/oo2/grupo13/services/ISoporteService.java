@@ -10,7 +10,7 @@ import com.oo2.grupo13.entities.TURNO;
 
 public interface ISoporteService {
 	public List<SoporteDTO> getAll(); 
-    public Optional<SoporteDTO> findById(int id); 
+    public Optional<SoporteDTO> findById(long id); 
     public SoporteDTO findByCuil(String cuil); 
     public List<SoporteDTO> findByTurno(TURNO turno);
     public List<SoporteDTO> findByEspecialidad(String nombreEspecialidad);
