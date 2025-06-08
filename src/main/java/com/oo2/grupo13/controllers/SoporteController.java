@@ -23,7 +23,15 @@ public class SoporteController {
         this.emailService = emailService;
 
 	}
+	
+	@GetMapping("/")
+	public ModelAndView listarSoportes() {
+	    ModelAndView mAV = new ModelAndView("soporte/lista"); // nombre de la vista
+	    mAV.addObject("soportes", soporteService.getAll());
+	    return mAV;
+	}
 
+	
 	@GetMapping("/nuevo")
 	public ModelAndView nuevoSoporte() {
 		ModelAndView mAV = new ModelAndView("soporte/nuevo");
