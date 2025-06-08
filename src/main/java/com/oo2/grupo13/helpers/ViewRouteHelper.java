@@ -1,4 +1,4 @@
-package com.oo2.grupo13.helpers;
+spackage com.oo2.grupo13.helpers;
 
 public class ViewRouteHelper {
 
@@ -18,4 +18,8 @@ public class ViewRouteHelper {
     public static final String TAREA_REDIRECT_LISTA = "redirect:/tareas/lista";
     public static final String VALORACION_REDIRECT_LISTA = "redirect:/valoraciones/lista";
     
+    //TICKETS
+    public static final String VER_TICKETS_CLIENTE = "ticket/ver_tickets_cliente";
+
+
 }
