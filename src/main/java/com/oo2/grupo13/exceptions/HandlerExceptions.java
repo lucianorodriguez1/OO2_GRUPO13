@@ -3,9 +3,7 @@ package com.oo2.grupo13.exceptions;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.oo2.grupo13.helpers.ViewRouteHelper;
-
 import org.springframework.ui.Model;
 
 
@@ -21,14 +19,14 @@ public class HandlerExceptions {
     
     @ExceptionHandler(TareaNoEncontradaException.class)
     public ModelAndView manejarTareaNoEncontrada(TareaNoEncontradaException ex) {
-        ModelAndView mAV = new ModelAndView(ViewRouterHelper.TAREA_NO_ENCONTRADA_ERROR);
+        ModelAndView mAV = new ModelAndView(ViewRouteHelper.TAREA_NO_ENCONTRADA_ERROR);
     	mAV.addObject("mensaje", ex.getMessage());
         return mAV;
     }
 
     @ExceptionHandler(ValoracionInvalidaException.class)
     public ModelAndView manejarValoracionInvalida(ValoracionInvalidaException ex) {
-        ModelAndView mAV = new ModelAndView(ViewRouterHelper.VALORACION_INCORRECTA_ERROR);
+        ModelAndView mAV = new ModelAndView(ViewRouteHelper.VALORACION_INCORRECTA_ERROR);
     	mAV.addObject("mensaje", ex.getMessage());
         return mAV; 
     }
