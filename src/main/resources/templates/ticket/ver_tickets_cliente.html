@@ -27,8 +27,7 @@
                     <td th:text="${#temporals.format(ticket.fechaAlta, 'dd/MM/yyyy HH:mm')}"></td>
                     <td th:text="${#temporals.format(ticket.fechaBaja, 'dd/MM/yyyy HH:mm')}"></td>
                     <td th:text="${ticket.cliente.apellido + ', ' + ticket.cliente.nombre}"></td>
-                    <td th:text="${ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre}"></td>
-                </tr>
+                    <td th:text="${ticket.soporteAsignado != null ? ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre : 'Sin asignar'}"></td>                </tr>
         </tbody>
         </table>
     </div>

@@ -59,9 +59,18 @@
             <div class="form-group">
                 <label for="soporte">Soporte asignado</label>
                     <select th:field="*{soporteAsignado}" id="soporteAsignado" class="form-control">
-                        <option hidden th:value="${ticket.soporteAsignado.id}" th:text="${ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre}" disabled selected></option>
-                        <option th:each="soporte : ${soportes}" th:value="${soporte.id}" th:text="${soporte.apellido + ', ' + soporte.nombre}"></option>
+                            <option hidden 
+                            th:value="${ticket.soporteAsignado != null && ticket.soporteAsignado.id != null ? ticket.soporteAsignado.id : Sin_asignar}" 
+                            th:text="${ticket.soporteAsignado != null ? ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre : 'Sin asignar'}" 
+                            disabled selected>
+                            </option>
+                            <option th:each="soporte : ${soportes}" 
+                            th:value="${soporte.id != null ? soporte.id : 0}" 
+                            th:text="${soporte.apellido + ', ' + soporte.nombre}">
+                            </option>
+                            <option th:if="${ticket.soporteAsignado == null || ticket.soporteAsignado.id == null}" value="0">Sin asignar</option>
                     </select>
+                    
             </div>
             <button type="submit" class="btn btn-primary">Editar</button>
             <a th:href="@{/tareas/lista}" class="btn btn-primary mt-2">Volver al listado</a>
