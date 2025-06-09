@@ -26,4 +26,22 @@ Este proyecto es una aplicación web construida con Java, Spring Boot y Thymelea
    - Plugin de Lombok instalado en tu IDE
 
 2. **Clonar el repositorio**
+   git clone https://github.com/lucianorodriguez1/OO2_GRUPO13
+   
+3. **Crear la base de datos y ejecutar los siguientes scripts para inicializar los roles**
+   ```
+   CREATE SCHEMA IF NOT EXISTS sistema_tickets;
+   USE sistema_tickets;
+   INSERT INTO usuario_rol (rol) VALUES ('USUARIO');
+   INSERT INTO usuario_rol (rol) VALUES ('ADMIN');
+   ```
+4. **Configurar variables de entorno**
+   - DB_URL (url de la base de datos)
+   - USERNAME (nombre de usuario de la base de datos)
+   - PASSWORD (contraseña de la base de datos)
+   - EMAIL_SENDER
+   - EMAIL_PASSWORD
+
+   
+   
    
