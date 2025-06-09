@@ -43,6 +43,16 @@ public class TareaController {
     mav.addObject("tareas", tareaService.getAll());
     return mav;
     }
+
+     // Filtrar tareas por estado (completada o no completada)
+    @GetMapping("/filtrarEstado")
+    public ModelAndView filtrarPorEstado(@RequestParam("estado") boolean estado) {
+        ModelAndView mav = new ModelAndView("tareas/lista");
+        List<Tarea> tareasFiltradas = tareaService.filtrarPorEstado(estado);
+        mav.addObject("tareas", tareasFiltradas);
+        return mav;
+    }
+    
 //Creo una tarea nueva
     @GetMapping("/nueva")
     public ModelAndView nuevaTarea() {
@@ -100,12 +110,5 @@ public class TareaController {
         return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
     }    
     
-    // Filtrar tareas por estado (completada o no completada)
-    @GetMapping("/filtrarEstado")
-    public ModelAndView filtrarPorEstado(@RequestParam("estado") boolean estado) {
-        ModelAndView mav = new ModelAndView("tareas/lista");
-        List<Tarea> tareasFiltradas = tareaService.filtrarPorEstado(estado);
-        mav.addObject("tareas", tareasFiltradas);
-        return mav;
-    }
+   
 }

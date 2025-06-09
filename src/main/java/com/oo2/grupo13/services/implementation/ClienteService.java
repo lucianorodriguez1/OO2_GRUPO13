@@ -1,6 +1,7 @@
 package com.oo2.grupo13.services.implementation;
 
 import java.text.MessageFormat;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import com.oo2.grupo13.entities.Cliente;
 import com.oo2.grupo13.entities.UsuarioRol;
@@ -18,7 +19,7 @@ public class ClienteService {
 	private IUsuarioRolRepository usuarioRolRepository;
 	
     private UsuarioService usuarioService;
-	
+
 	public ClienteService(IClienteRepository clienteRepository, IUsuarioRolRepository usuarioRolRepository, UsuarioService usuarioService) {
 		this.clienteRepository = clienteRepository;
 		this.usuarioRolRepository = usuarioRolRepository;

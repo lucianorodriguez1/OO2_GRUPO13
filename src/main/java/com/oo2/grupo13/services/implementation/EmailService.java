@@ -8,9 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
 import com.oo2.grupo13.services.IEmailService;
-
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 

@@ -2,32 +2,77 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Nueva Tarea</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <style>
+        h2 {
+            color: #1d75bd; /* Darker light blue for the heading */
+        }
+        .btn-primary {
+            color: #fff; /* White text for buttons */
+            background-color: #4dabf7; /* Light blue for primary buttons */
+            border-color: #4dabf7;
+        }
+        .btn-primary:hover {
+            background-color: #4dabf7; /* Darker light blue on hover */
+            border-color: #4dabf7;
+        }
+        a {
+            color: #f9fcff; /* Light blue for links */
+        }
+        a:hover {
+            color: #4dabf7; /* Darker light blue on hover */
+            text-decoration: none;
+        }
+        .form-group label {
+            color: #1d75bd; /* Darker light blue for form labels */
+        }
+        .form-control, .form-control-file, select {
+            border-color: #4dabf7; /* Light blue border for inputs */
+        }
+        .form-check-label {
+            color: #4dabf7; /* Light blue for checkbox label */
+        }
+        .form-check-input:checked {
+            background-color: #4dabf7; /* Light blue for checked checkbox */
+            border-color: #4dabf7;
+        }
+    </style>
 </head>
 <body>
-    <form th:action="@{/tareas/crear}" th:object="${tarea}" method="post">
-        <input type="text" th:field="*{nombre}" placeholder="Nombre" /><br/>
-        <input type="text" th:field="*{descripcion}" placeholder="Descripcion" /><br/>
-        <label>
-            <input type="checkbox" th:field="*{completada}" />
-            Completada
-        </label><br/>
-        <label for="soporte">Soporte asignado:</label>
-        <select th:field="*{soporte}" id="soporte">
-            <option value="">-- Ningun soporte --</option>
-            <option th:each="soporte : ${soportes}"
-                    th:value="${soporte.id}"
-                    th:text="${soporte.nombre}"></option>
-        </select><br/>
-        <label for="ticketAsociado">Ticket asignado:</label>
-        <select th:field="*{ticketAsociado}" id="ticket">
-            <option value="">-- Ningun ticket --</option>
-            <option th:each="ticket : ${tickets}"
-                    th:value="${ticket.id}"
-                    th:text="${ticket.asunto}"></option>
-        </select><br/>
-        <button type="submit">Crear</button>
-    </form>
-
-    <a th:href="@{/tareas/lista}">Volver al listado</a>
+    <div class="container mt-4">
+        <h2>Crear Nueva Tarea</h2>
+        <form th:action="@{/tareas/crear}" th:object="${tarea}" method="post">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" th:field="*{nombre}" id="nombre" class="form-control" placeholder="Ingrese el nombre de la tarea">
+                <small class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <input type="text" th:field="*{descripcion}" id="descripcion" class="form-control" placeholder="Ingrese la descripción de la tarea">
+                <small class="text-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" th:field="*{completada}" id="completada" class="form-check-input">
+                <label for="completada" class="form-check-label">Completada</label>
+            </div>
+            <div class="form-group">
+                <label for="soporte">Soporte asignado</label>
+                <select th:field="*{soporte}" id="soporte" class="form-control">
+                    <option value="">-- Ningún soporte --</option>
+                    <option th:each="soporte : ${soportes}" th:value="${soporte.id}" th:text="${soporte.nombre}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ticketAsociado">Ticket asignado</label>
+                <select th:field="*{ticketAsociado}" id="ticketAsociado" class="form-control">
+                    <option value="">-- Ningún ticket --</option>
+                    <option th:each="ticket : ${tickets}" th:value="${ticket.id}" th:text="${ticket.asunto}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear</button>
+        </form>
+        <a th:href="@{/tareas/lista}" class="btn btn-primary mt-2">Volver al listado</a>
+    </div>
 </body>
 </html>
