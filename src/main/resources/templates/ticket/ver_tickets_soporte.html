@@ -13,6 +13,8 @@
                 <th scope="col">Descripción</th>
                 <th scope="col">Fecha Alta</th>
                 <th scope="col">Fecha Baja</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Prioridad</th>
                 <th scope="col">Solicitante</th>
                 <th scope="col">Soporte asignado</th>
             </tr>
@@ -24,10 +26,12 @@
             <td th:text="${ticket.descripcion}"></td>
             <td th:text="${#temporals.format(ticket.fechaAlta, 'dd/MM/yyyy HH:mm')}"></td>
             <td th:text="${#temporals.format(ticket.fechaBaja, 'dd/MM/yyyy HH:mm')}"></td>
-            <td th:text="${ticket.cliente.apellido + ', ' + ticket.cliente.nombre}"></td>
-            <td th:text="${ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre}"></td>
+            <td th:text="${ticket.estado}"></td>
+            <td th:text="${ticket.prioridad}"></td>
+            <td th:text="${ticket.cliente.apellido}"></td>
+            <td th:text="${ticket.soporteAsignado.apellido}"></td>
             <td>
-                <a th:href="@{/tareas/verTareasTicket/{id}(id=${ticket.id})}">Ver Tareas</a>
+                <a th:href="@{/ticket/ver/{id}(id=${ticket.id})}">Ver Detalles</a>
             </td>
             
             </tr>

@@ -10,6 +10,10 @@ import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Tarea;
 import com.oo2.grupo13.entities.Valoracion;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+@Getter @Setter @NoArgsConstructor
 public class TicketDTOSoporte {
     private long id;
     private String descripcion;

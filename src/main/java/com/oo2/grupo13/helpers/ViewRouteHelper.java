@@ -19,7 +19,8 @@ public class ViewRouteHelper {
     public static final String VALORACION_REDIRECT_LISTA = "redirect:/valoraciones/lista";
     
     //TICKETS
-    public static final String VER_TICKETS_CLIENTE = "ticket/ver_tickets_cliente";
+    public static final String VER_TICKETS_CLIENTE = "verTicketsCliente";
+    public static final String VER_TICKETS_SOPORTE = "verTicketsSoporte";
 	
 	// USUARIO
 	public final static String USUARIO_INDEX = "usuario/index";

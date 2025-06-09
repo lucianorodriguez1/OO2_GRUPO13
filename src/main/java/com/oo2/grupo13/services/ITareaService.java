@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Optional;
 import com.oo2.grupo13.dtos.TareaDTO;
 import com.oo2.grupo13.entities.Tarea;
+import com.oo2.grupo13.entities.Ticket;
 
 public interface ITareaService{
     
@@ -11,4 +12,5 @@ public interface ITareaService{
     public Tarea insertOrUpdate (TareaDTO tareaModel);
     public boolean delete (long id);
     public List<Tarea> filtrarPorEstado(boolean estado);
+    public List<Tarea> filtrarPorTicket(Ticket ticket);
 }
