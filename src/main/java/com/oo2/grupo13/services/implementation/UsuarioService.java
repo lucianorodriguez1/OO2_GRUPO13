@@ -50,5 +50,6 @@ public class UsuarioService {
 				.orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Usuario con id {0} no encontrado",id)));
 		return usuario;
 	}
+	
 
 }

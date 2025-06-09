@@ -2,10 +2,10 @@ package com.oo2.grupo13.services.implementation;
 import com.oo2.grupo13.entities.Valoracion;
 import com.oo2.grupo13.exceptions.TareaNoEncontradaException;
 import com.oo2.grupo13.exceptions.ValoracionInvalidaException;
-import com.oo2.grupo13.exceptions.ValoracionNoEncontradaException;
 import com.oo2.grupo13.repositories.IValoracionRepository;
 import com.oo2.grupo13.services.IValoracionService;
 import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -45,9 +45,9 @@ public class ValoracionService implements IValoracionService{
         }
     }
 
+    @Override
     public Valoracion findById(long id) {
-    return valoracionRepository.findById(id)
-        .orElseThrow(() -> new ValoracionNoEncontradaException("No se encontró la valoración con ID: " + id));
+        return valoracionRepository.findById(id).orElse(null);
     }
 
     @Override   

@@ -1,5 +1,4 @@
 package com.oo2.grupo13.controllers;
-import com.oo2.grupo13.services.implementation.TicketService;
 import com.oo2.grupo13.dtos.SoporteDTO;
 import com.oo2.grupo13.dtos.TareaDTO;
 import com.oo2.grupo13.entities.Soporte;
@@ -8,6 +7,7 @@ import com.oo2.grupo13.entities.Ticket;
 import com.oo2.grupo13.exceptions.TareaNoEncontradaException;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
 import com.oo2.grupo13.services.ITareaService;
+import com.oo2.grupo13.services.ITicketService;
 import com.oo2.grupo13.services.ISoporteService;
 import java.util.List;
 import org.modelmapper.ModelMapper;
@@ -25,12 +25,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping ("/tareas")
 public class TareaController {
 
-    private final TicketService ticketService;
+    private ITicketService ticketService;
     private ITareaService tareaService;
     private ISoporteService soporteService;
     private ModelMapper modelMapper = new ModelMapper();
 
-    public TareaController(ITareaService tareaService, ISoporteService soporteService, TicketService ticketService) {
+    public TareaController(ITareaService tareaService, ISoporteService soporteService, ITicketService ticketService) {
         this.tareaService = tareaService;
         this.soporteService = soporteService;
         this.ticketService = ticketService;
@@ -39,10 +39,20 @@ public class TareaController {
 // Muestro la lista de tareas
     @GetMapping("/lista")
     public ModelAndView listarTareas() {
-    ModelAndView mav = new ModelAndView("tareas/lista");
-    mav.addObject("tareas", tareaService.getAll());
-    return mav;
+        ModelAndView mav = new ModelAndView("tareas/lista");
+        mav.addObject("tareas", tareaService.getAll());
+        return mav;
     }
+
+     // Filtrar tareas por estado (completada o no completada)
+    @GetMapping("/filtrarEstado")
+    public ModelAndView filtrarPorEstado(@RequestParam("estado") boolean estado) {
+        ModelAndView mav = new ModelAndView("tareas/lista");
+        List<Tarea> tareasFiltradas = tareaService.filtrarPorEstado(estado);
+        mav.addObject("tareas", tareasFiltradas);
+        return mav;
+    }
+    
 //Creo una tarea nueva
     @GetMapping("/nueva")
     public ModelAndView nuevaTarea() {
@@ -58,8 +68,6 @@ public class TareaController {
     @PostMapping("/crear")
     public RedirectView crearTarea(TareaDTO dto) {
     tareaService.insertOrUpdate(dto);
-    System.out.println("Soporte ID recibido: " + 
-    (dto.getSoporte() != null ? dto.getSoporte().getId() : "null"));
     return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
     }
 
@@ -101,13 +109,13 @@ public class TareaController {
 		tareaService.delete(id);
         return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
     }    
-    
-    // Filtrar tareas por estado (completada o no completada)
-    @GetMapping("/filtrarEstado")
-    public ModelAndView filtrarPorEstado(@RequestParam("estado") boolean estado) {
+
+    @GetMapping("/verTareasTicket/{id}")
+    public ModelAndView verTareasPorTicket(@PathVariable("id") long id) {
         ModelAndView mav = new ModelAndView("tareas/lista");
-        List<Tarea> tareasFiltradas = tareaService.filtrarPorEstado(estado);
-        mav.addObject("tareas", tareasFiltradas);
+        mav.addObject("tareas", tareaService.filtrarPorTicket(ticketService.findById(id)));
         return mav;
     }
+    
+
 }

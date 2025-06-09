@@ -24,7 +24,7 @@ public class SoporteController {
 
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/lista")
 	public ModelAndView listarSoportes() {
 	    ModelAndView mAV = new ModelAndView("soporte/lista"); // nombre de la vista
 	    mAV.addObject("soportes", soporteService.getAll());

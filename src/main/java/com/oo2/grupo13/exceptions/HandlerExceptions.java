@@ -3,7 +3,6 @@ package com.oo2.grupo13.exceptions;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.oo2.grupo13.helpers.ViewRouteHelper;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,21 +21,17 @@ public class HandlerExceptions {
     }
 	
     @ExceptionHandler(TareaNoEncontradaException.class)
-    public String manejarTareaNoEncontrada(TareaNoEncontradaException ex, Model model) {
-        model.addAttribute("mensaje", ex.getMessage());
-        return "errorTarea";
-    }
-
-     @ExceptionHandler(ValoracionNoEncontradaException.class)
-    public String manejarValoracionNoEncontrada(ValoracionNoEncontradaException ex, Model model) {
-        model.addAttribute("mensaje", ex.getMessage());
-        return "errorValoracion";
+    public ModelAndView manejarTareaNoEncontrada(TareaNoEncontradaException ex) {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelper.TAREA_NO_ENCONTRADA_ERROR);
+    	mAV.addObject("mensaje", ex.getMessage());
+        return mAV;
     }
 
     @ExceptionHandler(ValoracionInvalidaException.class)
-    public String manejarValoracionInvalida(ValoracionInvalidaException ex, Model model) {
-        model.addAttribute("mensaje", ex.getMessage());
-        return "errorValoracion";
+    public ModelAndView manejarValoracionInvalida(ValoracionInvalidaException ex) {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelper.VALORACION_INCORRECTA_ERROR);
+    	mAV.addObject("mensaje", ex.getMessage());
+        return mAV; 
     }
 
     @ExceptionHandler(Exception.class)
