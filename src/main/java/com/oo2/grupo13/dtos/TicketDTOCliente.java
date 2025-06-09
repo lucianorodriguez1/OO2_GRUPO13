@@ -8,7 +8,8 @@ import com.oo2.grupo13.entities.Soporte;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-@Getter@Setter@NoArgsConstructor
+
+@Getter @Setter @NoArgsConstructor
 public class TicketDTOCliente {
     private long id;
     private String descripcion;

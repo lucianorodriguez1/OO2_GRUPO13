@@ -31,5 +31,7 @@ public class ViewRouteHelper {
 	
 	// ERRORES
 	public final static String EMAIL_EXISTE_ERROR = "error/email-ya-existe";
+    public final static String TAREA_NO_ENCONTRADA_ERROR ="error/errorTarea";
+    public final static String VALORACION_INCORRECTA_ERROR ="error/errorValoracion"; 
 
 }

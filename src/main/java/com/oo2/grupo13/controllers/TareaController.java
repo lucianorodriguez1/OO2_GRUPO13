@@ -59,8 +59,6 @@ public class TareaController {
     @PostMapping("/crear")
     public RedirectView crearTarea(TareaDTO dto) {
     tareaService.insertOrUpdate(dto);
-    System.out.println("Soporte ID recibido: " + 
-    (dto.getSoporte() != null ? dto.getSoporte().getId() : "null"));
     return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
     }
 

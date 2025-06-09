@@ -9,12 +9,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.oo2.grupo13.dtos.ClienteDTO;
 import com.oo2.grupo13.entities.Cliente;
-import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Usuario;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
 import com.oo2.grupo13.services.implementation.UsuarioService;
-
-import org.springframework.ui.Model;
 
 @Controller
 @RequestMapping("/usuario")

@@ -14,8 +14,6 @@ import com.oo2.grupo13.dtos.ClienteEditarDTO;
 import com.oo2.grupo13.entities.Cliente;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
 import com.oo2.grupo13.services.implementation.ClienteService;
-
-import ch.qos.logback.core.model.Model;
 import jakarta.validation.Valid;
 
 @Controller
