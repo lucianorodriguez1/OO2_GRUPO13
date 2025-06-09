@@ -47,7 +47,7 @@ public class ClienteController {
 		cliente.setPassword(clienteDTO.getPassword());
 		cliente.setFotoPerfil(clienteDTO.getFotoPerfil());
 		cliente.setRol(clienteDTO.getRol());
-
+		
 		clienteService.crearOActualizarCliente(cliente);
 
 		return new ModelAndView("redirect:/usuario");

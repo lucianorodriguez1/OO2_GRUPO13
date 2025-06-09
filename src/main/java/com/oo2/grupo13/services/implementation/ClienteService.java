@@ -1,7 +1,6 @@
 package com.oo2.grupo13.services.implementation;
 
 import java.text.MessageFormat;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import com.oo2.grupo13.entities.Cliente;
 import com.oo2.grupo13.entities.UsuarioRol;
@@ -32,7 +31,7 @@ public class ClienteService {
 	    UsuarioRol rolUsuario = usuarioRolRepository.findByRol(ROL.USUARIO)
 	            .orElseThrow();
 	    cliente.setRol(rolUsuario);
-	    usuarioService.validarEmailUnico(cliente.getEmail());
+	    usuarioService.validarEmailUnico(cliente.getEmail(), cliente.getId());
 	    clienteRepository.save(cliente);
 	}
 

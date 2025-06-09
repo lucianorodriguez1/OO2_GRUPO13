@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.validation.constraints.Size;
 
-import jakarta.persistence.OneToOne;
-
 @Entity
 @Getter @Setter @NoArgsConstructor
 public class Valoracion {
@@ -28,17 +26,9 @@ public class Valoracion {
     
     @Size (max = 300)
     private String comentario;
-    @OneToOne(mappedBy = "valoracion")
-    private Ticket ticketAsociado;
 
-    /*@OneToOne(mappedBy = "valoracion")
-    private Ticket ticket; */
-
-     public Valoracion(int id, int puntaje, LocalDateTime fecha, String comentario) {  
-        this.id = id;
+     public Valoracion( int puntaje, String comentario) {  
         this.puntaje = puntaje;
-        this.fecha = fecha;
         this.comentario = comentario;
-        //this.ticket = ticket;
     }
 }

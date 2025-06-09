@@ -72,7 +72,7 @@ public class SoporteService implements ISoporteService{
 		soporte.setTurno(soporteDto.getTurno());
 		
 		// Validar si el email ya existe 
-		usuarioService.validarEmailUnico(soporte.getEmail());
+		usuarioService.validarEmailUnico(soporte.getEmail(), soporte.getId());
 		
 		// Guardar en base de datos
 		Soporte guardado = soporteRepository.save(soporte);
