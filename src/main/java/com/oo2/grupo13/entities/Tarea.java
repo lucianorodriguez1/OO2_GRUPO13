@@ -48,5 +48,4 @@ public class Tarea {
         this.soporte = soporte;
         this.ticketAsociado = ticket;
     }
-    
 }
