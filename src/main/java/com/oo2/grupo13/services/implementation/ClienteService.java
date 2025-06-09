@@ -32,7 +32,7 @@ public class ClienteService {
 	    UsuarioRol rolUsuario = usuarioRolRepository.findByRol(ROL.USUARIO)
 	            .orElseThrow();
 	    cliente.setRol(rolUsuario);
-	    usuarioService.validarEmailUnico(cliente.getEmail());
+	    usuarioService.validarEmailUnico(cliente.getEmail(), cliente.getId());
 	    clienteRepository.save(cliente);
 	}
 
