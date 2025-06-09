@@ -1,5 +1,4 @@
 package com.oo2.grupo13.controllers;
-import com.oo2.grupo13.services.implementation.TicketService;
 import com.oo2.grupo13.dtos.SoporteDTO;
 import com.oo2.grupo13.dtos.TareaDTO;
 import com.oo2.grupo13.entities.Soporte;
