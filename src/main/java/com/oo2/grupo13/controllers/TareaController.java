@@ -8,6 +8,7 @@ import com.oo2.grupo13.entities.Ticket;
 import com.oo2.grupo13.exceptions.TareaNoEncontradaException;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
 import com.oo2.grupo13.services.ITareaService;
+import com.oo2.grupo13.services.ITicketService;
 import com.oo2.grupo13.services.ISoporteService;
 import java.util.List;
 import org.modelmapper.ModelMapper;
@@ -25,12 +26,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping ("/tareas")
 public class TareaController {
 
-    private TicketService ticketService;
+    private ITicketService ticketService;
     private ITareaService tareaService;
     private ISoporteService soporteService;
     private ModelMapper modelMapper = new ModelMapper();
 
-    public TareaController(ITareaService tareaService, ISoporteService soporteService, TicketService ticketService) {
+    public TareaController(ITareaService tareaService, ISoporteService soporteService, ITicketService ticketService) {
         this.tareaService = tareaService;
         this.soporteService = soporteService;
         this.ticketService = ticketService;
@@ -39,9 +40,9 @@ public class TareaController {
 // Muestro la lista de tareas
     @GetMapping("/lista")
     public ModelAndView listarTareas() {
-    ModelAndView mav = new ModelAndView("tareas/lista");
-    mav.addObject("tareas", tareaService.getAll());
-    return mav;
+        ModelAndView mav = new ModelAndView("tareas/lista");
+        mav.addObject("tareas", tareaService.getAll());
+        return mav;
     }
 
      // Filtrar tareas por estado (completada o no completada)
@@ -109,6 +110,13 @@ public class TareaController {
 		tareaService.delete(id);
         return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
     }    
+
+    @GetMapping("/verTareasTicket/{id}")
+    public ModelAndView verTareasPorTicket(@PathVariable("id") long id) {
+        ModelAndView mav = new ModelAndView("tareas/lista");
+        mav.addObject("tareas", tareaService.filtrarPorTicket(ticketService.findById(id)));
+        return mav;
+    }
     
-   
+
 }

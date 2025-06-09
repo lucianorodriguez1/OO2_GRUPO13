@@ -16,6 +16,6 @@ public class TicketDTOCliente {
     private String asunto;
     private LocalDateTime fechaAlta;
     private LocalDateTime fechaBaja;
-    private Cliente cliente;
-    private Soporte soporteAsignado;
+    private String cliente;
+    private String soporteAsignado;
 }

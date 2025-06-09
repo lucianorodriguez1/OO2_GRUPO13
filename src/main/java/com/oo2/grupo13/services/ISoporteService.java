@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.oo2.grupo13.dtos.SoporteDTO;
-//import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.TURNO;
 
 public interface ISoporteService {

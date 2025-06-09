@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,9 +30,10 @@ public class Ticket {
     private String descripcion;
     @Column(name = "asunto", nullable = false)
     private String asunto;
+    @CreationTimestamp
     @Column(name = "fecha_alta", nullable = false)
     private LocalDateTime fechaAlta;
-    @Column(name = "fecha_baja", nullable = false)
+    @Column(name = "fecha_baja", nullable = true)
     private LocalDateTime fechaBaja;
     @Column(name = "prioridad", nullable = false)
     private PRIORIDAD prioridad;
@@ -48,15 +51,22 @@ public class Ticket {
     @JoinColumn(name = "soporte_id")
     private Soporte soporteAsignado;
 
-    public Ticket(String descripcion, String asunto, LocalDateTime fechaAlta, LocalDateTime fechaBaja, PRIORIDAD prioridad, ESTADO estado, Cliente cliente) {
+    public Ticket(String descripcion, 
+                    String asunto, 
+                    LocalDateTime fechaBaja, 
+                    PRIORIDAD prioridad, 
+                    ESTADO estado, 
+                    Cliente cliente, 
+                    Soporte soporteAsignado) {
         this.descripcion = descripcion;
         this.asunto = asunto;
-        this.fechaAlta = fechaAlta;
         this.fechaBaja = fechaBaja;
         this.prioridad = prioridad;
         this.estado = estado;
         this.cliente = cliente;
         this.tareas = new ArrayList<>();
+        this.valoracion = null;
+        this.soporteAsignado = soporteAsignado;
     }
   
 }
