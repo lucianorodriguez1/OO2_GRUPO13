@@ -28,9 +28,6 @@
                     <td th:text="${#temporals.format(ticket.fechaBaja, 'dd/MM/yyyy HH:mm')}"></td>
                     <td th:text="${ticket.cliente.apellido + ', ' + ticket.cliente.nombre}"></td>
                     <td th:text="${ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre}"></td>
-                    <td>
-                        <a th:href="@{/tareas/verTareasTicket/{id}(id=${ticket.id})}">Ver Tareas</a>
-                    </td>
                 </tr>
         </tbody>
     </div>
