@@ -6,6 +6,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.oo2.grupo13.helpers.ViewRouteHelper;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.ui.Model;
 
 
@@ -18,7 +20,7 @@ public class HandlerExceptions {
     	mAV.addObject("mensajeError", ex.getMessage());
         return mAV;
     }
-    
+	
     @ExceptionHandler(TareaNoEncontradaException.class)
     public String manejarTareaNoEncontrada(TareaNoEncontradaException ex, Model model) {
         model.addAttribute("mensaje", ex.getMessage());

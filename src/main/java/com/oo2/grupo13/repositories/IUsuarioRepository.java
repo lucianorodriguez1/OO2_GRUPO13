@@ -12,4 +12,5 @@ import com.oo2.grupo13.enums.ROL;
 @Repository("usuarioRepository")
 public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 	boolean existsByEmail(String email);
+	Optional<Usuario> findByEmail(String email);
 }
