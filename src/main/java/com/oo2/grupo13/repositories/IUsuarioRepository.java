@@ -1,6 +1,5 @@
 package com.oo2.grupo13.repositories;
 
-import java.lang.foreign.Linker.Option;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;

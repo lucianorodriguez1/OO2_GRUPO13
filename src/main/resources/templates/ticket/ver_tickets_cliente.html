@@ -5,8 +5,10 @@
     <title>Ver Tickets</title>
 </head>
 <body>
+    <h1 class="text-center m-4">Lista de tickets</h1>
+    <div class="d-flex justify-content-center align-items-center container">
     <table class="table table-striped-columns">
-    <thead>
+        <thead>
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Asunto</th>
@@ -16,22 +18,23 @@
                 <th scope="col">Solicitante</th>
                 <th scope="col">Soporte asignado</th>
             </tr>
-    </thead>
-    <tbody>
-        <tr th:each="ticket : ${tickets}">
-            <td th:text="${ticket.id}"></td>
-            <td th:text="${ticket.asunto}"></td>
-            <td th:text="${ticket.descripcion}"></td>
-            <td th:text="${#temporals.format(ticket.fechaAlta, 'dd/MM/yyyy HH:mm')}"></td>
-            <td th:text="${#temporals.format(ticket.fechaBaja, 'dd/MM/yyyy HH:mm')}"></td>
-            <td th:text="${ticket.cliente.apellido + ', ' + ticket.cliente.nombre}"></td>
-            <td th:text="${ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre}"></td>
-            <td>
-                <a th:href="@{/tareas/verTareasTicket/{id}(id=${ticket.id})}">Ver Tareas</a>
-            </td>
-            
-            </tr>
+        </thead>
+        <tbody>
+                <tr th:each="ticket : ${tickets}">
+                    <td th:text="${ticket.id}"></td>
+                    <td th:text="${ticket.asunto}"></td>
+                    <td th:text="${ticket.descripcion}"></td>
+                    <td th:text="${#temporals.format(ticket.fechaAlta, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${#temporals.format(ticket.fechaBaja, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${ticket.cliente.apellido + ', ' + ticket.cliente.nombre}"></td>
+                    <td th:text="${ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre}"></td>
+                    <td>
+                        <a th:href="@{/tareas/verTareasTicket/{id}(id=${ticket.id})}">Ver Tareas</a>
+                    </td>
+                </tr>
         </tbody>
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 

@@ -12,8 +12,6 @@ import com.oo2.grupo13.entities.PRIORIDAD;
 import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Ticket;
 import com.oo2.grupo13.services.ITicketService;
-import com.oo2.grupo13.repositories.IClienteRepository;
-import com.oo2.grupo13.repositories.ISoporteRepository;
 import com.oo2.grupo13.repositories.ITicketRepository;
 import com.oo2.grupo13.repositories.IUsuarioRepository;
 
