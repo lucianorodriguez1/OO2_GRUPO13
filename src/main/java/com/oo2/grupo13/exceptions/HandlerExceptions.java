@@ -13,12 +13,30 @@ import org.springframework.ui.Model;
 @ControllerAdvice
 public class HandlerExceptions {
 
-    @ExceptionHandler(EmailYaExisteException.class)
-    public ModelAndView manejarEmailYaExiste(EmailYaExisteException ex) {
-    	ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMAIL_EXISTE_ERROR);
-    	mAV.addObject("mensajeError", ex.getMessage());
-        return mAV;
-    }
+//    @ExceptionHandler(EmailYaExisteException.class)
+//    public ModelAndView manejarEmailYaExiste(EmailYaExisteException ex) {
+//    	ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMAIL_EXISTE_ERROR);
+//    	mAV.addObject("mensajeError", ex.getMessage());
+//        return mAV;
+//    }
+	
+	@ExceptionHandler(EmailYaExisteException.class)
+	public ModelAndView manejarEmailYaExiste(EmailYaExisteException ex, HttpServletRequest request) {
+	    ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMAIL_EXISTE_ERROR);
+	    mAV.addObject("mensajeError", ex.getMessage());
+
+	    // Determinar desde dónde vino la solicitud
+	    String referer = request.getHeader("Referer");
+	    
+	    if (referer != null && referer.contains("/editar/")) {
+	        mAV.addObject("volverUrl", referer); // volver al form de edición
+	    } else {
+	        mAV.addObject("volverUrl", "/cliente/nuevo"); // por defecto, volver al form de creación
+	    }
+
+	    return mAV;
+	}
+
 	
     @ExceptionHandler(TareaNoEncontradaException.class)
     public ModelAndView manejarTareaNoEncontrada(TareaNoEncontradaException ex) {
