@@ -12,10 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oo2.grupo13.dtos.ClienteDTO;
 import com.oo2.grupo13.dtos.ClienteEditarDTO;
 import com.oo2.grupo13.entities.Cliente;
-import com.oo2.grupo13.helpers.ViewRouterHelper;
+import com.oo2.grupo13.helpers.ViewRouteHelper;
 import com.oo2.grupo13.services.implementation.ClienteService;
-
-import ch.qos.logback.core.model.Model;
 import jakarta.validation.Valid;
 
 @Controller
@@ -30,7 +28,7 @@ public class ClienteController {
 
 	@GetMapping("/nuevo")
 	public ModelAndView index() {
-		ModelAndView mAV = new ModelAndView(ViewRouterHelper.CLIENTE_CREAR_FORM);
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_CREAR_FORM);
 		mAV.addObject("cliente", new Cliente());
 		return mAV;
 	}
@@ -38,7 +36,7 @@ public class ClienteController {
 	@PostMapping("/guardar")
 	public ModelAndView create(@Valid @ModelAttribute("cliente") ClienteDTO clienteDTO, BindingResult result) {
 		if (result.hasErrors()) {
-			return new ModelAndView(ViewRouterHelper.CLIENTE_CREAR_FORM);
+			return new ModelAndView(ViewRouteHelper.CLIENTE_CREAR_FORM);
 		}
 
 		// Convertir DTO a entidad Cliente y guardar
@@ -49,7 +47,7 @@ public class ClienteController {
 		cliente.setPassword(clienteDTO.getPassword());
 		cliente.setFotoPerfil(clienteDTO.getFotoPerfil());
 		cliente.setRol(clienteDTO.getRol());
-
+		
 		clienteService.crearOActualizarCliente(cliente);
 
 		return new ModelAndView("redirect:/usuario");
@@ -58,7 +56,7 @@ public class ClienteController {
 	@PostMapping("/actualizar/{id}")
 	public ModelAndView update(@PathVariable int id, @Valid @ModelAttribute("cliente") ClienteEditarDTO clienteDTO, BindingResult result) {
 	    if (result.hasErrors()) {
-	        ModelAndView mAV = new ModelAndView(ViewRouterHelper.CLIENTE_EDITAR_FORM);
+	        ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_EDITAR_FORM);
 	        mAV.addObject("cliente", clienteDTO);
 	        return mAV;
 	    }
@@ -82,4 +80,5 @@ public class ClienteController {
 	 
 
 }
+
 

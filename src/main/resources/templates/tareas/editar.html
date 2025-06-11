@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar tarea</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <style>
+        h1 {
+            color: #1d75bd; /* Darker light blue for the heading */
+        }
+        .btn-primary {
+            color: #fff; /* White text for buttons */
+            background-color: #4dabf7; /* Light blue for primary buttons */
+            border-color: #4dabf7;
+        }
+        .btn-primary:hover {
+            background-color: #4dabf7; /* Darker light blue on hover */
+            border-color: #4dabf7;
+        }
+        a {
+            color: #f9fcff; /* Light blue for links */
+        }
+        a:hover {
+            color: #4dabf7; /* Darker light blue on hover */
+            text-decoration: none;
+        }
+        label {
+            color: #1d75bd; /* Darker light blue for labels */
+        }
+        input[type="text"], input[type="checkbox"], select {
+            border-color: #4dabf7; /* Light blue border for inputs */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Editar Tarea</h1>
+        
+        <form action="#" th:action="@{/tareas/editar}" th:object="${tarea}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" th:field="*{nombre}" id="nombre" class="form-control" placeholder="Ingrese el nombre de la tarea">
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <input type="text" th:field="*{descripcion}" id="descripcion" class="form-control" placeholder="Ingrese la descripción de la tarea">
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" th:field="*{completada}" id="completada" class="form-check-input">
+                <label for="completada" class="form-check-label">Completada</label>
+            </div>
+            <div class="form-group">
+                <label for="soporte">Soporte asignado</label>
+                <select th:field="*{soporte}" id="soporte" class="form-control">
+                    <option value="">-- Ningún soporte --</option>
+                    <option th:each="soporte : ${soportes}" th:value="${soporte.id}" th:text="${soporte.nombre}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ticketAsociado">Ticket asociado</label>
+                <select th:field="*{ticketAsociado}" id="ticketAsociado" class="form-control">
+                    <option value="">-- Ningún ticket --</option>
+                    <option th:each="ticket : ${tickets}" th:value="${ticket.id}" th:text="${ticket.asunto}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Editar</button>
+            <a th:href="@{/tareas/lista}" class="btn btn-primary mt-2">Volver al listado</a>
+        </form>
+    </div>
+</body>
+</html>
+

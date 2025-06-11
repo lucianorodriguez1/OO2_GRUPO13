@@ -2,6 +2,8 @@ package com.oo2.grupo13.services.implementation;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Optional;
+
 
 import org.springframework.stereotype.Service;
 
@@ -22,10 +24,12 @@ public class UsuarioService {
 		this.usuarioRepository = usuarioRepository;
 	}
 	
-	public void validarEmailUnico(String email) {
-        if (usuarioRepository.existsByEmail(email)) {
-            throw new EmailYaExisteException("Ya existe un usuario registrado con el email: " + email);
-        }
+	public void validarEmailUnico(String email, int idCliente) {
+		Optional<Usuario> existente = usuarioRepository.findByEmail(email);
+	    
+	    if (existente.isPresent() && existente.get().getId() != idCliente) {
+	        throw new EmailYaExisteException("Ya existe un usuario registrado con el email: " + email);
+	    }
     }
 
 	public List<Usuario> getAll() {
@@ -46,4 +50,6 @@ public class UsuarioService {
 				.orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Usuario con id {0} no encontrado",id)));
 		return usuario;
 	}
+	
+
 }
