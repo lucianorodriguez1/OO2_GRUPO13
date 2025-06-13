@@ -4,7 +4,9 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
 
-
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.oo2.grupo13.entities.Usuario;
@@ -15,7 +17,7 @@ import jakarta.persistence.EntityNotFoundException;
 
 
 @Service("usuarioService")
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService{
 	
 	private IUsuarioRepository usuarioRepository;
 
@@ -49,6 +51,12 @@ public class UsuarioService {
 		Usuario usuario = usuarioRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Usuario con id {0} no encontrado",id)));
 		return usuario;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
