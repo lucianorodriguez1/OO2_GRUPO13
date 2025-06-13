@@ -2,7 +2,10 @@ package com.oo2.grupo13.entities;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
@@ -63,6 +66,18 @@ public class Soporte extends Usuario {
 
 	public void setTurno(TURNO turno) {
 		this.turno = turno;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

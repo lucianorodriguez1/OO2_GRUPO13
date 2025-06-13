@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.oo2.grupo13.entities.Usuario;
 import com.oo2.grupo13.exceptions.EmailYaExisteException;
@@ -54,9 +55,12 @@ public class UsuarioService implements UserDetailsService{
 	}
 
 	@Override
+    @Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		  return usuarioRepository.findByEmail(username).orElseThrow(
+	                () -> new UsernameNotFoundException(MessageFormat.format("User with email {0} not found", username))
+	        );
 	}
 	
 
