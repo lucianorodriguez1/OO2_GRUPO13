@@ -86,21 +86,21 @@ public class TareaController {
 
     @PostMapping("/editar")
     public RedirectView editarTarea(@ModelAttribute("tarea") TareaDTO tareaDTO) {
-    Tarea tareaEditar = tareaService.findById(tareaDTO.getId()).map(tarea -> modelMapper.map(tarea, Tarea.class)).orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + tareaDTO.getId()));
-    tareaEditar.setNombre(tareaDTO.getNombre());
-    tareaEditar.setDescripcion(tareaDTO.getDescripcion());
-    tareaEditar.setCompletada(tareaDTO.isCompletada());
-    
-    if (tareaDTO.getSoporte() != null && tareaDTO.getSoporte().getId() != 0) {
-        Soporte soporte = new Soporte();
-        soporte.setId(tareaDTO.getSoporte().getId());
-        tareaEditar.setSoporte(soporte);
-    } else {
-        tareaEditar.setSoporte(null); // Si no hay soporte, queda como null
-    }
-    tareaEditar.setTicketAsociado(tareaDTO.getTicketAsociado() != null ? modelMapper.map(tareaDTO.getTicketAsociado(), Ticket.class) : null); //para probar el ticket puede ser nulo
-    tareaService.insertOrUpdate(modelMapper.map(tareaEditar, TareaDTO.class));
-    return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
+        Tarea tareaEditar = tareaService.findById(tareaDTO.getId()).map(tarea -> modelMapper.map(tarea, Tarea.class)).orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + tareaDTO.getId()));
+        tareaEditar.setNombre(tareaDTO.getNombre());
+        tareaEditar.setDescripcion(tareaDTO.getDescripcion());
+        tareaEditar.setCompletada(tareaDTO.isCompletada());
+        
+        if (tareaDTO.getSoporte() != null && tareaDTO.getSoporte().getId() != 0) {
+            Soporte soporte = new Soporte();
+            soporte.setId(tareaDTO.getSoporte().getId());
+            tareaEditar.setSoporte(soporte);
+        } else {
+            tareaEditar.setSoporte(null); // Si no hay soporte, queda como null
+        }
+        tareaEditar.setTicketAsociado(tareaDTO.getTicketAsociado() != null ? modelMapper.map(tareaDTO.getTicketAsociado(), Ticket.class) : null); //para probar el ticket puede ser nulo
+        tareaService.insertOrUpdate(modelMapper.map(tareaEditar, TareaDTO.class));
+        return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
     }
 
     // Elimino la tarea por el id

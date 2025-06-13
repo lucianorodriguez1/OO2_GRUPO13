@@ -1,6 +1,8 @@
 package com.oo2.grupo13.services.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import com.oo2.grupo13.entities.PRIORIDAD;
 import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Ticket;
 import com.oo2.grupo13.services.ITicketService;
+
 import com.oo2.grupo13.repositories.ITicketRepository;
 import com.oo2.grupo13.repositories.IUsuarioRepository;
 
@@ -29,7 +32,7 @@ public class TicketService implements ITicketService {
     }
 
     @Override
-    public List<Ticket> getAll() {
+    public List<Ticket> getAll() {  
        return ticketRepository.findAll();
     }
     
@@ -44,7 +47,7 @@ public class TicketService implements ITicketService {
                                    PRIORIDAD.MEDIA,
                                    ESTADO.NUEVO, 
                                    (Cliente) usuarioRepository.findByEmail(ticketModel.getCliente()).get(), 
-                                   (Soporte) usuarioRepository.findByEmail(ticketModel.getSoporteAsignado()).get());
+                                   null);
 
         ticket = ticketRepository.save(ticket);
         // Map the saved ticket back to DTO
@@ -53,6 +56,7 @@ public class TicketService implements ITicketService {
 
     @Override
     public TicketDTOSoporte insertOrUpdateSoporte(TicketDTOSoporte ticketModel) {
+
         Ticket ticket = ticketRepository.save(modelMapper.map(ticketModel, Ticket.class));
 		return modelMapper.map(ticket, TicketDTOSoporte.class);
     }
@@ -69,6 +73,20 @@ public class TicketService implements ITicketService {
     @Override
     public Ticket findById(long id) {
         return ticketRepository.findById(id);
+    }
+
+    @Override
+    public Optional<TicketDTOSoporte> findByIdSoporte(long id) {
+       Ticket ticket = ticketRepository.findById(id);
+        if (modelMapper == null) {
+            modelMapper = new ModelMapper();
+        }
+        if (ticket != null) {
+            TicketDTOSoporte ticketDTO = modelMapper.map(ticket, TicketDTOSoporte.class);
+            return Optional.of(ticketDTO);
+        }
+        return Optional.empty();
+        
     }
 }
 
