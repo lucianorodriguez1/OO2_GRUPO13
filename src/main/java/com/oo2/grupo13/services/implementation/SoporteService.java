@@ -58,7 +58,7 @@ public class SoporteService implements ISoporteService{
 	@Override
 	public SoporteDTO insertOrUpdate(SoporteDTO soporteDto) {
 		Soporte soporte = new Soporte();
-		Optional<UsuarioRol> rolPorDefecto = Optional.of(usuarioRolRepository.findByRol(ROL.USUARIO).orElseThrow(() -> new RuntimeException("Rol no encontrado")));
+		Optional<UsuarioRol> rolPorDefecto = Optional.of(usuarioRolRepository.findByRol(ROL.SOPORTE).orElseThrow(() -> new RuntimeException("Rol no encontrado")));
 	    
 		soporte.setNombre(soporteDto.getNombre());
 		soporte.setApellido(soporteDto.getApellido());

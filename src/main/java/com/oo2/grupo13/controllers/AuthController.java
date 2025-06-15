@@ -22,6 +22,6 @@ public class AuthController {
 
     @GetMapping("/loginSuccess")
     public ModelAndView loginCheck() {
-        return new ModelAndView("redirect:/index");
+        return new ModelAndView("redirect:/");
     }
 }

@@ -1,5 +1,6 @@
 package com.oo2.grupo13.entities;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,9 +15,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@SuperBuilder 
+
 public class Cliente extends Usuario {
 	
 	@ManyToMany
