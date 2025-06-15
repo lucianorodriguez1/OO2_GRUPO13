@@ -32,16 +32,5 @@ public class Cliente extends Usuario {
 	
 	private Set<Area> areas = new HashSet<>();
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 }

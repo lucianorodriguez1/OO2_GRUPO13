@@ -1,5 +1,6 @@
 package com.oo2.grupo13.controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +26,9 @@ public class ClienteController {
 	public ClienteController(ClienteService clienteService) {
 		this.clienteService = clienteService;
 	}
-
+	
 	@GetMapping("/nuevo")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_CREAR_FORM);
 		mAV.addObject("cliente", new Cliente());

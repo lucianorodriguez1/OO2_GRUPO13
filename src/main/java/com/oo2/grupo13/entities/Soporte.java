@@ -45,17 +45,5 @@ public class Soporte extends Usuario {
 		this.turno = turno;
 	}
 	
-	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
