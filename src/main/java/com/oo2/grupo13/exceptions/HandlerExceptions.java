@@ -12,26 +12,31 @@ import org.springframework.ui.Model;
 
 @ControllerAdvice
 public class HandlerExceptions {
-
-//    @ExceptionHandler(EmailYaExisteException.class)
-//    public ModelAndView manejarEmailYaExiste(EmailYaExisteException ex) {
-//    	ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMAIL_EXISTE_ERROR);
-//    	mAV.addObject("mensajeError", ex.getMessage());
-//        return mAV;
-//    }
 	
 	@ExceptionHandler(EmailYaExisteException.class)
 	public ModelAndView manejarEmailYaExiste(EmailYaExisteException ex, HttpServletRequest request) {
 	    ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMAIL_EXISTE_ERROR);
 	    mAV.addObject("mensajeError", ex.getMessage());
 
-	    // Determinar desde dónde vino la solicitud
+	    // Determinar desde donde vino la solicitud
 	    String referer = request.getHeader("Referer");
 	    
-	    if (referer != null && referer.contains("/editar/")) {
-	        mAV.addObject("volverUrl", referer); // volver al form de edición
+	    if (referer != null) {
+	        if (referer.contains("/cliente/editar/")) {
+	            mAV.addObject("volverUrl", referer); // volver al form de edicion cliente
+	        } else if (referer.contains("/soporte/editar/")) {
+	            mAV.addObject("volverUrl", referer); // volver al form de edicion soporte
+	        } else if (referer.contains("/cliente/nuevo")) {
+	            mAV.addObject("volverUrl", "/cliente/nuevo"); // volver a crear cliente
+	        } else if (referer.contains("/soporte/nuevo")) {
+	            mAV.addObject("volverUrl", "/soporte/nuevo"); // volver a crear soporte
+	        } else {
+	            // fallback genérico
+	            mAV.addObject("volverUrl", "/"); 
+	        }
 	    } else {
-	        mAV.addObject("volverUrl", "/cliente/nuevo"); // por defecto, volver al form de creación
+	        // fallback si no hay referer
+	        mAV.addObject("volverUrl", "/");
 	    }
 
 	    return mAV;
