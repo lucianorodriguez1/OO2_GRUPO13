@@ -31,8 +31,13 @@
 		      </ul>
 		    </div>
 
-		    <!-- Botón Cerrar Sesión a la derecha -->
-		    <button class="btn btn-danger ms-auto">Cerrar Sesión</button>
+			<!-- Botón Cerrar Sesión a la derecha -->
+			        <form th:action="@{/auth/logout}" method="post" class="ms-auto">
+			            <button type="submit" class="btn btn-danger" 
+			                onclick="return confirm('¿Estás seguro que deseas cerrar sesion?');">
+			                Cerrar Sesión
+			            </button>
+			        </form>
 		  </div>
 		</nav>
 	<div class="container mt-4">
