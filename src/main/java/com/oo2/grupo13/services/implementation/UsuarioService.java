@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.oo2.grupo13.entities.Usuario;
 import com.oo2.grupo13.exceptions.EmailYaExisteException;
+import com.oo2.grupo13.exceptions.UsuarioNoEncontradoException;
 import com.oo2.grupo13.repositories.IUsuarioRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -49,9 +50,8 @@ public class UsuarioService implements UserDetailsService{
 	}
 
 	public Usuario findById(int id) {
-		Usuario usuario = usuarioRepository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Usuario con id {0} no encontrado",id)));
-		return usuario;
+	    return usuarioRepository.findById(id)
+	        .orElseThrow(() -> new UsuarioNoEncontradoException("No se encontró el usuario con ID: " + id));
 	}
 
 	@Override

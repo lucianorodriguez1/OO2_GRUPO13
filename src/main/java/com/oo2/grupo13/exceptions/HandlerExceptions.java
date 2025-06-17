@@ -62,4 +62,12 @@ public class HandlerExceptions {
         model.addAttribute("mensaje", "Ocurrió un error inesperado.");
         return "error";
     }
+    @ExceptionHandler(UsuarioNoEncontradoException.class)
+    public ModelAndView manejarUsuarioNoEncontrado(UsuarioNoEncontradoException ex) {
+        ModelAndView mav = new ModelAndView("error/usuarioNoEncontrado");
+        mav.addObject("mensajeError", ex.getMessage());
+        mav.addObject("volverUrl", "/usuario/index");
+        return mav;
+    }
+
 }
