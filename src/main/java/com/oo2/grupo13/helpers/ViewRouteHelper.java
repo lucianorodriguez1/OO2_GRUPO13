@@ -5,6 +5,8 @@ public class ViewRouteHelper {
     //HOME
     public static final String HOME = "home/home"; 
 
+
+
     // TAREA
     public static final String TAREA_LISTA = "tareas/lista";
     public static final String TAREA_NUEVA = "tareas/nueva";
@@ -22,9 +24,10 @@ public class ViewRouteHelper {
     public static final String VALORACION_REDIRECT_LISTA = "redirect:/valoraciones/lista";
     
     //TICKETS
+    public static final String INICIO_CLIENTE = "ticket/verTicketsCliente";
+    public static final String INICIO_SOPORTE = "ticket/verTicketsSoporte";
     public static final String VER_TICKETS_CLIENTE = "verTicketsCliente";
-    public static final String VER_TICKETS_SOPORTE = "verTicketsSoporte";
-	
+	public static final String VER_TICKETS_SOPORTE = "verTicketsSoporte";
 	// USUARIO
 	public final static String USUARIO_INDEX = "usuario/index";
 	

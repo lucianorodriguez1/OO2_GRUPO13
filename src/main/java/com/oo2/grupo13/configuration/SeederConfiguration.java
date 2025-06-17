@@ -12,6 +12,8 @@ import com.oo2.grupo13.enums.ROL;
 import com.oo2.grupo13.repositories.IUsuarioRepository;
 import com.oo2.grupo13.repositories.IUsuarioRolRepository;
 
+import lombok.NoArgsConstructor;
+
 import java.util.Set;
 
 @Component
@@ -39,7 +41,6 @@ public class SeederConfiguration implements CommandLineRunner {
             loadUserAdmin();
             loadUserCliente();
             loadUserSoporte();
-
         }
     }
 

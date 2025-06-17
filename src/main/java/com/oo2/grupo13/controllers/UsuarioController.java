@@ -23,7 +23,7 @@ public class UsuarioController {
 		this.usuarioService = usuarioService;
 	}
 	
-	@GetMapping("")
+	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USUARIO_INDEX);
 		mAV.addObject("usuarios", usuarioService.getAll());
