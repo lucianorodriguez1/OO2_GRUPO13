@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oo2.grupo13.dtos.ClienteDTO;
+import com.oo2.grupo13.dtos.SoporteDTO;
 import com.oo2.grupo13.entities.Cliente;
+import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Usuario;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
 import com.oo2.grupo13.services.implementation.UsuarioService;
@@ -59,11 +61,23 @@ public class UsuarioController {
 	        return mAV;
 	    }
 
-//	    if (usuario instanceof Soporte soporte) {
-//	        ModelAndView mAV = new ModelAndView(ViewRouterHelper.SOPORTE_EDITAR_FORM);
-//	        mAV.addObject("soporte", soporte);
-//	        return mAV;
-//	    }
+	    if (usuario instanceof Soporte soporte) {
+	    	SoporteDTO dto = new SoporteDTO();
+	    	dto.setId(soporte.getId());
+	    	dto.setNombre(soporte.getNombre());
+	    	dto.setApellido(soporte.getApellido());
+	        dto.setEmail(soporte.getEmail());
+	        dto.setPassword(soporte.getPassword());
+	        dto.setFotoPerfil(soporte.getFotoPerfil());
+	        dto.setCuil(soporte.getCuil());
+	        dto.setFechaIngreso(soporte.getFechaIngreso());
+	        dto.setTurno(soporte.getTurno());
+	        dto.setRol(soporte.getRol());
+	    	
+	        ModelAndView mAV = new ModelAndView(ViewRouteHelper.SOPORTE_EDITAR_FORM);
+	        mAV.addObject("soporte", dto);
+	        return mAV;
+	    }
 
 	    return new ModelAndView("redirect:/usuario");
 	}
