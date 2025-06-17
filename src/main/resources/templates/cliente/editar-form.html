@@ -47,17 +47,17 @@
 		<div class="container mt-4">
 			<h2>Editar Cliente</h2>
 			<form th:action="@{/cliente/actualizar/{id}(id=${cliente.id})}" method="post" th:object="${cliente}">
-			 	<div class="form-group">
+			 	<div class="form-group mb-3">
 					<label>Nombre</label>
 					 <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ingrese el nombre del cliente">
 					 <small class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
 			  	</div>
-				<div class="form-group">
+				<div class="form-group mb-3">
 					<label>Apellido</label>
 					<input type="text" th:field="*{apellido}" class="form-control" placeholder="Ingrese el apellido del cliente">
 					<small class="text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
 				</div>
-				<div class="form-group">
+				<div class="form-group mb-3">
 					<label>Email</label>
 					<input type="email" th:field="*{email}" class="form-control" placeholder="Ingrese el email">
 					<small class="form-text text-muted">El email no debe estar en uso.</small>
@@ -68,7 +68,7 @@
 					<input type="password" th:field="*{password}" class="form-control" placeholder="Ingrese una contraseña para el cliente">
 					<small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
 				</div> -->	
-				<div class="form-group">
+				<div class="form-group mb-3">
 				    <label>Foto de perfil (Opcional)</label>
 				    <input type="file" th:field="*{fotoPerfil}" class="form-control-file">
 				</div>
