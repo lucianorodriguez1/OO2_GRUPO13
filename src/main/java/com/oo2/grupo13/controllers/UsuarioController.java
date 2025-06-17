@@ -79,7 +79,7 @@ public class UsuarioController {
 	        return mAV;
 	    }
 
-	    return new ModelAndView("redirect:/usuario");
+	    return new ModelAndView("redirect:/usuario/index");
 	}
 
 

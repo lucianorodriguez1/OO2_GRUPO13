@@ -83,7 +83,7 @@ public class ClienteController {
 
 	    clienteService.crearOActualizarCliente(existente);
 
-	    return new ModelAndView("redirect:/usuario");
+	    return new ModelAndView("redirect:/usuario/index");
 	}
 	 
 
