@@ -6,6 +6,45 @@
 	<title>Usuarios</title>
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <div class="container-fluid">
+	    <a class="navbar-brand" href="#">Administración</a>
+
+	    <!-- Botón para colapsar menú en móviles -->
+	    <button
+	      class="navbar-toggler"
+	      type="button"
+	      data-bs-toggle="collapse"
+	      data-bs-target="#navbarNav"
+	      aria-controls="navbarNav"
+	      aria-expanded="false"
+	      aria-label="Toggle navigation"
+	    >
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+
+	    <!-- Enlaces del menú -->
+	    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+	      <ul class="navbar-nav">
+	        <li class="nav-item">
+	          <a class="nav-link" th:href="@{/usuario/index}">Usuarios</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="#">Tickets</a>
+	        </li>
+	      </ul>
+	    </div>
+
+	    <!-- Botón Cerrar Sesión a la derecha -->
+		<form th:action="@{/auth/logout}" method="post" class="ms-auto">
+		    <button type="submit" class="btn btn-danger" 
+				onclick="return confirm('¿Estás seguro que deseas cerrar sesion?');">
+				Cerrar Sesión
+			</button>
+		</form>
+	  </div>
+	</nav>
+
 	<div class="container mt-4">
 		<h2>Lista de Usuarios</h2>
 		<div class="mb-3">
@@ -19,23 +58,30 @@
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th>Email</th>
+					<th>Rol</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="usuario, iterStat : ${usuarios}">
+				<tr th:each="usuario, iterStat : ${usuarios}"
+				    th:if="${usuario.rol.rol.toString() != 'ADMIN'}">
 					<th th:text="${iterStat.index + 1}">1</th>
 					<td th:text="${usuario.nombre}">Nombre</td>
 					<td th:text="${usuario.apellido}">Apellido</td>
 					<td th:text="${usuario.email}">Email</td>
+					<td th:text="${usuario.rol.rol}">Rol</td>
 					<td>
 						<a th:href="@{/usuario/editar/{id}(id=${usuario.id})}" class="btn btn-warning btn-sm">
 							Editar
 						</a>
+					</td>
+					<td>
 						<form th:action="@{/usuario/eliminar/{id}(id=${usuario.id})}" method="post" style="display:inline;">
-						    <button type="submit" class="btn btn-danger btn-sm"
-						            onclick="return confirm('¿Estás seguro que deseas eliminar este usuario?');">
-						        Eliminar
-						    </button>
+							<button type="submit" class="btn btn-danger btn-sm"
+								onclick="return confirm('¿Estás seguro que deseas eliminar este usuario?');">
+								Eliminar
+							</button>
 						</form>
 					</td>
 				</tr>

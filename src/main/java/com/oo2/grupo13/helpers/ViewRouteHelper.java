@@ -35,6 +35,9 @@ public class ViewRouteHelper {
 	public final static String CLIENTE_CREAR_FORM = "cliente/crear-form";
 	public final static String CLIENTE_EDITAR_FORM = "cliente/editar-form";
 	
+	// SOPORTE 
+	public final static String SOPORTE_EDITAR_FORM = "soporte/editar-form";
+	
 	// ERRORES
 	public final static String EMAIL_EXISTE_ERROR = "error/email-ya-existe";
     public final static String TAREA_NO_ENCONTRADA_ERROR ="error/errorTarea";

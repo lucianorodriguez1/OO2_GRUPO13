@@ -1,5 +1,6 @@
 package com.oo2.grupo13.controllers;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.oo2.grupo13.dtos.SoporteDTO;
 import com.oo2.grupo13.services.IEmailService;
 import com.oo2.grupo13.services.ISoporteService;
+
 
 @Controller
 @RequestMapping("/soporte")
@@ -67,4 +69,11 @@ public class SoporteController {
         return new RedirectView("/soporte/nuevo");
 
 	}
+	
+//	@PostMapping("/actualizar/{id}")
+//	public ModelAndView update() {
+//	    
+//	}
+//	 
+	
 }

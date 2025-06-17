@@ -5,6 +5,45 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 	</head>
 	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		  <div class="container-fluid">
+		    <a class="navbar-brand" href="#">Administración</a>
+
+		    <!-- Botón para colapsar menú en móviles -->
+		    <button
+		      class="navbar-toggler"
+		      type="button"
+		      data-bs-toggle="collapse"
+		      data-bs-target="#navbarNav"
+		      aria-controls="navbarNav"
+		      aria-expanded="false"
+		      aria-label="Toggle navigation"
+		    >
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+
+		    <!-- Enlaces del menú -->
+		    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+		      <ul class="navbar-nav">
+		        <li class="nav-item">
+		          <a class="nav-link" th:href="@{/usuario/index}">Usuarios</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">Tickets</a>
+		        </li>
+		      </ul>
+		    </div>
+
+		    <!-- Botón Cerrar Sesión a la derecha -->
+			<form th:action="@{/auth/logout}" method="post" class="ms-auto">
+			    <button type="submit" class="btn btn-danger" 
+					onclick="return confirm('¿Estás seguro que deseas cerrar sesion?');">
+					Cerrar Sesión
+				</button>
+			</form>
+		  </div>
+		</nav>
+
 		<div class="container mt-4">
 			<h2>Editar Cliente</h2>
 			<form th:action="@{/cliente/actualizar/{id}(id=${cliente.id})}" method="post" th:object="${cliente}">
