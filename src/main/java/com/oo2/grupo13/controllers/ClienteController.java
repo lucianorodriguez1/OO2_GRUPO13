@@ -57,7 +57,7 @@ public class ClienteController {
 		cliente.setRol(clienteDTO.getRol());
 		
 		clienteService.crearOActualizarCliente(cliente);
-
+		
 		return new ModelAndView("redirect:/" + ViewRouteHelper.USUARIO_INDEX);
 	}
 	

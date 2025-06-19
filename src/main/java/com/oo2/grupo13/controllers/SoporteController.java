@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.oo2.grupo13.dtos.SoporteDTO;
@@ -42,7 +43,7 @@ public class SoporteController {
 	}
 
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("soporte") SoporteDTO soporteDto) {
+	public RedirectView create(@ModelAttribute("soporte") SoporteDTO soporteDto, RedirectAttributes redirectAttributes) {
 		/*
 	    System.out.println("Nombre: " + soporteDto.getNombre());
 	    System.out.println("Apellido: " + soporteDto.getApellido());
@@ -65,8 +66,11 @@ public class SoporteController {
         } catch (Exception e) {
             System.err.println("Error al enviar el correo: " + e.getMessage());
         }
+        
+        
+        redirectAttributes.addFlashAttribute("mensajeExito", "Soporte creado exitosamente.");
 
-        return new RedirectView("/soporte/nuevo");
+        return new RedirectView("/usuario/index");
 
 	}
 	

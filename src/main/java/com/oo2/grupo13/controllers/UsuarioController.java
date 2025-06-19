@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oo2.grupo13.dtos.ClienteDTO;
 import com.oo2.grupo13.dtos.SoporteDTO;
@@ -33,10 +34,11 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/eliminar/{id}")
-	public String eliminar(@PathVariable int id) {
+	public String eliminar(@PathVariable int id, RedirectAttributes redirectAttributes) {
 		usuarioService.delete(id);
-		return "redirect:/usuario";
-	}
+		 redirectAttributes.addFlashAttribute("mensajeExito", "Usuario eliminado correctamente");
+		    return "redirect:/usuario/index";
+		}	
 	
 	@GetMapping("/editar/{id}")
 	public ModelAndView editarForm(@PathVariable int id) {
