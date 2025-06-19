@@ -100,7 +100,7 @@ public class TareaController {
         }
         tareaEditar.setTicketAsociado(tareaDTO.getTicketAsociado() != null ? modelMapper.map(tareaDTO.getTicketAsociado(), Ticket.class) : null); //para probar el ticket puede ser nulo
         tareaService.insertOrUpdate(modelMapper.map(tareaEditar, TareaDTO.class));
-        return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
+        return new RedirectView("/tareas/verTareasTicket/" + tareaDTO.getTicketAsociado().getId());
     }
 
     // Elimino la tarea por el id

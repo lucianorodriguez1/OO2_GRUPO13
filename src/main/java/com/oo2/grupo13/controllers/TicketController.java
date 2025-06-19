@@ -17,6 +17,7 @@ import com.oo2.grupo13.entities.Cliente;
 import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Ticket;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
+import com.oo2.grupo13.services.IEmailService;
 import com.oo2.grupo13.services.ISoporteService;
 import com.oo2.grupo13.services.ITicketService;
 
@@ -26,9 +27,12 @@ import com.oo2.grupo13.services.ITicketService;
 public class TicketController {
     private ITicketService ticketService;
 	private ISoporteService soporteService;
+	private IEmailService emailService;
     private ModelMapper modelMapper = new ModelMapper();
 
-    public TicketController(ITicketService ticketService, ISoporteService soporteService) {
+    public TicketController(ITicketService ticketService, ISoporteService soporteService, IEmailService emailService) {
+		this.emailService = emailService;
+		this.ticketService = ticketService;
 		this.soporteService = soporteService;
         this.ticketService = ticketService;
     }
@@ -96,6 +100,22 @@ public class TicketController {
 		String emailCliente = ((Cliente) authentication.getPrincipal()).getEmail();
 		dto.setCliente(emailCliente);
 		ticketService.insertOrUpdateCliente(dto);
+
+		String[] destinatario = new String[] { emailCliente };
+        String asunto = "Ticket creado exitosamente";
+        String mensaje = "Estimado cliente,\n\n" +
+						 "Su ticket ha sido creado exitosamente. A continuación, los detalles:\n" +
+						 "Asunto: " + dto.getAsunto() + "\n" +
+						 "Descripción: " + dto.getDescripcion() + "\n\n" +
+						 "Gracias por contactarnos.\n\n" +
+						 "Saludos,\n" +
+						 "Equipo de Soporte";
+
+        try {
+            emailService.sendEmail(destinatario, asunto, mensaje);
+        } catch (Exception e) {
+            System.err.println("Error al enviar el correo: " + e.getMessage());
+        }
 		return new RedirectView(ViewRouteHelper.VER_TICKETS_CLIENTE);
     }
 
