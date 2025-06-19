@@ -28,6 +28,10 @@
 	</div>
 
 	<div class="container mt-4">
+		<div class="mb-3">
+			<a th:href="@{/cliente/nuevo}" class="btn btn-primary">Crear Cliente</a>
+			<a th:href="@{/soporte/nuevo}" class="btn btn-primary">Crear Soporte</a>
+		</div>
 		<h2>Lista de Usuarios</h2>
 		<table class="table table-striped">
 			<thead>
@@ -73,10 +77,6 @@
 				</tr>
 			</tbody>
 		</table>
-		<div class="mb-3">
-			<a th:href="@{/cliente/nuevo}" class="btn btn-primary">Crear Cliente</a>
-			<a th:href="@{/soporte/nuevo}" class="btn btn-primary">Crear Soporte</a>
-		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 
