@@ -4,10 +4,10 @@
 <head>
     <title>Ver Tickets</title>
 </head>
-<body>
-	<!-- Navbar fragment -->
+
+<body sec:authorize="hasRole('CLIENTE')">
+    	<!-- Navbar fragment -->
 	<div th:replace="fragments/navbar :: navbar"></div>
-	
     <h1 class="text-center m-4">Lista de tickets</h1>
     <div class="d-flex justify-content-center align-items-center container">
     <table class="table table-striped-columns">
@@ -18,8 +18,10 @@
                 <th scope="col">Descripción</th>
                 <th scope="col">Fecha Alta</th>
                 <th scope="col">Fecha Baja</th>
+                <th scope="col">Estado</th>
                 <th scope="col">Solicitante</th>
                 <th scope="col">Soporte asignado</th>
+                <th scope="col">Valorar servicio</th>
             </tr>
         </thead>
         <tbody>
@@ -29,8 +31,17 @@
                     <td th:text="${ticket.descripcion}"></td>
                     <td th:text="${#temporals.format(ticket.fechaAlta, 'dd/MM/yyyy HH:mm')}"></td>
                     <td th:text="${#temporals.format(ticket.fechaBaja, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${ticket.estado.name()}"></td>
                     <td th:text="${ticket.cliente.apellido + ', ' + ticket.cliente.nombre}"></td>
-                    <td th:text="${ticket.soporteAsignado != null ? ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre : 'Sin asignar'}"></td>                </tr>
+                    <td th:text="${ticket.soporteAsignado != null ? ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre : 'Sin asignar'}"></td>                
+                    <td th:if="${ticket.estado.name() == 'COMPLETADO'}" class="text-center">
+                        <a href="" class="btn btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" preserveAspectRatio="none" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
+                                <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1"/>
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
         </tbody>
         </table>
     </div>
