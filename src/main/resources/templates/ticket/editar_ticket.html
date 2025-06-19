@@ -32,6 +32,9 @@
     </style>
 </head>
 <body>
+	<!-- Navbar fragment -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+	
     <div class="container mt-4">
         <h1>Editar Ticket</h1>
         <form action="#" th:action="@{/ticket/editar}" th:object="${ticket}" method="post">
