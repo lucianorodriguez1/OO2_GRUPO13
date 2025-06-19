@@ -34,13 +34,19 @@ public class ViewRouteHelper {
 	// CLIENTE
 	public final static String CLIENTE_CREAR_FORM = "cliente/crear-form";
 	public final static String CLIENTE_EDITAR_FORM = "cliente/editar-form";
+	public static final String VER_CLIENTE = "cliente/cliente"; 
 	
 	// SOPORTE 
 	public final static String SOPORTE_EDITAR_FORM = "soporte/editar-form";
+	public static final String VER_SOPORTE = "soporte/soporte"; 
 	
 	// ERRORES
 	public final static String EMAIL_EXISTE_ERROR = "error/email-ya-existe";
     public final static String TAREA_NO_ENCONTRADA_ERROR ="error/errorTarea";
-    public final static String VALORACION_INCORRECTA_ERROR ="error/errorValoracion"; 
+    public final static String VALORACION_INCORRECTA_ERROR ="error/errorValoracion";
+
+
+
+	
 
 }
