@@ -36,7 +36,7 @@ public class UsuarioController {
 	@PostMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable int id, RedirectAttributes redirectAttributes) {
 		usuarioService.delete(id);
-		 redirectAttributes.addFlashAttribute("mensajeExito", "Usuario eliminado correctamente");
+		 redirectAttributes.addFlashAttribute("mensajeEliminar", "Usuario eliminado correctamente");
 		    return "redirect:/usuario/index";
 		}	
 	

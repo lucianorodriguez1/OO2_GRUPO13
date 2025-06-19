@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oo2.grupo13.configuration.SeederConfiguration;
 import com.oo2.grupo13.dtos.ClienteDTO;
@@ -39,7 +40,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping("/guardar")
-	public ModelAndView create(@Valid @ModelAttribute("cliente") ClienteDTO clienteDTO, BindingResult result) {
+	public ModelAndView create(@Valid @ModelAttribute("cliente") ClienteDTO clienteDTO, BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return new ModelAndView(ViewRouteHelper.CLIENTE_CREAR_FORM);
 		}
@@ -57,12 +58,13 @@ public class ClienteController {
 		cliente.setRol(clienteDTO.getRol());
 		
 		clienteService.crearOActualizarCliente(cliente);
-		
+        redirectAttributes.addFlashAttribute("mensajeCrear", "Cliente creado exitosamente.");
+
 		return new ModelAndView("redirect:/" + ViewRouteHelper.USUARIO_INDEX);
 	}
 	
 	@PostMapping("/actualizar/{id}")
-	public ModelAndView update(@PathVariable int id, @Valid @ModelAttribute("cliente") ClienteEditarDTO clienteDTO, BindingResult result) {
+	public ModelAndView update(@PathVariable int id, @Valid @ModelAttribute("cliente") ClienteEditarDTO clienteDTO, BindingResult result, RedirectAttributes redirectAttributes) {
 	    if (result.hasErrors()) {
 	        ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_EDITAR_FORM);
 	        mAV.addObject("cliente", clienteDTO);
@@ -82,6 +84,7 @@ public class ClienteController {
 	    existente.setRol(clienteDTO.getRol());
 
 	    clienteService.crearOActualizarCliente(existente);
+        redirectAttributes.addFlashAttribute("mensajeEditar", "Cliente actualizado exitosamente.");
 
 	    return new ModelAndView("redirect:/usuario/index");
 	}

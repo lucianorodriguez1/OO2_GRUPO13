@@ -47,9 +47,21 @@
 	<!-- Navbar fragment -->
 	<div th:replace="fragments/navbar :: navbar"></div>
 	
-	<!-- Mensaje de éxito al crearrrrr un soporte-->
-	<div th:if="${mensajeExito}" class="alert alert-success alert-dismissible fade show mt-3 mx-3" role="alert">
-	  <span th:text="${mensajeExito}"></span>
+	<!-- Mensaje crear -->
+	<div th:if="${mensajeCrear}" class="alert alert-success alert-dismissible fade show mt-3 mx-3" role="alert">
+	  <span th:text="${mensajeCrear}"></span>
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+	<!-- Mensaje editar -->
+	<div th:if="${mensajeEditar}" class="alert alert-warning alert-dismissible fade show mt-3 mx-3" role="alert">
+	  <span th:text="${mensajeEditar}"></span>
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+	<!-- Mensaje eliminar -->
+	<div th:if="${mensajeEliminar}" class="alert alert-danger alert-dismissible fade show mt-3 mx-3" role="alert">
+	  <span th:text="${mensajeEliminar}"></span>
 	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 

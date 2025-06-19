@@ -68,7 +68,7 @@ public class SoporteController {
         }
         
         
-        redirectAttributes.addFlashAttribute("mensajeExito", "Soporte creado exitosamente.");
+        redirectAttributes.addFlashAttribute("mensajeCrear", "Soporte creado exitosamente.");
 
         return new RedirectView("/usuario/index");
 
