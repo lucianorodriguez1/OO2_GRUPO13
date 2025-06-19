@@ -28,6 +28,7 @@ public class ViewRouteHelper {
     public static final String INICIO_SOPORTE = "ticket/verTicketsSoporte";
     public static final String VER_TICKETS_CLIENTE = "verTicketsCliente";
 	public static final String VER_TICKETS_SOPORTE = "verTicketsSoporte";
+	public static final String LISTA_TICKETS = "ticket/tickets";
 	// USUARIO
 	public final static String USUARIO_INDEX = "usuario/index";
 	
@@ -44,9 +45,5 @@ public class ViewRouteHelper {
 	public final static String EMAIL_EXISTE_ERROR = "error/email-ya-existe";
     public final static String TAREA_NO_ENCONTRADA_ERROR ="error/errorTarea";
     public final static String VALORACION_INCORRECTA_ERROR ="error/errorValoracion";
-
-
-
-	
 
 }

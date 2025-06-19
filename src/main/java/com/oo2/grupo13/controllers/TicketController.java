@@ -32,6 +32,13 @@ public class TicketController {
 		this.soporteService = soporteService;
         this.ticketService = ticketService;
     }
+    
+    @GetMapping("/verTickets")
+	public ModelAndView index() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LISTA_TICKETS);
+		mAV.addObject("tickets", ticketService.getAll());
+		return mAV;
+	}
 
 	@GetMapping("/verTicketsCliente")
 	public ModelAndView verTicketsCliente() {
