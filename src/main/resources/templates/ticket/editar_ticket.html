@@ -37,7 +37,7 @@
         <form action="#" th:action="@{/ticket/editar}" th:object="${ticket}" method="post">
             <input type="hidden" th:field="*{id}" />
             <div class="form-group">
-                <label for="estado">Nombre</label>
+                <label for="estado">Estado</label>
                 <select th:field="*{estado}" id="estado" class="form-control">
                     <option hidden th:value="${ticket.estado}" th:text="${ticket.estado}" disabled selected></option>
                     <option value="NUEVO">NUEVO</option>
