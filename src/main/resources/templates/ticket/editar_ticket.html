@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar tarea</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <style>
+        h1 {
+            color: #1d75bd; /* Darker light blue for the heading */
+        }
+        .btn-primary {
+            color: #fff; /* White text for buttons */
+            background-color: #4dabf7; /* Light blue for primary buttons */
+            border-color: #4dabf7;
+        }
+        .btn-primary:hover {
+            background-color: #4dabf7; /* Darker light blue on hover */
+            border-color: #4dabf7;
+        }
+        a {
+            color: #f9fcff; /* Light blue for links */
+        }
+        a:hover {
+            color: #4dabf7; /* Darker light blue on hover */
+            text-decoration: none;
+        }
+        label {
+            color: #1d75bd; /* Darker light blue for labels */
+        }
+        input[type="text"], input[type="checkbox"], select {
+            border-color: #4dabf7; /* Light blue border for inputs */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Editar Ticket</h1>
+        <form action="#" th:action="@{/ticket/editar}" th:object="${ticket}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <div class="form-group">
+                <label for="estado">Nombre</label>
+                <select th:field="*{estado}" id="estado" class="form-control">
+                    <option hidden th:value="${ticket.estado}" th:text="${ticket.estado}" disabled selected></option>
+                    <option value="NUEVO">NUEVO</option>
+                    <option value="EN_PROCESO">EN_PROCESO</option>
+                    <option value="COMPLETADO">COMPLETADO</option>
+                    <option value="CANCELADO">CANCELADO</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="prioridad">Prioridad</label>
+                <select th:field="*{prioridad}" id="prioridad" class="form-control">
+                    <option hidden th:value="${ticket.prioridad}" th:text="${ticket.prioridad}" disabled selected></option>
+                    <option value="URGENTE">URGENTE</option>
+                    <option value="ALTA">ALTA</option>
+                    <option value="MEDIA">MEDIA</option>
+                    <option value="BAJA">BAJA</option>
+                </select>   
+            </div>
+            <div class="form-group">
+                <label for="soporte">Soporte asignado</label>
+                    <select th:field="*{soporteAsignado}" id="soporteAsignado" class="form-control">
+                            <option hidden 
+                            th:value="${ticket.soporteAsignado != null && ticket.soporteAsignado.id != null ? ticket.soporteAsignado.id : Sin_asignar}" 
+                            th:text="${ticket.soporteAsignado != null ? ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre : 'Sin asignar'}" 
+                            disabled selected>
+                            </option>
+                            <option th:each="soporte : ${soportes}" 
+                            th:value="${soporte.id != null ? soporte.id : 0}" 
+                            th:text="${soporte.apellido + ', ' + soporte.nombre}">
+                            </option>
+                            <option th:if="${ticket.soporteAsignado == null || ticket.soporteAsignado.id == null}" value="0">Sin asignar</option>
+                    </select>
+                    
+            </div>
+            <button type="submit" class="btn btn-primary">Editar</button>
+            <a th:href="@{/tareas/lista}" class="btn btn-primary mt-2">Volver al listado</a>
+        </form>
+    </div>
+</body>
+</html>

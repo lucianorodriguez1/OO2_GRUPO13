@@ -31,11 +31,12 @@
                 <td th:text="${ticket.estado}"></td>
                 <td th:text="${ticket.prioridad}"></td>
                 <td th:text="${ticket.cliente.apellido + ', ' + ticket.cliente.nombre}"></td>
-                <td th:text="${ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre}"></td>
-                <td>
+                <td th:text="${ticket.soporteAsignado != null ? ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre : 'Sin asignar'}"></td>                <td>
                     <a th:href="@{/tareas/verTareasTicket/{id}(id=${ticket.id})}">Ver Tareas</a>
                 </td>
-                
+                <td>
+                    <a th:href="@{/ticket/modificar/{id}(id=${ticket.id})}" class="btn btn-primary">Editar</a>
+                </td>
                 </tr>
             </tbody>
         </table>
