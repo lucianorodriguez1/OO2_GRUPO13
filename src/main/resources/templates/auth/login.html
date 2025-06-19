@@ -8,32 +8,37 @@
     />
   </head>
   <body class="bg-dark d-flex justify-content-center align-items-center h-100">
-
     <div class="card p-4 shadow w-100" style="max-width: 400px;">
       <h4 class="text-center mb-4">Iniciar Sesión</h4>
-      <form>
+      <form th:action="@{/auth/loginProcess}" method="post">
         <div class="form-group">
           <label for="correo">Correo Electrónico</label>
           <input
             type="email"
             class="form-control"
             id="correo"
+			      name="username"
             placeholder="Ingrese su correo electrónico"
           />
         </div>
         <div class="form-group">
-          <label for="contrasena">Contraseña</label>
-          <input
-            type="password"
-            class="form-control"
-            id="contrasena"
-            placeholder="Ingrese su contraseña"
-          />
+            <label for="contrasena">Contraseña</label>
+            <input
+                type="password"
+                class="form-control"
+                id="contrasena"
+                name="password"
+                placeholder="Ingrese su contraseña"
+            />
         </div>
+		<div th:if="${error}" class="alert alert-danger">Credenciales inválidas</div>
         <div>
           <button type="submit" class="btn btn-primary">Ingresar</button>
         </div>
       </form>
+	  <div th:if="${logout != null}">
+		Sesion cerrada correctamente.
+	  </div>
     </div>
   </body>
-</html>
+</html> 

@@ -39,6 +39,9 @@
     </style>
 </head>
 <body>
+	<!-- Navbar fragment -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+	
     <div class="container mt-4">
         <h2>Crear Nueva Tarea</h2>
         <form th:action="@{/tareas/crear}" th:object="${tarea}" method="post">

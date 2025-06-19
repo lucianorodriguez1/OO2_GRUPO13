@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Detalle del Cliente</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<!-- Navbar fragment -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+	
+	<div class="container mt-5">
+		<h2>Detalle del Cliente</h2>
+		<table class="table">
+			<tr><th>Nombre:</th><td th:text="${cliente.nombre}">Nombre</td></tr>
+			<tr><th>Apellido:</th><td th:text="${cliente.apellido}">Apellido</td></tr>
+			<tr><th>Email:</th><td th:text="${cliente.email}">Email</td></tr>
+			<tr><th>Areas:</th><td>Area</td></tr> 
+		</table>
+		<a th:href="@{/usuario/index}" class="btn btn-secondary">Volver</a>
+	</div>
+</body>
+</html>

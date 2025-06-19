@@ -1,8 +1,7 @@
 package com.oo2.grupo13.controllers;
 
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,18 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.security.core.Authentication;
 import com.oo2.grupo13.dtos.TicketDTOCliente;
 import com.oo2.grupo13.dtos.TicketDTOSoporte;
+import com.oo2.grupo13.entities.Cliente;
 import com.oo2.grupo13.entities.Soporte;
-import com.oo2.grupo13.entities.Tarea;
 import com.oo2.grupo13.entities.Ticket;
-import com.oo2.grupo13.exceptions.TareaNoEncontradaException;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
 import com.oo2.grupo13.services.ISoporteService;
 import com.oo2.grupo13.services.ITicketService;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 
 @Controller
@@ -36,6 +32,13 @@ public class TicketController {
 		this.soporteService = soporteService;
         this.ticketService = ticketService;
     }
+    
+    @GetMapping("/verTickets")
+	public ModelAndView index() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LISTA_TICKETS);
+		mAV.addObject("tickets", ticketService.getAll());
+		return mAV;
+	}
 
 	@GetMapping("/verTicketsCliente")
 	public ModelAndView verTicketsCliente() {
@@ -53,6 +56,7 @@ public class TicketController {
 		mAV.addObject("soportes", soporteService.getAll());
 		return mAV;
 	}
+
 	@GetMapping("/modificar/{id}")
 	public ModelAndView modificarTicket(@PathVariable("id") long id) {
 		ModelAndView mAV = new ModelAndView("ticket/editar_ticket");
@@ -79,7 +83,6 @@ public class TicketController {
         return new RedirectView(ViewRouteHelper.VER_TICKETS_SOPORTE);
 	}
 	
-	
 	@GetMapping("/nuevo")
 	public ModelAndView crearTicket() {
 		ModelAndView mAV = new ModelAndView("ticket/generar_ticket_cliente");
@@ -89,8 +92,11 @@ public class TicketController {
 
 	@PostMapping("/crear")
     public RedirectView crearTicket(TicketDTOCliente dto) {
-    ticketService.insertOrUpdateCliente(dto);
-    return new RedirectView(ViewRouteHelper.VER_TICKETS_CLIENTE);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String emailCliente = ((Cliente) authentication.getPrincipal()).getEmail();
+		dto.setCliente(emailCliente);
+		ticketService.insertOrUpdateCliente(dto);
+		return new RedirectView(ViewRouteHelper.VER_TICKETS_CLIENTE);
     }
 
 

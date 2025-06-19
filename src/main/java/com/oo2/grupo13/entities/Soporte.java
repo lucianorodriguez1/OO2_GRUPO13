@@ -1,15 +1,30 @@
 package com.oo2.grupo13.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+
+import org.springframework.security.core.GrantedAuthority;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
+@SuperBuilder 
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+
+//@Builder
 public class Soporte extends Usuario {
 	
 	@ManyToMany
@@ -19,10 +34,7 @@ public class Soporte extends Usuario {
 	private String cuil;
 	private LocalDate fechaIngreso;
 	private TURNO turno;
-	
-	public Soporte() {
-		super();
-	}
+
 	
 	public Soporte(String nombre, String apellido, String email, String password, String fotoPerfil, UsuarioRol rol,
 			String cuil, LocalDate fechaIngreso, TURNO turno) {
@@ -33,36 +45,5 @@ public class Soporte extends Usuario {
 		this.turno = turno;
 	}
 	
-	public List<Especialidad> getEspecialidades() {
-		return especialidades;
-	}
-
-	public void setEspecialidades(List<Especialidad> especialidades) {
-		this.especialidades = especialidades;
-	}
-
-	public String getCuil() {
-		return cuil;
-	}
-
-	public void setCuil(String cuil) {
-		this.cuil = cuil;
-	}
-
-	public LocalDate getFechaIngreso() {
-		return fechaIngreso;
-	}
-
-	public void setFechaIngreso(LocalDate fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
-	}
-
-	public TURNO getTurno() {
-		return turno;
-	}
-
-	public void setTurno(TURNO turno) {
-		this.turno = turno;
-	}
 
 }

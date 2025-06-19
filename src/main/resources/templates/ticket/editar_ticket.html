@@ -32,12 +32,18 @@
     </style>
 </head>
 <body>
+	<!-- Navbar fragment -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+	
+    <div th:if="${errorTareasSinCompletar}" class="alert alert-danger d-flex justify-content-center">
+        <span th:text="${mensaje}"></span>
+    </div>
     <div class="container mt-4">
         <h1>Editar Ticket</h1>
         <form action="#" th:action="@{/ticket/editar}" th:object="${ticket}" method="post">
             <input type="hidden" th:field="*{id}" />
             <div class="form-group">
-                <label for="estado">Nombre</label>
+                <label for="estado">Estado</label>
                 <select th:field="*{estado}" id="estado" class="form-control">
                     <option hidden th:value="${ticket.estado}" th:text="${ticket.estado}" disabled selected></option>
                     <option value="NUEVO">NUEVO</option>
@@ -72,8 +78,11 @@
                     </select>
                     
             </div>
-            <button type="submit" class="btn btn-primary">Editar</button>
-            <a th:href="@{/tareas/lista}" class="btn btn-primary mt-2">Volver al listado</a>
+            <div>
+                <button type="submit" class="btn btn-primary">Editar</button>
+                <a th:href="@{/ticket/verTicketsSoporte}" class="btn btn-primary mt-2">Volver</a>
+            </div>
+            
         </form>
     </div>
 </body>

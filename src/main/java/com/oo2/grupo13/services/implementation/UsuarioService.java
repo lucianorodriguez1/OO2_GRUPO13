@@ -4,18 +4,22 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
 
-
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.oo2.grupo13.entities.Usuario;
 import com.oo2.grupo13.exceptions.EmailYaExisteException;
+import com.oo2.grupo13.exceptions.UsuarioNoEncontradoException;
 import com.oo2.grupo13.repositories.IUsuarioRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
 
 @Service("usuarioService")
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService{
 	
 	private IUsuarioRepository usuarioRepository;
 
@@ -46,9 +50,17 @@ public class UsuarioService {
 	}
 
 	public Usuario findById(int id) {
-		Usuario usuario = usuarioRepository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Usuario con id {0} no encontrado",id)));
-		return usuario;
+	    return usuarioRepository.findById(id)
+	        .orElseThrow(() -> new UsuarioNoEncontradoException("No se encontró el usuario con ID: " + id));
+	}
+
+	@Override
+    @Transactional(readOnly = true)
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		  return usuarioRepository.findByEmail(username).orElseThrow(
+	                () -> new UsernameNotFoundException(MessageFormat.format("User with email {0} not found", username))
+	        );
 	}
 	
 
