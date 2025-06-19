@@ -55,6 +55,7 @@
 					<th>Apellido</th>
 					<th>Email</th>
 					<th>Rol</th>
+					<th>Ver</th>
 					<th>Editar</th>
 					<th>Eliminar</th>
 				</tr>
@@ -67,6 +68,11 @@
 					<td th:text="${usuario.apellido}">Apellido</td>
 					<td th:text="${usuario.email}">Email</td>
 					<td th:text="${usuario.rol.rol}">Rol</td>
+					<td>
+						<a th:href="@{/usuario/ver/{id}(id=${usuario.id})}" class="btn btn-success btn-sm">
+							Ver
+						</a>
+						</td>
 					<td>
 						<a th:href="@{/usuario/editar/{id}(id=${usuario.id})}" class="btn btn-warning btn-sm">
 							Editar
@@ -85,7 +91,7 @@
 		</table>
 		<div class="mb-3">
 			<a th:href="@{/cliente/nuevo}" class="btn btn-primary">Crear Cliente</a>
-			<a th:href="@{/soporte/nuevo}" class="btn btn-success">Crear Soporte</a>
+			<a th:href="@{/soporte/nuevo}" class="btn btn-primary">Crear Soporte</a>
 		</div>
 	</div>
 </body>

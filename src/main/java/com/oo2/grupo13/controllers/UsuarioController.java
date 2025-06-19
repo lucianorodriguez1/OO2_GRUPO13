@@ -35,7 +35,7 @@ public class UsuarioController {
 	@PostMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable int id) {
 		usuarioService.delete(id);
-		return "redirect:/usuario";
+		return "redirect:/usuario/index";
 	}
 	
 	@GetMapping("/editar/{id}")
@@ -43,10 +43,8 @@ public class UsuarioController {
 	    Usuario usuario = usuarioService.findById(id);
 	    
 	    if (usuario == null) {
-	        return new ModelAndView("redirect:/usuario");
-	    }
-
-	    if (usuario instanceof Cliente cliente) {
+	        return new ModelAndView("redirect:/usuario/index");
+	    } else if (usuario instanceof Cliente cliente) {
 	        ClienteDTO dto = new ClienteDTO();
 	        dto.setId(cliente.getId());
 	        dto.setNombre(cliente.getNombre());
@@ -59,9 +57,7 @@ public class UsuarioController {
 	        ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_EDITAR_FORM);
 	        mAV.addObject("cliente", dto);
 	        return mAV;
-	    }
-
-	    if (usuario instanceof Soporte soporte) {
+	    } else if (usuario instanceof Soporte soporte) {
 	    	SoporteDTO dto = new SoporteDTO();
 	    	dto.setId(soporte.getId());
 	    	dto.setNombre(soporte.getNombre());
@@ -81,6 +77,26 @@ public class UsuarioController {
 
 	    return new ModelAndView("redirect:/usuario/index");
 	}
+	
+	@GetMapping("ver/{id}")
+	public ModelAndView verUsuario(@PathVariable int id) {
+	    Usuario usuario = usuarioService.findById(id);
+
+	    if (usuario == null) {
+	        return new ModelAndView("redirect:/usuario/index");
+	    } else if (usuario instanceof Cliente cliente) {
+	        ModelAndView mAV = new ModelAndView(ViewRouteHelper.VER_CLIENTE);
+	        mAV.addObject("cliente", cliente);
+	        return mAV;
+	    } else if (usuario instanceof Soporte soporte) {
+	        ModelAndView mAV = new ModelAndView(ViewRouteHelper.VER_SOPORTE);
+	        mAV.addObject("soporte", soporte);
+	        return mAV;
+	    }
+
+	    return new ModelAndView("redirect:/usuario/index");
+	}
+
 
 
 }
