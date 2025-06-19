@@ -1,12 +1,6 @@
 package com.oo2.grupo13.helpers;
 
 public class ViewRouteHelper {
-
-    //HOME
-    public static final String HOME = "home/home"; 
-
-
-
     // TAREA
     public static final String TAREA_LISTA = "tareas/lista";
     public static final String TAREA_NUEVA = "tareas/nueva";
