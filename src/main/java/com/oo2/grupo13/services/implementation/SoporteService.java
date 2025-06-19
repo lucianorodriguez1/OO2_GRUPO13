@@ -58,28 +58,43 @@ public class SoporteService implements ISoporteService{
 	}
 	@Override
 	public SoporteDTO insertOrUpdate(SoporteDTO soporteDto) {
-		Soporte soporte = new Soporte();
-		Optional<UsuarioRol> rolPorDefecto = Optional.of(usuarioRolRepository.findByRol(ROL.SOPORTE).orElseThrow(() -> new RuntimeException("Rol no encontrado")));
-	    
-		soporte.setNombre(soporteDto.getNombre());
-		soporte.setApellido(soporteDto.getApellido());
-		soporte.setEmail(soporteDto.getEmail());
-		soporte.setPassword((new BCryptPasswordEncoder(7).encode(soporteDto.getPassword())));
-		soporte.setFotoPerfil(soporteDto.getFotoPerfil());
-		soporte.setRol(rolPorDefecto.get());
+	    Soporte soporte;
 
-		soporte.setCuil(soporteDto.getCuil());
-		soporte.setFechaIngreso(soporteDto.getFechaIngreso());
-		soporte.setTurno(soporteDto.getTurno());
-		
-		// Validar si el email ya existe 
-		usuarioService.validarEmailUnico(soporte.getEmail(), soporte.getId());
-		
-		// Guardar en base de datos
-		Soporte guardado = soporteRepository.save(soporte);
+	    // Buscar por ID (solo si viene con ID)
+	    if (soporteDto.getId() != 0) {
+	        soporte = soporteRepository.findById(soporteDto.getId())
+	            .orElseThrow(() -> new RuntimeException("Soporte no encontrado"));
+	    } else {
+	        soporte = new Soporte();
+	        // Asignar rol por defecto solo si es nuevo
+	        UsuarioRol rol = usuarioRolRepository.findByRol(ROL.SOPORTE)
+	            .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+	        soporte.setRol(rol);
+	    }
 
-        return modelMapper.map(guardado, SoporteDTO.class);
+	    soporte.setNombre(soporteDto.getNombre());
+	    soporte.setApellido(soporteDto.getApellido());
+	    soporte.setEmail(soporteDto.getEmail());
+
+	    // Solo codificás la contraseña si cambió (o si es nuevo)
+	    if (soporteDto.getPassword() != null && !soporteDto.getPassword().isBlank()) {
+	        soporte.setPassword(new BCryptPasswordEncoder(7).encode(soporteDto.getPassword()));
+	    }
+
+	    soporte.setFotoPerfil(soporteDto.getFotoPerfil());
+	    soporte.setCuil(soporteDto.getCuil());
+	    soporte.setFechaIngreso(soporteDto.getFechaIngreso());
+	    soporte.setTurno(soporteDto.getTurno());
+
+	    // Validar email único (pasás el id actual)
+	    usuarioService.validarEmailUnico(soporte.getEmail(), soporte.getId());
+
+	    // Guardar
+	    Soporte guardado = soporteRepository.save(soporte);
+
+	    return modelMapper.map(guardado, SoporteDTO.class);
 	}
+
 
 	@Override
 	public boolean remove(int id) {

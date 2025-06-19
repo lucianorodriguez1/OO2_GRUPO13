@@ -21,7 +21,7 @@
 						<a class="nav-link" th:href="@{/usuario/index}">Usuarios</a>
 					</li>
 					<li class="nav-item" th:if="${#authentication.principal.rol.rol.name() == 'ADMIN'}">
-						<a class="nav-link" th:href="@{/ticket/verTicketsSoporte}">Tickets Admin</a>
+						<a class="nav-link" th:href="@{/ticket/verTickets}">Tickets Admin</a>
 					</li>
 
 					<!-- SOPORTE -->

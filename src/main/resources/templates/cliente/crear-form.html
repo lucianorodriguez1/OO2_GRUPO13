@@ -37,7 +37,10 @@
 				    <input type="file" th:field="*{fotoPerfil}" class="form-control-file">
 				</div>
 			  	<button type="submit" class="btn btn-primary">Guardar</button>
-				
+				<a th:href="@{/usuario/index}" class="btn btn-secondary">
+					Volver
+				</a>
+					
 				<div th:if="${error}" style="color: red;">
 					<p th:text="${error}"></p>
 				</div>

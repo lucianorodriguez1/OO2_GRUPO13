@@ -4,8 +4,7 @@
 <head>
     <title>Ver Tickets</title>
 </head>
-<body>
-	sec:authorize="hasRole('ADMIN')"
+<body sec:authorize="hasRole('ADMIN')">
 	<!-- Navbar fragment -->
 	<div th:replace="fragments/navbar :: navbar"></div>
 	
@@ -21,6 +20,7 @@
                 <th scope="col">Fecha Baja</th>
                 <th scope="col">Solicitante</th>
                 <th scope="col">Soporte asignado</th>
+				<th scope="col">Valoración</th>
             </tr>
         </thead>
         <tbody>

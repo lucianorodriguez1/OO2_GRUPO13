@@ -4,6 +4,7 @@ package com.oo2.grupo13.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -74,10 +75,19 @@ public class SoporteController {
 
 	}
 	
-//	@PostMapping("/actualizar/{id}")
-//	public ModelAndView update() {
-//	    
-//	}
-//	 
+	@PostMapping("/actualizar/{id}")
+	public RedirectView actualizarSoporte(@PathVariable("id") int id,
+	                                      @ModelAttribute("soporte") SoporteDTO soporteDto,
+	                                      RedirectAttributes redirectAttributes) {
+	    // Asegurar que el ID sea el correcto
+	    soporteDto.setId(id);
+
+	    soporteService.insertOrUpdate(soporteDto);
+	    
+	    redirectAttributes.addFlashAttribute("mensajeEditar", "Soporte actualizado correctamente.");
+
+	    return new RedirectView("/usuario/index");
+	}
+
 	
 }
