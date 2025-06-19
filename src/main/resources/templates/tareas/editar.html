@@ -64,7 +64,7 @@
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Editar</button>
-            <a th:href="@{/tareas/lista}" class="btn btn-primary mt-2">Volver al listado</a>
+            <a th:href="@{/tareas/verTareasTicket/{id}(id=${tarea.ticketAsociado.id})}" class="btn btn-primary mt-2">Volver</a>
         </form>
     </div>
 </body>

@@ -12,6 +12,7 @@ import com.oo2.grupo13.entities.Cliente;
 import com.oo2.grupo13.entities.ESTADO;
 import com.oo2.grupo13.entities.PRIORIDAD;
 import com.oo2.grupo13.entities.Soporte;
+import com.oo2.grupo13.entities.Tarea;
 import com.oo2.grupo13.entities.Ticket;
 import com.oo2.grupo13.services.ITicketService;
 
@@ -41,6 +42,7 @@ public class TicketService implements ITicketService {
         if (modelMapper == null) {
             modelMapper = new ModelMapper();
         }
+
         Ticket ticket = new Ticket(ticketModel.getDescripcion(), 
                                    ticketModel.getAsunto(),
                                    null, // fechaAlta will be set by the repository
@@ -49,6 +51,7 @@ public class TicketService implements ITicketService {
                                    (Cliente) usuarioRepository.findByEmail(ticketModel.getCliente()).get(), 
                                    null);
 
+        
         ticket = ticketRepository.save(ticket);
         // Map the saved ticket back to DTO
 		return modelMapper.map(ticket, TicketDTOCliente.class);
@@ -56,6 +59,18 @@ public class TicketService implements ITicketService {
 
     @Override
     public TicketDTOSoporte insertOrUpdateSoporte(TicketDTOSoporte ticketModel) {
+        if(ticketModel.getEstado() == ESTADO.COMPLETADO){
+            List<Tarea> tareasNoCompletadas = ticketModel.getTareas().stream()
+                .filter(t -> !t.isCompletada())
+                .toList();
+            if(tareasNoCompletadas.size()>0){
+                throw new com.oo2.grupo13.exceptions.TareasSinCompletarException("No se puede completar el ticket si quedan tareas pendientes.");
+            }
+            ticketModel.setFechaBaja(java.time.LocalDateTime.now());
+        } else {
+            ticketModel.setFechaBaja(null);
+        }
+
 
         Ticket ticket = ticketRepository.save(modelMapper.map(ticketModel, Ticket.class));
 		return modelMapper.map(ticket, TicketDTOSoporte.class);

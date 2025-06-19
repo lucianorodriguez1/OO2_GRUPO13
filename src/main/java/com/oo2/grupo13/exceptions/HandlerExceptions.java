@@ -3,16 +3,31 @@ package com.oo2.grupo13.exceptions;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import com.oo2.grupo13.dtos.SoporteDTO;
+import com.oo2.grupo13.dtos.TicketDTOSoporte;
+import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
+import com.oo2.grupo13.services.ISoporteService;
+import com.oo2.grupo13.services.ITicketService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 
 @ControllerAdvice
 public class HandlerExceptions {
-	
+	@Autowired
+    private ITicketService ticketService;
+
+    @Autowired
+    private ISoporteService soporteService;
+
 	@ExceptionHandler(EmailYaExisteException.class)
 	public ModelAndView manejarEmailYaExiste(EmailYaExisteException ex, HttpServletRequest request) {
 	    ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMAIL_EXISTE_ERROR);
@@ -69,5 +84,22 @@ public class HandlerExceptions {
         mav.addObject("volverUrl", "/usuario/index");
         return mav;
     }
+
+	@ExceptionHandler(TareasSinCompletarException.class)
+	public ModelAndView manejarTareasSinCompletar(TareasSinCompletarException ex,
+        HttpServletRequest request) {
+		String ticketId = request.getParameter("id");
+
+
+		TicketDTOSoporte ticket = ticketService.findByIdSoporte(Long.parseLong(ticketId)).get();
+		List<SoporteDTO> soportes = soporteService.getAll();
+
+        ModelAndView mAV = new ModelAndView("ticket/editar_ticket");
+        mAV.addObject("ticket", ticket);
+        mAV.addObject("soportes", soportes);
+        mAV.addObject("errorTareasSinCompletar", true);
+        mAV.addObject("mensaje", ex.getMessage());
+        return mAV;
+	}
 
 }

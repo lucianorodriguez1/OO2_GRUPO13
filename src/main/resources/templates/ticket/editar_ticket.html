@@ -32,6 +32,9 @@
     </style>
 </head>
 <body>
+    <div th:if="${errorTareasSinCompletar}" class="alert alert-danger d-flex justify-content-center">
+        <span th:text="${mensaje}"></span>
+    </div>
     <div class="container mt-4">
         <h1>Editar Ticket</h1>
         <form action="#" th:action="@{/ticket/editar}" th:object="${ticket}" method="post">
@@ -72,8 +75,11 @@
                     </select>
                     
             </div>
-            <button type="submit" class="btn btn-primary">Editar</button>
-            <a th:href="@{/tareas/lista}" class="btn btn-primary mt-2">Volver al listado</a>
+            <div>
+                <button type="submit" class="btn btn-primary">Editar</button>
+                <a th:href="@{/ticket/verTicketsSoporte}" class="btn btn-primary mt-2">Volver</a>
+            </div>
+            
         </form>
     </div>
 </body>
