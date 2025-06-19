@@ -20,8 +20,8 @@ public class ViewRouteHelper {
     public static final String VALORACION_ELIMINAR = "valoraciones/eliminar";
     
     //Redirect 
-    public static final String TAREA_REDIRECT_LISTA = "redirect:/tareas/lista";
-    public static final String VALORACION_REDIRECT_LISTA = "redirect:/valoraciones/lista";
+    public static final String TAREA_REDIRECT_LISTA = "/tareas/lista";
+    public static final String VALORACION_REDIRECT_LISTA = "/valoraciones/lista";
     
     //TICKETS
     public static final String INICIO_CLIENTE = "ticket/verTicketsCliente";

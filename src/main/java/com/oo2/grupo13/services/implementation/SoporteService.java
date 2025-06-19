@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.oo2.grupo13.dtos.SoporteDTO;
@@ -63,7 +64,7 @@ public class SoporteService implements ISoporteService{
 		soporte.setNombre(soporteDto.getNombre());
 		soporte.setApellido(soporteDto.getApellido());
 		soporte.setEmail(soporteDto.getEmail());
-		soporte.setPassword(soporteDto.getPassword());
+		soporte.setPassword((new BCryptPasswordEncoder(7).encode(soporteDto.getPassword())));
 		soporte.setFotoPerfil(soporteDto.getFotoPerfil());
 		soporte.setRol(rolPorDefecto.get());
 
