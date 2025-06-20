@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,8 +29,13 @@ public class Valoracion {
     @Size (max = 300)
     private String comentario;
 
-     public Valoracion( int puntaje, String comentario) {  
+    @OneToOne
+    @JoinColumn(name = "ticket_id", unique = true)  // asegura que sea uno a uno
+    private Ticket ticket;
+
+     public Valoracion( int puntaje, String comentario, Ticket ticket) {  
         this.puntaje = puntaje;
         this.comentario = comentario;
+        this.ticket = ticket;
     }
 }

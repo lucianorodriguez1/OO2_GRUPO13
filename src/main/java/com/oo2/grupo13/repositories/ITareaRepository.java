@@ -14,4 +14,6 @@ public interface ITareaRepository extends JpaRepository<Tarea, Serializable> {
     public abstract Optional<Tarea> findByNombre(String nombre);
     public abstract List<Tarea> findByCompletada(boolean completada);
     public abstract List<Tarea> findByTicketAsociado(Ticket ticketAsociado);
+    public abstract List<Tarea> findByTicketAsociadoAndCompletada(Ticket ticket, Boolean completada);
+
 }

@@ -1,5 +1,5 @@
 package com.oo2.grupo13.controllers;
-
+import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import com.oo2.grupo13.dtos.TicketDTOCliente;
 import com.oo2.grupo13.dtos.TicketDTOSoporte;
 import com.oo2.grupo13.entities.Cliente;
@@ -118,6 +119,5 @@ public class TicketController {
         }
 		return new RedirectView(ViewRouteHelper.VER_TICKETS_CLIENTE);
     }
-
 
 }

@@ -8,6 +8,7 @@ public interface IValoracionService {
     public void insertOrUpdate(Valoracion nuevaValoracion);
     public boolean delete(long id);
     public Valoracion findById(long id);
+    public Valoracion findByTicketId(Long ticketId);
     public List<Valoracion> getByPuntajeDesc();
     public List<Valoracion> getByPuntajeAsc();
     public List<Valoracion> getByPuntaje(int puntaje);

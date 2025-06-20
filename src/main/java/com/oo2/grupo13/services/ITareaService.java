@@ -13,4 +13,6 @@ public interface ITareaService{
     public boolean delete (long id);
     public List<Tarea> filtrarPorEstado(boolean estado);
     public List<Tarea> filtrarPorTicket(Ticket ticket);
+    public List<Tarea> filtrarPorTicketYEstado(Ticket byId, Boolean estado);
+    
 }

@@ -4,18 +4,20 @@ public class ViewRouteHelper {
     // TAREA
     public static final String TAREA_LISTA = "tareas/lista";
     public static final String TAREA_NUEVA = "tareas/nueva";
+    public static final String TAREA_CREAR = "tareas/crear";
     public static final String TAREA_EDITAR = "tareas/editar";
     public static final String TAREA_ELIMINAR = "tareas/eliminar";  
+    public static final String TAREA_TICKET = "tareas/verTareasTicket/";
 
     //VALORACION 
-    public static final String VALORACION_LISTA = "valoraciones/lista";
     public static final String VALORACION_NUEVA = "valoraciones/nueva";
-    public static final String VALORACION_EDITAR = "valoraciones/editar";
+    public static final String VALORACION_VER = "valoraciones/verValoracion";
     public static final String VALORACION_ELIMINAR = "valoraciones/eliminar";
     
     //Redirect 
     public static final String TAREA_REDIRECT_LISTA = "/tareas/lista";
-    public static final String VALORACION_REDIRECT_LISTA = "/valoraciones/lista";
+
+    
     
     //TICKETS
     public static final String INICIO_CLIENTE = "ticket/verTicketsCliente";
