@@ -80,4 +80,8 @@ public class TareaService implements ITareaService{
         return tareaRepository.findByTicketAsociado(ticket);
     }
 
+    @Override
+    public List<Tarea> filtrarPorTicketYEstado(Ticket ticket, Boolean estado) {
+        return tareaRepository.findByTicketAsociadoAndCompletada(ticket, estado);
+    }
 }

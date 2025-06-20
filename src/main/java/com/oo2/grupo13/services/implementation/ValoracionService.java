@@ -50,6 +50,12 @@ public class ValoracionService implements IValoracionService{
         return valoracionRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public Valoracion findByTicketId(Long ticketId) {
+        return valoracionRepository.findByTicketId(ticketId)
+                .orElse(null); // o lanzar excepción si querés manejarlo distinto
+    }
+
     @Override   
     public List<Valoracion> getByPuntajeDesc() {
         return valoracionRepository.findAllByOrderByPuntajeDesc();

@@ -13,12 +13,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Area {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String nombre;
-    @ManyToMany(mappedBy = "areas")
-    private Set<Cliente> clientes;
+	private int id;
+	private String nombre;
+	@ManyToMany(mappedBy = "areas")
+	private Set<Cliente> clientes;
+
+	public Area(String nombre) {
+		this.nombre = nombre;
+	}
+
 }

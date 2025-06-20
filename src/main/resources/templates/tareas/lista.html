@@ -63,18 +63,26 @@
     </style>
 </head>
 <body>
+	<!-- Navbar fragment -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+		
     <div class="container mt-4">
         <h2>Lista de Tareas</h2>
 
-        <form th:action="@{/tareas/filtrarEstado}" method="get" class="form-group mt-3">
-            <label for="estado">Filtrar por estado:</label>
-            <select name="estado" id="estado" class="form-control w-auto d-inline-block mr-2">
-                <option value="null">Todas</option>
-                <option value="true">Completadas</option>
-                <option value="false">Incompletas</option>
-            </select>
-            <button type="submit" class="btn btn-primary">Filtrar</button>
-        </form>
+    <form th:action="@{/tareas/filtrarEstado}" method="get">
+    <input type="hidden" name="ticketId" th:value="${ticketId}" />
+
+    <label for="estado">Filtrar por estado:</label>
+    <select name="estado" id="estado" class="form-control w-auto d-inline-block">
+        <option value="" th:selected="${estadoSeleccionado == null or estadoSeleccionado == ''}">-- Todos --</option>
+        <option value="true" th:selected="${estadoSeleccionado == 'true'}">Completadas</option>
+        <option value="false" th:selected="${estadoSeleccionado == 'false'}">Incompletas</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+
 
 </table>
     <table class="table table-striped-columns" border="1">
@@ -101,12 +109,12 @@
                 <td th:text="${tarea.ticketAsociado!= null ? tarea.ticketAsociado.id : 'Ningún ticket asignado'}"></td>
 
                 <td>
-                    <a th:href="@{'/tareas/' + ${tarea.id}}">Editar</a>
+                    <a th:href="@{'/tareas/' + ${tarea.id}}" class="btn btn-edit">Editar</a>
                 </td>
                 
                 <td>
                     <form th:action="@{/tareas/eliminar/{id}(id=${tarea.id})}" method="post" style="display:inline;">
-                        <input type="submit" value="Eliminar" onclick="return confirm('¿Estás seguro que querés eliminar esta tarea?');" />
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que querés eliminar esta tarea?');">Eliminar</button>
                     </form>
                 </td>
 
@@ -114,7 +122,8 @@
         </tbody>
     </table>
 
-    <a th:href="@{/tareas/nueva}">Crear nueva tarea</a>
+    <a th:href="@{/tareas/nueva/{id}(id=${ticketId})}" class="btn btn-primary mt-3">Crear nueva tarea</a>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
 </body>

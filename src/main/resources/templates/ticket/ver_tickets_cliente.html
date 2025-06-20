@@ -4,21 +4,29 @@
 <head>
     <title>Ver Tickets</title>
 </head>
-<body>
+
+<body sec:authorize="hasRole('CLIENTE')">
+    	<!-- Navbar fragment -->
+	<div th:replace="fragments/navbar :: navbar"></div>
     <h1 class="text-center m-4">Lista de tickets</h1>
     <div class="d-flex justify-content-center align-items-center container">
-    <table class="table table-striped-columns">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Asunto</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Fecha Alta</th>
-                <th scope="col">Fecha Baja</th>
-                <th scope="col">Solicitante</th>
-                <th scope="col">Soporte asignado</th>
-            </tr>
-        </thead>
+        <a class="btn btn-primary mt-2 mb-2" href="nuevo">Crear Ticket</a>
+    </div>
+    <div class="d-flex justify-content-center align-items-center container">
+        <table class="table table-striped-columns">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Asunto</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Fecha Alta</th>
+                    <th scope="col">Fecha Baja</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Solicitante</th>
+                    <th scope="col">Soporte asignado</th>
+                    <th scope="col">Valorar servicio</th>
+                </tr>
+            </thead>
         <tbody>
                 <tr th:each="ticket : ${tickets}">
                     <td th:text="${ticket.id}"></td>
@@ -26,17 +34,24 @@
                     <td th:text="${ticket.descripcion}"></td>
                     <td th:text="${#temporals.format(ticket.fechaAlta, 'dd/MM/yyyy HH:mm')}"></td>
                     <td th:text="${#temporals.format(ticket.fechaBaja, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${ticket.estado.name()}"></td>
                     <td th:text="${ticket.cliente.apellido + ', ' + ticket.cliente.nombre}"></td>
-                    <td th:text="${ticket.soporteAsignado != null ? ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre : 'Sin asignar'}"></td>                </tr>
-        </tbody>
-        </table>
+                    <td th:text="${ticket.soporteAsignado != null ? ticket.soporteAsignado.apellido + ', ' + ticket.soporteAsignado.nombre : 'Sin asignar'}"></td>                
+                    <td th:if="${ticket.estado.name() == 'COMPLETADO'}" class="text-center">
+                <a th:if="${ticket.valoracion == null}" 
+                th:href="@{/valoraciones/nueva/{id}(id=${ticket.id})}" 
+                class="btn btn-primary">
+                    Valorar
+                </a>
+                <button th:if="${ticket.valoracion != null}" class="btn btn-success" disabled>
+                    ✔ Valorado
+                </button>
+            </td>
+                </tr>
+            </thead>
+            </table>
     </div>
     
-    <div class="d-flex justify-content-center align-items-center container">
-        <button>
-                <a class="btn btn-primary mt-2" href="nuevo">Crear Ticket</a>
-        </button>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 

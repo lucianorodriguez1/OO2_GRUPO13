@@ -1,0 +1,49 @@
+<!-- fragments/navbar.html -->
+<div th:fragment="navbar">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:href="@{/}"
+			   th:text="${#authentication.principal.rol.rol.name() == 'ADMIN' ? 'ADMINISTRACIÓN' :
+			             (#authentication.principal.rol.rol.name() == 'SOPORTE' ? 'SOPORTE' : 'CLIENTE')}">
+			  Sistema
+			</a>
+
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+				<ul class="navbar-nav">
+
+					<!-- ADMIN -->
+					<li class="nav-item" th:if="${#authentication.principal.rol.rol.name() == 'ADMIN'}">
+						<a class="nav-link" th:href="@{/usuario/index}">Usuarios</a>
+					</li>
+					<li class="nav-item" th:if="${#authentication.principal.rol.rol.name() == 'ADMIN'}">
+						<a class="nav-link" th:href="@{/ticket/verTickets}">Tickets Admin</a>
+					</li>
+
+					<!-- SOPORTE -->
+					<li class="nav-item" th:if="${#authentication.principal.rol.rol.name() == 'SOPORTE'}">
+						<a class="nav-link" th:href="@{/ticket/verTicketsSoporte}">Mis Tickets</a>
+					</li>
+
+					<!-- CLIENTE -->
+					<li class="nav-item" th:if="${#authentication.principal.rol.rol.name() == 'CLIENTE'}">
+						<a class="nav-link" th:href="@{/ticket/verTicketsCliente}">Mis Tickets</a>
+					</li>
+
+				</ul>
+			</div>
+
+			<!-- Logout -->
+			<form th:action="@{/auth/logout}" method="post" class="ms-auto">
+				<button type="submit" class="btn btn-danger"
+					onclick="return confirm('¿Estás seguro que deseas cerrar sesión?');">
+					Cerrar Sesión
+				</button>
+			</form>
+		</div>
+	</nav>
+</div>

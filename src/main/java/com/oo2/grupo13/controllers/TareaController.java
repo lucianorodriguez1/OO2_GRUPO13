@@ -36,42 +36,71 @@ public class TareaController {
         this.ticketService = ticketService;
     }
     
-// Muestro la lista de tareas
-    @GetMapping("/lista")
-    public ModelAndView listarTareas() {
-        ModelAndView mav = new ModelAndView("tareas/lista");
-        mav.addObject("tareas", tareaService.getAll());
-        return mav;
-    }
-
-     // Filtrar tareas por estado (completada o no completada)
-    @GetMapping("/filtrarEstado")
-    public ModelAndView filtrarPorEstado(@RequestParam("estado") boolean estado) {
-        ModelAndView mav = new ModelAndView("tareas/lista");
-        List<Tarea> tareasFiltradas = tareaService.filtrarPorEstado(estado);
-        mav.addObject("tareas", tareasFiltradas);
-        return mav;
-    }
-    
-//Creo una tarea nueva
-    @GetMapping("/nueva")
-    public ModelAndView nuevaTarea() {
-        ModelAndView mav = new ModelAndView("tareas/nueva");
-        mav.addObject("tarea", new TareaDTO());
-        List<SoporteDTO> soportes = soporteService.getAll();
-        mav.addObject("soportes", soportes);
-        List<Ticket> tickets = ticketService.getAll();
-        mav.addObject("tickets", tickets);
+  @GetMapping("/verTareasTicket/{id}")
+public ModelAndView verTareasPorTicket(@PathVariable("id") long id) {
+    ModelAndView mav = new ModelAndView("tareas/lista");
+    mav.addObject("tareas", tareaService.filtrarPorTicket(ticketService.findById(id)));
+    mav.addObject("ticketId", id); 
     return mav;
+}
+@GetMapping("/filtrarEstado")
+public ModelAndView filtrarPorEstado( @RequestParam(name = "estado", required = false) String estado, @RequestParam("ticketId") Long ticketId) {
+
+    ModelAndView mav = new ModelAndView("tareas/lista");
+    List<Tarea> tareasFiltradas;
+
+    Ticket ticket = ticketService.findById(ticketId);
+
+    if (estado == null || estado.isEmpty()) {
+        tareasFiltradas = tareaService.filtrarPorTicket(ticket);
+    } else if ("true".equalsIgnoreCase(estado) || "false".equalsIgnoreCase(estado)) {
+        Boolean estadoBool = Boolean.valueOf(estado);
+        tareasFiltradas = tareaService.filtrarPorTicketYEstado(ticket, estadoBool);
+    } else {
+        // Por las dudas mostrar todo si el valor es inválido
+        tareasFiltradas = tareaService.filtrarPorTicket(ticket);
     }
 
-    @PostMapping("/crear")
-    public RedirectView crearTarea(TareaDTO dto) {
+    mav.addObject("tareas", tareasFiltradas);
+    mav.addObject("ticketId", ticketId);
+    mav.addObject("estadoSeleccionado", estado);
+
+    return mav;
+}
+
+@GetMapping("/nueva/{ticketId}")
+public ModelAndView nuevaTarea(@PathVariable("ticketId") Long ticketId) {
+    ModelAndView mav = new ModelAndView("tareas/nueva");
+
+    TareaDTO dto = new TareaDTO();
+    dto.setTicketAsociado(ticketService.findById(ticketId)); 
+
+    mav.addObject("tarea", dto);
+    mav.addObject("soportes", soporteService.getAll());
+    mav.addObject("ticketActualId", ticketId); 
+    return mav;
+}
+
+@PostMapping("/crear")
+public ModelAndView crearTarea(@ModelAttribute("tarea") TareaDTO dto) {
     tareaService.insertOrUpdate(dto);
-    return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
-    }
 
-//obtengo la tarea a editar por el id 
+   
+    ModelAndView mav = new ModelAndView("tareas/nueva");
+
+    
+    TareaDTO nuevoDto = new TareaDTO();
+    nuevoDto.setTicketAsociado(dto.getTicketAsociado()); 
+
+    mav.addObject("tarea", nuevoDto);
+    mav.addObject("soportes", soporteService.getAll());
+    mav.addObject("ticketActualId", dto.getTicketAsociado().getId());
+
+    mav.addObject("mensaje", "Tarea creada exitosamente"); 
+
+    return mav;
+}
+
     @GetMapping("/{id}")
     public  ModelAndView getEdit(@PathVariable("id") long id) {
         ModelAndView mav = new ModelAndView(ViewRouteHelper.TAREA_EDITAR);
@@ -87,8 +116,7 @@ public class TareaController {
     @PostMapping("/editar")
     public RedirectView editarTarea(@ModelAttribute("tarea") TareaDTO tareaDTO) {
         Tarea tareaEditar = tareaService.findById(tareaDTO.getId()).map(tarea -> modelMapper.map(tarea, Tarea.class)).orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + tareaDTO.getId()));
-        tareaEditar.setNombre(tareaDTO.getNombre());
-        tareaEditar.setDescripcion(tareaDTO.getDescripcion());
+       
         tareaEditar.setCompletada(tareaDTO.isCompletada());
         
         if (tareaDTO.getSoporte() != null && tareaDTO.getSoporte().getId() != 0) {
@@ -96,26 +124,21 @@ public class TareaController {
             soporte.setId(tareaDTO.getSoporte().getId());
             tareaEditar.setSoporte(soporte);
         } else {
-            tareaEditar.setSoporte(null); // Si no hay soporte, queda como null
+            tareaEditar.setSoporte(null);
         }
-        tareaEditar.setTicketAsociado(tareaDTO.getTicketAsociado() != null ? modelMapper.map(tareaDTO.getTicketAsociado(), Ticket.class) : null); //para probar el ticket puede ser nulo
+        
         tareaService.insertOrUpdate(modelMapper.map(tareaEditar, TareaDTO.class));
-        return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
+    return new RedirectView("/tareas/" + tareaDTO.getId());
     }
+@PostMapping("/eliminar/{id}")
+public RedirectView eliminarTarea(@PathVariable("id") int id) {
 
-    // Elimino la tarea por el id
-    @PostMapping("/eliminar/{id}")
-	public RedirectView delete(@PathVariable("id") int id) {
-		tareaService.delete(id);
-        return new RedirectView(ViewRouteHelper.TAREA_REDIRECT_LISTA);
-    }    
+    TareaDTO tarea = tareaService.findById(id)
+        .orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + id));
+    Long ticketId = tarea.getTicketAsociado().getId();
 
-    @GetMapping("/verTareasTicket/{id}")
-    public ModelAndView verTareasPorTicket(@PathVariable("id") long id) {
-        ModelAndView mav = new ModelAndView("tareas/lista");
-        mav.addObject("tareas", tareaService.filtrarPorTicket(ticketService.findById(id)));
-        return mav;
-    }
-    
-
+    tareaService.delete(id);
+    return new RedirectView("/tareas/verTareasTicket/" + ticketId);
+}
+ 
 }

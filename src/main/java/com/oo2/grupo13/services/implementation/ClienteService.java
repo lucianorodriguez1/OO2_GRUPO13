@@ -28,7 +28,7 @@ public class ClienteService {
 
 	public void crearOActualizarCliente(Cliente cliente) {
 	    // Asignar el rol USUARIO
-	    UsuarioRol rolUsuario = usuarioRolRepository.findByRol(ROL.USUARIO)
+	    UsuarioRol rolUsuario = usuarioRolRepository.findByRol(ROL.CLIENTE)
 	            .orElseThrow();
 	    cliente.setRol(rolUsuario);
 	    usuarioService.validarEmailUnico(cliente.getEmail(), cliente.getId());

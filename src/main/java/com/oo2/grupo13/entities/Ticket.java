@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,8 +45,7 @@ public class Ticket {
     private Cliente cliente;
     @OneToMany(mappedBy = "ticketAsociado", fetch = FetchType.LAZY)
     private List<Tarea> tareas;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "valoracion_id")
+    @OneToOne(mappedBy = "ticket", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Valoracion valoracion;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "soporte_id")

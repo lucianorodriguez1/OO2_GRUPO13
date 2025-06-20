@@ -1,16 +1,20 @@
 package com.oo2.grupo13.controllers;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.oo2.grupo13.dtos.SoporteDTO;
 import com.oo2.grupo13.services.IEmailService;
 import com.oo2.grupo13.services.ISoporteService;
+
 
 @Controller
 @RequestMapping("/soporte")
@@ -40,7 +44,7 @@ public class SoporteController {
 	}
 
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("soporte") SoporteDTO soporteDto) {
+	public RedirectView create(@ModelAttribute("soporte") SoporteDTO soporteDto, RedirectAttributes redirectAttributes) {
 		/*
 	    System.out.println("Nombre: " + soporteDto.getNombre());
 	    System.out.println("Apellido: " + soporteDto.getApellido());
@@ -63,8 +67,27 @@ public class SoporteController {
         } catch (Exception e) {
             System.err.println("Error al enviar el correo: " + e.getMessage());
         }
+        
+        
+        redirectAttributes.addFlashAttribute("mensajeCrear", "Soporte creado exitosamente.");
 
-        return new RedirectView("/soporte/nuevo");
+        return new RedirectView("/usuario/index");
 
 	}
+	
+	@PostMapping("/actualizar/{id}")
+	public RedirectView actualizarSoporte(@PathVariable("id") int id,
+	                                      @ModelAttribute("soporte") SoporteDTO soporteDto,
+	                                      RedirectAttributes redirectAttributes) {
+	    // Asegurar que el ID sea el correcto
+	    soporteDto.setId(id);
+
+	    soporteService.insertOrUpdate(soporteDto);
+	    
+	    redirectAttributes.addFlashAttribute("mensajeEditar", "Soporte actualizado correctamente.");
+
+	    return new RedirectView("/usuario/index");
+	}
+
+	
 }
