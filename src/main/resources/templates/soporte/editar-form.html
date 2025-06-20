@@ -27,10 +27,11 @@
 					<small class="form-text text-muted">El email no debe estar en uso.</small>
 					<small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
 				</div>
-				<div class="form-group mb-3">
+			<!--	<div class="form-group mb-3">
 				    <label>Foto de perfil (Opcional)</label>
-				    <input type="file" th:field="*{fotoPerfil}" class="form-control-file">
-				</div>
+				    <input type="file" th:field="*{fotoPerfil}" class="form-control-file"> 
+			
+				</div> -->
 				<div class="form-group mb-3">
 					<label>CUIL</label>
 					<input type="text" th:field="*{cuil}" placeholder="Ingrese el CUIL" class="form-control-file"/>
