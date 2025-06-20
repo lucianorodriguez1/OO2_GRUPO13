@@ -9,6 +9,7 @@ import com.oo2.grupo13.entities.Ticket;
 
 public interface ITicketService {
     public List<Ticket> getAll();
+    public List<Ticket> getAllByUserId(long id);
     public Ticket findById(long id);
     public Optional<TicketDTOSoporte> findByIdSoporte(long id);
     public TicketDTOCliente insertOrUpdateCliente(TicketDTOCliente ticketModel);

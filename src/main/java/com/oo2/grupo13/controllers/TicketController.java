@@ -48,7 +48,12 @@ public class TicketController {
 	@GetMapping("/verTicketsCliente")
 	public ModelAndView verTicketsCliente() {
 		ModelAndView mAV = new ModelAndView("ticket/ver_tickets_cliente");
-		mAV.addObject("tickets", ticketService.getAll());
+		long idCliente = ((Cliente) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+		System.out.println("ID del cliente: " + idCliente);
+		List<Ticket> tickets = ticketService.getAll().stream().filter(t -> t.getCliente().getId() == idCliente).toList();
+		System.out.println("Tickets del cliente: " + tickets.size());
+		// Obtener los tickets del cliente autenticado
+		mAV.addObject("tickets", tickets);
         mAV.addObject("ticket", new TicketDTOCliente());
 		return mAV;
 	}
