@@ -15,7 +15,14 @@
 			<tr><th>Nombre:</th><td th:text="${cliente.nombre}">Nombre</td></tr>
 			<tr><th>Apellido:</th><td th:text="${cliente.apellido}">Apellido</td></tr>
 			<tr><th>Email:</th><td th:text="${cliente.email}">Email</td></tr>
-			<tr><th>Areas:</th><td>Area</td></tr> 
+			<tr>
+				<th>Áreas:</th>
+				<td>
+					<ul>
+						<li th:each="area : ${cliente.areas}" th:text="${area.nombre}">Nombre Área</li>
+					</ul>
+				</td>
+			</tr>
 		</table>
 		<a th:href="@{/usuario/index}" class="btn btn-secondary">Volver</a>
 	</div>
