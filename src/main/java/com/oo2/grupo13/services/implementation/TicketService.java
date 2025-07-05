@@ -14,6 +14,7 @@ import com.oo2.grupo13.entities.PRIORIDAD;
 import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Tarea;
 import com.oo2.grupo13.entities.Ticket;
+import com.oo2.grupo13.entities.Usuario;
 import com.oo2.grupo13.services.ITicketService;
 
 import com.oo2.grupo13.repositories.ITicketRepository;
@@ -35,6 +36,11 @@ public class TicketService implements ITicketService {
     @Override
     public List<Ticket> getAll() {  
        return ticketRepository.findAll();
+    }
+
+    @Override
+    public List<Ticket> getAllByUserId(long id) {
+        return ticketRepository.findByClienteId(0);
     }
     
     @Override
@@ -102,6 +108,8 @@ public class TicketService implements ITicketService {
         }
         return Optional.empty();
     }
+
+    
 
 }
 

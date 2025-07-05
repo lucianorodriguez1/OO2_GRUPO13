@@ -27,9 +27,9 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name ="descripcion", nullable = false)
+    @Column(name ="descripcion", nullable = false, length = 500)
     private String descripcion;
-    @Column(name = "asunto", nullable = false)
+    @Column(name = "asunto", nullable = false, length = 100)
     private String asunto;
     @CreationTimestamp
     @Column(name = "fecha_alta", nullable = false)

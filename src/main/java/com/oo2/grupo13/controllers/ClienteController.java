@@ -1,5 +1,8 @@
 package com.oo2.grupo13.controllers;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,8 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.oo2.grupo13.configuration.SeederConfiguration;
 import com.oo2.grupo13.dtos.ClienteDTO;
 import com.oo2.grupo13.dtos.ClienteEditarDTO;
+import com.oo2.grupo13.entities.Area;
 import com.oo2.grupo13.entities.Cliente;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
+import com.oo2.grupo13.services.implementation.AreaService;
 import com.oo2.grupo13.services.implementation.ClienteService;
 import jakarta.validation.Valid;
 
@@ -26,36 +31,42 @@ import jakarta.validation.Valid;
 public class ClienteController {
 	
 	private ClienteService clienteService;
+	private AreaService areaService;
 	
-	public ClienteController(ClienteService clienteService) {
+	public ClienteController(ClienteService clienteService, AreaService areaService) {
 		this.clienteService = clienteService;
+		this.areaService = areaService;
 	}
 	
 	@GetMapping("/nuevo")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_CREAR_FORM);
-		mAV.addObject("cliente", new Cliente());
+		mAV.addObject("cliente", new ClienteDTO());
+		mAV.addObject("areas", areaService.findAll());
 		return mAV;
 	}
 	
 	@PostMapping("/guardar")
 	public ModelAndView create(@Valid @ModelAttribute("cliente") ClienteDTO clienteDTO, BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
-			return new ModelAndView(ViewRouteHelper.CLIENTE_CREAR_FORM);
+			ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_CREAR_FORM);
+			mAV.addObject("areas", areaService.findAll());
+			return mAV;
 		}
 
 		// Convertir DTO a entidad Cliente y guardar
 		Cliente cliente = new Cliente();
 		
-		
-
 		cliente.setNombre(clienteDTO.getNombre());
 		cliente.setApellido(clienteDTO.getApellido());
 		cliente.setEmail(clienteDTO.getEmail());
 		cliente.setPassword(new BCryptPasswordEncoder(7).encode(clienteDTO.getPassword())); //mala practica totalmente, solución temporal hasta encontrar una mejor
 		cliente.setFotoPerfil(clienteDTO.getFotoPerfil());
 		cliente.setRol(clienteDTO.getRol());
+		// Asignar áreas
+		Set<Area> areasSeleccionadas = new HashSet<>(areaService.findByIds(clienteDTO.getAreaIds()));
+		cliente.setAreas(areasSeleccionadas);
 		
 		clienteService.crearOActualizarCliente(cliente);
         redirectAttributes.addFlashAttribute("mensajeCrear", "Cliente creado exitosamente.");
@@ -82,7 +93,9 @@ public class ClienteController {
 	    existente.setEmail(clienteDTO.getEmail());
 	    existente.setFotoPerfil(clienteDTO.getFotoPerfil());
 	    existente.setRol(clienteDTO.getRol());
-
+	    Set<Area> nuevasAreas = new HashSet<>(areaService.findByIds(clienteDTO.getAreaIds()));
+	    existente.setAreas(nuevasAreas);
+	    
 	    clienteService.crearOActualizarCliente(existente);
         redirectAttributes.addFlashAttribute("mensajeEditar", "Cliente actualizado exitosamente.");
 
