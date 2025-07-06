@@ -39,10 +39,10 @@ public class TareaService implements ITareaService{
         Tarea tarea;
 
         if (tareaModel.getId() != 0 && tareaRepository.existsById(tareaModel.getId())) {
-            //busco la tarea existente para editarla
+        
             tarea = tareaRepository.findById(tareaModel.getId()).get();
         } else {
-            // creo una nueva tarea si no existia
+           
             tarea = new Tarea();
         }
 

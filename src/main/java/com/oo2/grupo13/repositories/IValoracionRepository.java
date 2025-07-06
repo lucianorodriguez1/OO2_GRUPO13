@@ -1,7 +1,6 @@
 package com.oo2.grupo13.repositories;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +11,4 @@ public interface IValoracionRepository extends JpaRepository <Valoracion, Serial
     public abstract Optional<Valoracion> findById(long id);
     public abstract Optional<Valoracion> findByPuntaje(int puntaje);
     public abstract Optional<Valoracion> findByTicketId(Long ticketId);
-    public  List<Valoracion>findAllByOrderByPuntajeDesc();
-    public List<Valoracion> findAllByOrderByPuntajeAsc();
 }
