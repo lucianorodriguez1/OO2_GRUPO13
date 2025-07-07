@@ -8,9 +8,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.oo2.grupo13.entities.TURNO;
 import com.oo2.grupo13.entities.UsuarioRol;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 
 public class SoporteDTO extends UsuarioDTO{
+	@Schema(hidden = true)
 	private List<EspecialidadDTO> especialidades;
 	private String cuil;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -29,6 +31,7 @@ public class SoporteDTO extends UsuarioDTO{
 		this.fechaIngreso = fechaIngreso;
 		this.turno = turno;
 	}
+	
 	
 	public List<EspecialidadDTO> getEspecialidades() {
 		return especialidades;

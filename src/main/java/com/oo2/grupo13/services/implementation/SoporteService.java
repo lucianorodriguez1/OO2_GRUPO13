@@ -102,12 +102,16 @@ public class SoporteService implements ISoporteService{
 	}
 
 	@Override
-	public SoporteDTO findByCuil(String cuil) {
-		return null;
+	public Optional<SoporteDTO> findByCuil(String cuil) {
+		Optional<Soporte> soporteOpt = soporteRepository.findByCuil(cuil);
+		return soporteOpt.map(soporte -> modelMapper.map(soporte, SoporteDTO.class));
+
 	}
 
 	@Override
 	public List<SoporteDTO> findByTurno(TURNO turno) {
 		return null;
 	}
+	
+	
 }

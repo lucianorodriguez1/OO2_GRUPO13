@@ -1,6 +1,8 @@
 package com.oo2.grupo13.dtos;
 
 import com.oo2.grupo13.entities.UsuarioRol;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -11,6 +13,7 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class UsuarioDTO {
+	@Schema(hidden = true)
 	private int id;
 	
 	@NotBlank(message = "El nombre es obligatorio")
@@ -37,6 +40,7 @@ public class UsuarioDTO {
 
 	private String fotoPerfil;
 	
+	@Schema(hidden = true)
 	private UsuarioRol rol;
 	
 	

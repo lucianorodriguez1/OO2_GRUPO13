@@ -3,10 +3,13 @@ package com.oo2.grupo13.dtos;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class EspecialidadDTO {
 
 	 	private long id;
 	    private String nombre;
+	    @JsonIgnore 
 	    private List<SoporteDTO> soportes = new ArrayList<SoporteDTO>();
 	    
 	    public EspecialidadDTO(String nombre) {
