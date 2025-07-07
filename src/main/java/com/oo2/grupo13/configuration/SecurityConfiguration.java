@@ -3,6 +3,7 @@ package com.oo2.grupo13.configuration;
 import com.oo2.grupo13.services.implementation.UsuarioService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -33,7 +34,7 @@ public class SecurityConfiguration {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*",
-                            "/vendor/jquery/*", "/vendor/bootstrap/js/*", "/api/v1/**").permitAll();
+                            "/vendor/jquery/*", "/vendor/bootstrap/js/*", "/api/v1/**" ,"swagger-ui/**","swagger-ui.html",  "/v3/api-docs/**").permitAll();
                     auth.requestMatchers("/auth/login", "/auth/loginProcess", "/auth/loginSuccess", "/auth/logout").permitAll();
 
                     auth.anyRequest().authenticated();
@@ -50,8 +51,12 @@ public class SecurityConfiguration {
                     logout.logoutUrl("/auth/logout");//POST
                     logout.logoutSuccessUrl("/auth/login");
                     logout.permitAll();
-                })
-                .build();
+                }).exceptionHandling(exception -> exception
+                    .defaultAuthenticationEntryPointFor(
+                        new org.springframework.security.web.authentication.HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
+                        new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/api/v1/**")
+                    )
+                ).build();
     }
 
     @Bean
