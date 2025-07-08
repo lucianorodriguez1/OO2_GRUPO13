@@ -1,6 +1,5 @@
 package com.oo2.grupo13.controllers;
 import com.oo2.grupo13.dtos.TareaDTO;
-import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Tarea;
 import com.oo2.grupo13.entities.Ticket;
 import com.oo2.grupo13.exceptions.TareaNoEncontradaException;
@@ -35,7 +34,7 @@ public class TareaController {
         this.ticketService = ticketService;
     }
     
-  @GetMapping("/verTareasTicket/{id}")
+@GetMapping("/verTareasTicket/{id}")
 public ModelAndView verTareasPorTicket(@PathVariable("id") long id) {
     ModelAndView mav = new ModelAndView("tareas/lista");
     mav.addObject("tareas", tareaService.filtrarPorTicket(ticketService.findById(id)));
@@ -84,11 +83,8 @@ public ModelAndView nuevaTarea(@PathVariable("ticketId") Long ticketId) {
 @PostMapping("/crear")
 public ModelAndView crearTarea(@ModelAttribute("tarea") TareaDTO dto) {
     tareaService.insertOrUpdate(dto);
-
-   
     ModelAndView mav = new ModelAndView("tareas/nueva");
 
-    
     TareaDTO nuevoDto = new TareaDTO();
     nuevoDto.setIdTicket(dto.getIdTicket());
     nuevoDto.setAsuntoTicket(dto.getAsuntoTicket());
@@ -102,43 +98,39 @@ public ModelAndView crearTarea(@ModelAttribute("tarea") TareaDTO dto) {
     return mav;
 }
 
-    @GetMapping("/{id}")
-    public  ModelAndView getEdit(@PathVariable("id") long id) {
-        ModelAndView mav = new ModelAndView(ViewRouteHelper.TAREA_EDITAR);
-        TareaDTO tareaDTO = tareaService.findById(id)
-            .map(tarea -> modelMapper.map(tarea, TareaDTO.class))
-            .orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + id));
+@GetMapping("/{id}")
+public  ModelAndView getEdit(@PathVariable("id") long id) {
+    ModelAndView mav = new ModelAndView(ViewRouteHelper.TAREA_EDITAR);
+    TareaDTO tareaDTO = tareaService.findById(id).map(tarea -> modelMapper.map(tarea, TareaDTO.class)).orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + id));
         mav.addObject("tarea", tareaDTO);
         mav.addObject("soportes", soporteService.getAll());
         mav.addObject("tickets", ticketService.getAll());
-        return mav;
-    }
-
-    @PostMapping("/editar")
-    public RedirectView editarTarea(@ModelAttribute("tarea") TareaDTO tareaDTO) {
-        Tarea tareaEditar = tareaService.findById(tareaDTO.getId()).map(tarea -> modelMapper.map(tarea, Tarea.class)).orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + tareaDTO.getId()));
-       
-        tareaEditar.setCompletada(tareaDTO.isCompletada());
-        
-        if (tareaDTO.getSoporte() != null && tareaDTO.getIdSoporte() != 0) {
-            Soporte soporte = new Soporte();
-            soporte.setId((int) tareaDTO.getIdSoporte());
-            tareaEditar.setSoporte(soporte);
-        } else {
-            tareaEditar.setSoporte(null);
-        }
-        
-        tareaService.insertOrUpdate(modelMapper.map(tareaEditar, TareaDTO.class));
-    return new RedirectView("/tareas/" + tareaDTO.getId());
-    }
-@PostMapping("/eliminar/{id}")
-public RedirectView eliminarTarea(@PathVariable("id") int id) {
-
-    TareaDTO tarea = tareaService.findById(id)
-        .orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + id));
-    Long ticketId = tarea.getIdTicket(); 
-
-    tareaService.delete(id);
-    return new RedirectView("/tareas/verTareasTicket/" + ticketId);
+    return mav;
 }
+
+@PostMapping("/editar")
+public RedirectView editarTarea(@ModelAttribute("tarea") TareaDTO tareaDTO) {
+    // Primero obtengo la tarea actual para validar que exista
+    TareaDTO tareaExistente = tareaService.findById(tareaDTO.getId())
+        .orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + tareaDTO.getId()));
+
+    tareaDTO.setNombre(tareaExistente.getNombre());
+    tareaDTO.setDescripcion(tareaExistente.getDescripcion());
+
+
+    tareaService.insertOrUpdate(tareaDTO);
+
+    return new RedirectView("/tareas/" + tareaDTO.getId());
+}
+
+    @PostMapping("/eliminar/{id}")
+    public RedirectView eliminarTarea(@PathVariable("id") int id) {
+
+        TareaDTO tarea = tareaService.findById(id)
+            .orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + id));
+        Long ticketId = tarea.getIdTicket(); 
+
+        tareaService.delete(id);
+        return new RedirectView("/tareas/verTareasTicket/" + ticketId);
+    }
 }

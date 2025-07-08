@@ -9,12 +9,12 @@ public class TareaDTO {
     private String descripcion;
     private String nombre; 
     private boolean completada;
-    private long idSoporte;
+    private Long idSoporte;
     private String soporte;
-    private long idTicket;
+    private Long idTicket;
     private String asuntoTicket; 
 
-    public TareaDTO(long id, String descripcion, String nombre, boolean completada, long idSoporte, String soporte, long idTicket, String asuntoTicket) {
+    public TareaDTO(long id, String descripcion, String nombre, boolean completada, Long idSoporte, String soporte, Long idTicket, String asuntoTicket) {
         this.id = id;
         this.descripcion = descripcion; 
         this.nombre = nombre; 

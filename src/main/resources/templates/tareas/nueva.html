@@ -39,46 +39,50 @@
     </style>
 </head>
 <body>
-    <!-- Navbar fragment -->
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
     <div class="container mt-4">
         <h2>Crear Nueva Tarea</h2>
 
-    <div th:if="${mensaje}" class="alert alert-success" role="alert" th:text="${mensaje}"></div>
+        <div th:if="${mensaje}" class="alert alert-success" role="alert" th:text="${mensaje}"></div>
 
-    <form th:action="@{/tareas/crear}" th:object="${tarea}" method="post">
+        <form th:action="@{/tareas/crear}" th:object="${tarea}" method="post">
 
-    <input type="hidden" th:field="*{ticketAsociado.id}" th:value="${ticketActualId}" />
+            <input type="hidden" th:field="*{idTicket}" />
 
-    <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <input type="text" th:field="*{nombre}" id="nombre" class="form-control" />
-    </div>
+            <div class="form-group">
+                <label for="asuntoTicket">Asunto del Ticket</label>
+                <input type="text" id="asuntoTicket" class="form-control" th:value="*{asuntoTicket}" readonly />
+            </div>
 
-    <div class="form-group">
-        <label for="descripcion">Descripción</label>
-        <input type="text" th:field="*{descripcion}" id="descripcion" class="form-control" />
-    </div>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" th:field="*{nombre}" id="nombre" class="form-control" />
+            </div>
 
-    <div class="form-group form-check">
-        <input type="checkbox" th:field="*{completada}" id="completada" class="form-check-input" />
-        <label class="form-check-label" for="completada">Completada</label>
-    </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <input type="text" th:field="*{descripcion}" id="descripcion" class="form-control" />
+            </div>
 
-    <div class="form-group">
-        <label for="soporte">Soporte asignado</label>
-        <select th:field="*{soporte}" id="soporte" class="form-control">
-            <option value="">-- Ningún soporte --</option>
-            <option th:each="soporte : ${soportes}" th:value="${soporte.id}" th:text="${soporte.nombre}"></option>
-        </select>
-    </div>
+            <div class="form-group form-check">
+                <input type="checkbox" th:field="*{completada}" id="completada" class="form-check-input" />
+                <label class="form-check-label" for="completada">Completada</label>
+            </div>
 
-    <button type="submit" class="btn btn-primary">Crear</button>
-    <a th:href="@{/tareas/verTareasTicket/{id}(id=${ticketActualId})}" class="btn btn-secondary ml-2">Volver</a>
-</form>
+            <div class="form-group">
+                <label for="soporte">Soporte asignado</label>
+                <select th:field="*{idSoporte}" id="soporte" class="form-control">
+                    <option value="">-- Ningún soporte --</option>
+                    <option th:each="soporte : ${soportes}" 
+                            th:value="${soporte.id}" 
+                            th:text="${soporte.nombre}"></option>
+                </select>
+            </div>
 
-
+            <button type="submit" class="btn btn-primary">Crear</button>
+            <a th:href="@{/tareas/verTareasTicket/{id}(id=${ticketActualId})}" class="btn btn-secondary ml-2">Volver</a>
+        </form>
     </div>
 </body>
 </html>

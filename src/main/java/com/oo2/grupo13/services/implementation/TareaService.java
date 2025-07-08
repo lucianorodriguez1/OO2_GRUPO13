@@ -53,17 +53,17 @@ public class TareaService implements ITareaService{
     tarea.setDescripcion(tareaModel.getDescripcion());
     tarea.setCompletada(tareaModel.isCompletada());
 
-    // Soporte
-    if (tareaModel.getIdSoporte() != 0) {
-        Soporte soporte = modelMapper.map(
-            soporteService.findById(tareaModel.getIdSoporte())
-                .orElseThrow(() -> new RuntimeException("Soporte no encontrado")),
-            Soporte.class
-        );
-        tarea.setSoporte(soporte);
-    } else {
-        tarea.setSoporte(null);
-    }
+    if (tareaModel.getIdSoporte() != null && tareaModel.getIdSoporte() != 0) {
+    Soporte soporte = modelMapper.map(
+        soporteService.findById(tareaModel.getIdSoporte())
+            .orElseThrow(() -> new RuntimeException("Soporte no encontrado")),
+        Soporte.class
+    );
+    tarea.setSoporte(soporte);
+} else {
+    tarea.setSoporte(null);
+}
+
 
     // Ticket
     if (tareaModel.getIdTicket() != 0) {
