@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,12 +15,13 @@ import com.oo2.grupo13.entities.Usuario;
 import com.oo2.grupo13.exceptions.EmailYaExisteException;
 import com.oo2.grupo13.exceptions.UsuarioNoEncontradoException;
 import com.oo2.grupo13.repositories.IUsuarioRepository;
+import com.oo2.grupo13.services.IUsuarioService;
 
 import jakarta.persistence.EntityNotFoundException;
 
 
 @Service("usuarioService")
-public class UsuarioService implements UserDetailsService{
+public class UsuarioService implements UserDetailsService, IUsuarioService{
 	
 	private IUsuarioRepository usuarioRepository;
 
@@ -61,6 +63,22 @@ public class UsuarioService implements UserDetailsService{
 		  return usuarioRepository.findByEmail(username).orElseThrow(
 	                () -> new UsernameNotFoundException(MessageFormat.format("User with email {0} not found", username))
 	        );
+	}
+
+	@Override
+	public String authenticate(String email, String password) {
+		Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
+		String passwordEncriptada = new BCryptPasswordEncoder().encode(password);
+
+		if (usuario.isEmpty()) {
+			throw new UsernameNotFoundException(MessageFormat.format("Usuario " + email + "no encontrado", email));
+		}
+		
+		if (!usuario.get().getPassword().equals(passwordEncriptada)) {
+			throw new EntityNotFoundException("Contraseña incorrecta");
+		}
+		
+		return "Usuario autenticado correctamente";
 	}
 	
 

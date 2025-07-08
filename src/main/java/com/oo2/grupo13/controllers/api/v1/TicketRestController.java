@@ -48,6 +48,7 @@ public class TicketRestController {
             }
             ticketDTOs.add(ticketDTO);
         }
+        
         return new ResponseEntity<List<TicketDTOCliente>>(ticketDTOs, HttpStatus.OK);
     }
 
