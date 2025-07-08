@@ -30,19 +30,19 @@ Este proyecto es una aplicación web construida con Java, Spring Boot y Thymelea
    git clone https://github.com/lucianorodriguez1/OO2_GRUPO13
    ```
    
-4. **Crear la base de datos y ejecutar los siguientes scripts para inicializar los roles**
+4. **Crear la base de datos**
    ```
    CREATE SCHEMA IF NOT EXISTS sistema_tickets;
-   USE sistema_tickets;
-   INSERT INTO usuario_rol (rol) VALUES ('USUARIO');
-   INSERT INTO usuario_rol (rol) VALUES ('ADMIN');
    ```
+   
 5. **Configurar variables de entorno**
-   - DB_URL (url de la base de datos)
-   - USERNAME (nombre de usuario de la base de datos)
-   - PASSWORD (contraseña de la base de datos)
-   - EMAIL_SENDER
-   - EMAIL_PASSWORD
+   - DB_URL = (url de la base de datos)
+   - USERNAME = (nombre de usuario de la base de datos)
+   - PASSWORD = (contraseña de la base de datos)
+   - EMAIL_SENDER = sistematickets07@gmail.com
+   - EMAIL_PASSWORD = fcxz eirx tphx dzia
+  
+ 6. Ejecutar el programa 
 
    
    

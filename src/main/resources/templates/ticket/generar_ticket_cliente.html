@@ -13,13 +13,16 @@
 				<form action="#" th:action="@{/ticket/crear}" th:object="${ticket}" method="post">
 				<div class="form-group">
 					<label>Asunto</label>
-					 <input type="text" th:field="*{asunto}" class="form-control" placeholder="Asunto del ticket">
+					 <input type="text" th:field="*{asunto}" class="form-control" placeholder="Asunto del ticket" minlength="1" maxlength="100" oninput="contarCaracteres(this, 'contador-asunto', 100)">
 					 <small class="text-danger" th:if="${#fields.hasErrors('asunto')}" th:errors="*{asunto}"></small>
+					 <small id="contador-asunto" class="form-text text-muted">0/100</small>
 			  	</div>	
 				<div class="form-group">
 					<label>Descripcion</label>
-					 <input type="text" th:field="*{descripcion}" class="form-control" placeholder="Descripcion del ticket">
+					 <input type="text" th:field="*{descripcion}" class="form-control" placeholder="Descripcion del ticket" minlength="1" maxlength="500" oninput="contarCaracteres(this, 'contador-descripcion', 500)">
 					 <small class="text-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>
+					<small id="contador-descripcion" class="form-text text-muted">0/500</small>
+
 			  	</div>
 				<!--<div class="form-group">
 					<label>Cliente</label>
@@ -31,5 +34,10 @@
 		</div>
 		
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+		<script>
+			function contarCaracteres(input, contadorId, max) {
+				document.getElementById(contadorId).innerText = input.value.length + "/" + max;
+			}
+		</script>
 	</body>
 </html>

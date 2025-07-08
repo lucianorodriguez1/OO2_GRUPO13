@@ -1,5 +1,7 @@
 package com.oo2.grupo13.controllers;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,20 +12,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oo2.grupo13.dtos.ClienteDTO;
 import com.oo2.grupo13.dtos.SoporteDTO;
+import com.oo2.grupo13.entities.Area;
 import com.oo2.grupo13.entities.Cliente;
 import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Usuario;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
+import com.oo2.grupo13.services.implementation.AreaService;
 import com.oo2.grupo13.services.implementation.UsuarioService;
 
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
 	private UsuarioService usuarioService;
+	private AreaService areaService;
 
-	public UsuarioController(UsuarioService usuarioService) {
+	public UsuarioController(UsuarioService usuarioService, AreaService areaService) {
 		super();
 		this.usuarioService = usuarioService;
+		this.areaService = areaService;
 	}
 	
 	@GetMapping("/index")
@@ -55,10 +61,19 @@ public class UsuarioController {
 	        dto.setPassword(cliente.getPassword());
 	        dto.setFotoPerfil(cliente.getFotoPerfil());
 	        dto.setRol(cliente.getRol());
+	        
+	        // Obtener los IDs de las áreas asociadas al cliente
+	        List<Integer> areaIds = cliente.getAreas().stream()
+	            .map(Area::getId)
+	            .toList();
+	        dto.setAreaIds(areaIds); // <-- setear en el DTO
 
 	        ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_EDITAR_FORM);
 	        mAV.addObject("cliente", dto);
+	        mAV.addObject("areas", areaService.findAll());
+	        
 	        return mAV;
+	        
 	    } else if (usuario instanceof Soporte soporte) {
 	    	SoporteDTO dto = new SoporteDTO();
 	    	dto.setId(soporte.getId());
