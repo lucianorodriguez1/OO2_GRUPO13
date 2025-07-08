@@ -7,6 +7,7 @@ import com.oo2.grupo13.exceptions.TareaNoEncontradaException;
 import com.oo2.grupo13.repositories.ITareaRepository;
 import com.oo2.grupo13.services.ITareaService;
 import com.oo2.grupo13.services.ISoporteService;
+import com.oo2.grupo13.services.ITicketService;
 import java.util.List;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
@@ -14,14 +15,18 @@ import org.springframework.stereotype.Service;
 
 @Service ("tareaService")
 public class TareaService implements ITareaService{
-
     private ITareaRepository tareaRepository;           
+    private ISoporteService soporteService;
+    private ITicketService ticketService;
     
     private ModelMapper modelMapper = new ModelMapper();
 
-    public TareaService(ITareaRepository tareaRepository, ISoporteService soporteService) {
+    public TareaService(ITareaRepository tareaRepository, ISoporteService soporteService, ITicketService ticketService) {
         this.tareaRepository = tareaRepository;
+        this.soporteService = soporteService;
+        this.ticketService = ticketService;
     }
+    
 
     @Override
     public Optional<TareaDTO> findById(long id){
@@ -35,33 +40,45 @@ public class TareaService implements ITareaService{
     }
 
     @Override
-    public Tarea insertOrUpdate(TareaDTO tareaModel) {
-        Tarea tarea;
+   public Tarea insertOrUpdate(TareaDTO tareaModel) {
+    Tarea tarea;
 
-        if (tareaModel.getId() != 0 && tareaRepository.existsById(tareaModel.getId())) {
-            //busco la tarea existente para editarla
-            tarea = tareaRepository.findById(tareaModel.getId()).get();
-        } else {
-            // creo una nueva tarea si no existia
-            tarea = new Tarea();
-        }
-
-        tarea.setNombre(tareaModel.getNombre());
-        tarea.setDescripcion(tareaModel.getDescripcion());
-        tarea.setCompletada(tareaModel.isCompletada());
-
-        if (tareaModel.getSoporte() != null && tareaModel.getSoporte().getId() != 0) {
-            Soporte soporte = new Soporte();
-            soporte.setId(tareaModel.getSoporte().getId());
-            tarea.setSoporte(soporte);
-        } else {
-            tarea.setSoporte(null);
-        }
-
-        tarea.setTicketAsociado(tareaModel.getTicketAsociado() != null ? modelMapper.map(tareaModel.getTicketAsociado(), Ticket.class): null);
-        tarea = tareaRepository.save(tarea);
-    return modelMapper.map(tarea, Tarea.class);
+    if (tareaModel.getId() != 0 && tareaRepository.existsById(tareaModel.getId())) {
+        tarea = tareaRepository.findById(tareaModel.getId()).get();
+    } else {
+        tarea = new Tarea();
     }
+
+    tarea.setNombre(tareaModel.getNombre());
+    tarea.setDescripcion(tareaModel.getDescripcion());
+    tarea.setCompletada(tareaModel.isCompletada());
+
+    // Soporte
+    if (tareaModel.getIdSoporte() != 0) {
+        Soporte soporte = modelMapper.map(
+            soporteService.findById(tareaModel.getIdSoporte())
+                .orElseThrow(() -> new RuntimeException("Soporte no encontrado")),
+            Soporte.class
+        );
+        tarea.setSoporte(soporte);
+    } else {
+        tarea.setSoporte(null);
+    }
+
+    // Ticket
+    if (tareaModel.getIdTicket() != 0) {
+        Ticket ticket = ticketService.findById(tareaModel.getIdTicket());
+        if (ticket == null) {
+            throw new RuntimeException("Ticket no encontrado");
+        }
+        tarea.setTicketAsociado(ticket);
+    } else {
+        tarea.setTicketAsociado(null);
+    }
+
+    tarea = tareaRepository.save(tarea);
+    return tarea;
+}
 
     @Override
     public boolean delete(long id) {

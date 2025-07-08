@@ -3,6 +3,7 @@ package com.oo2.grupo13.dtos;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 import com.oo2.grupo13.entities.Cliente;
 import com.oo2.grupo13.entities.ESTADO;
 import com.oo2.grupo13.entities.PRIORIDAD;
@@ -13,6 +14,7 @@ import com.oo2.grupo13.entities.Valoracion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Getter @Setter @NoArgsConstructor
 public class TicketDTOSoporte {
     private long id;

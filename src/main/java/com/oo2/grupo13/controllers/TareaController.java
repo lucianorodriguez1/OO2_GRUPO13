@@ -1,5 +1,4 @@
 package com.oo2.grupo13.controllers;
-import com.oo2.grupo13.dtos.SoporteDTO;
 import com.oo2.grupo13.dtos.TareaDTO;
 import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Tarea;
@@ -73,7 +72,8 @@ public ModelAndView nuevaTarea(@PathVariable("ticketId") Long ticketId) {
     ModelAndView mav = new ModelAndView("tareas/nueva");
 
     TareaDTO dto = new TareaDTO();
-    dto.setTicketAsociado(ticketService.findById(ticketId)); 
+    dto.setIdTicket(ticketId); 
+    dto.setAsuntoTicket(ticketService.findById(ticketId).getAsunto());
 
     mav.addObject("tarea", dto);
     mav.addObject("soportes", soporteService.getAll());
@@ -90,11 +90,12 @@ public ModelAndView crearTarea(@ModelAttribute("tarea") TareaDTO dto) {
 
     
     TareaDTO nuevoDto = new TareaDTO();
-    nuevoDto.setTicketAsociado(dto.getTicketAsociado()); 
+    nuevoDto.setIdTicket(dto.getIdTicket());
+    nuevoDto.setAsuntoTicket(dto.getAsuntoTicket());
 
     mav.addObject("tarea", nuevoDto);
     mav.addObject("soportes", soporteService.getAll());
-    mav.addObject("ticketActualId", dto.getTicketAsociado().getId());
+    mav.addObject("ticketActualId", dto.getIdTicket());
 
     mav.addObject("mensaje", "Tarea creada exitosamente"); 
 
@@ -119,9 +120,9 @@ public ModelAndView crearTarea(@ModelAttribute("tarea") TareaDTO dto) {
        
         tareaEditar.setCompletada(tareaDTO.isCompletada());
         
-        if (tareaDTO.getSoporte() != null && tareaDTO.getSoporte().getId() != 0) {
+        if (tareaDTO.getSoporte() != null && tareaDTO.getIdSoporte() != 0) {
             Soporte soporte = new Soporte();
-            soporte.setId(tareaDTO.getSoporte().getId());
+            soporte.setId((int) tareaDTO.getIdSoporte());
             tareaEditar.setSoporte(soporte);
         } else {
             tareaEditar.setSoporte(null);
@@ -135,10 +136,9 @@ public RedirectView eliminarTarea(@PathVariable("id") int id) {
 
     TareaDTO tarea = tareaService.findById(id)
         .orElseThrow(() -> new TareaNoEncontradaException("No se encontró la tarea con ID: " + id));
-    Long ticketId = tarea.getTicketAsociado().getId();
+    Long ticketId = tarea.getIdTicket(); 
 
     tareaService.delete(id);
     return new RedirectView("/tareas/verTareasTicket/" + ticketId);
 }
- 
 }

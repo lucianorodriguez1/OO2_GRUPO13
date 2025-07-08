@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 import com.oo2.grupo13.entities.TURNO;
 import com.oo2.grupo13.entities.UsuarioRol;
-
 
 public class SoporteDTO extends UsuarioDTO{
 	private List<EspecialidadDTO> especialidades;
