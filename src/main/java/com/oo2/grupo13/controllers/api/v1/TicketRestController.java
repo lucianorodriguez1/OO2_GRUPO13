@@ -3,6 +3,7 @@ package com.oo2.grupo13.controllers.api.v1;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.http.ResponseEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -10,12 +11,16 @@ import org.springframework.http.MediaType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.oo2.grupo13.dtos.TicketDTOCliente;
-import com.oo2.grupo13.dtos.TicketDTOSoporte;
 import com.oo2.grupo13.entities.Ticket;
 import com.oo2.grupo13.services.ITicketService;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/api/v1/tickets")
@@ -27,6 +32,7 @@ public class TicketRestController {
     public TicketRestController(ITicketService ticketService) {
         this.ticketService = ticketService;
     }
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TicketDTOCliente>> index(){
         List<Ticket> tickets = ticketService.getAll();
@@ -44,5 +50,17 @@ public class TicketRestController {
         }
         return new ResponseEntity<List<TicketDTOCliente>>(ticketDTOs, HttpStatus.OK);
     }
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TicketDTOCliente> crear(@RequestBody TicketDTORest ticketRecord) {
+        TicketDTOCliente ticketDTO = new TicketDTOCliente();
+        ticketDTO.setDescripcion(ticketRecord.descripcion());
+        ticketDTO.setAsunto(ticketRecord.asunto());
+        ticketDTO.setCliente(ticketRecord.mailCliente());
+        
+        return new ResponseEntity<>(ticketService.insertOrUpdateCliente(ticketDTO), HttpStatus.CREATED);
+    }
     
+    public record TicketDTORest(@NotBlank String descripcion, @NotBlank String asunto, @Email @NotBlank String mailCliente) {}
 }
