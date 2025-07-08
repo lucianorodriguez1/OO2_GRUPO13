@@ -68,13 +68,13 @@ public class UsuarioService implements UserDetailsService, IUsuarioService{
 	@Override
 	public String authenticate(String email, String password) {
 		Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
-		String passwordEncriptada = new BCryptPasswordEncoder().encode(password);
-
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
 		if (usuario.isEmpty()) {
 			throw new UsernameNotFoundException(MessageFormat.format("Usuario " + email + "no encontrado", email));
 		}
 		
-		if (!usuario.get().getPassword().equals(passwordEncriptada)) {
+		if (!encoder.matches(password, usuario.get().getPassword())) {
 			throw new EntityNotFoundException("Contraseña incorrecta");
 		}
 		
