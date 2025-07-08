@@ -4,6 +4,9 @@ import com.oo2.grupo13.dtos.TareaDTO;
 import com.oo2.grupo13.entities.Tarea;
 import com.oo2.grupo13.services.ITareaService;
 import com.oo2.grupo13.services.ITicketService;
+
+import jakarta.validation.constraints.NotBlank;
+
 import com.oo2.grupo13.entities.Ticket;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
 @RequestMapping("/api/v1/tareas")
@@ -60,20 +61,19 @@ public class TareaRestController {
 
 //Crear una nueva tarea
     @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TareaDTO> createTarea(@RequestBody TareaDTO tareaDTO) {
-        Tarea tarea = tareaService.insertOrUpdate(tareaDTO);
-        TareaDTO createdTareaDTO = modelMapper.map(tarea, TareaDTO.class);
-        return new ResponseEntity<>(createdTareaDTO, HttpStatus.CREATED);
+    public ResponseEntity<TareaDTO> createTarea(@RequestBody TareaDTORest tareaDTORest) {
+        TareaDTO tareaDTO = new TareaDTO();
+        tareaDTO.setDescripcion(tareaDTORest.descripcion());    
+        tareaDTO.setNombre(tareaDTORest.nombre());
+        tareaDTO.setCompletada(tareaDTORest.completada());
+        tareaDTO.setIdSoporte(tareaDTORest.idSoporte());
+        tareaDTO.setSoporte(tareaDTORest.soporte());
+        tareaDTO.setIdTicket(tareaDTORest.idTicket());
+        tareaDTO.setAsuntoTicket(tareaDTORest.asuntoTicket());
+
+        TareaDTO crearTarea = modelMapper.map(tareaService.insertOrUpdate(tareaDTO), TareaDTO.class);
+        return new ResponseEntity<>(crearTarea, HttpStatus.CREATED);
     }   
-
-
-
-   
-// Actualizar una tarea existente
-    @PutMapping(value = "/actualizar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TareaDTO> updateTarea(@RequestBody TareaDTO tareaDTO) {
-        Tarea tarea = tareaService.insertOrUpdate(tareaDTO);
-        TareaDTO updatedTareaDTO = modelMapper.map(tarea, TareaDTO.class);
-        return new ResponseEntity<>(updatedTareaDTO, HttpStatus.OK);
-    }
+    
+    public record TareaDTORest( long id, @NotBlank String descripcion, @NotBlank String nombre, boolean completada, long idSoporte, String soporte, long idTicket, String asuntoTicket) {}
 }
