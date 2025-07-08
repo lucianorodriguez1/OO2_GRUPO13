@@ -27,10 +27,17 @@
 					<small class="form-text text-muted">El email no debe estar en uso.</small>
 					<small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
 				</div>
-			<!--	<div class="form-group mb-3">
+				<!-- <div class="form-group mb-3">
 				    <label>Foto de perfil (Opcional)</label>
-				    <input type="file" th:field="*{fotoPerfil}" class="form-control-file"> 
+				    <input type="file" th:field="*{fotoPerfil}" class="form-control-file">
 				</div> -->
+				<div class="form-group">
+					<label>Áreas</label>
+					<div th:each="area : ${areas}">
+						<input type="checkbox" th:field="*{areaIds}" th:value="${area.id}" />
+						<label th:text="${area.nombre}"></label>
+					</div>
+				</div>
 			  	<button type="submit" class="btn btn-primary">Guardar</button>
 				<a th:href="@{/usuario/index}" class="btn btn-secondary">
 					Volver
