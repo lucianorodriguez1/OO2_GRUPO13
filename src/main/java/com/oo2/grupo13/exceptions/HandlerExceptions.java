@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.Model;
 
 
@@ -102,4 +103,9 @@ public class HandlerExceptions {
         return mAV;
 	}
 
+	@ExceptionHandler(AccessDeniedException.class)
+    public void handleAccessDenied(AccessDeniedException ex) throws AccessDeniedException{
+        ex.printStackTrace();
+        throw ex;
+    }
 }

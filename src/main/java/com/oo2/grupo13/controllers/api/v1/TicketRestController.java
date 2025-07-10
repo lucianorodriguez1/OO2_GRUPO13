@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,7 +33,7 @@ public class TicketRestController {
     public TicketRestController(ITicketService ticketService) {
         this.ticketService = ticketService;
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TicketDTOCliente>> index(){
         List<Ticket> tickets = ticketService.getAll();

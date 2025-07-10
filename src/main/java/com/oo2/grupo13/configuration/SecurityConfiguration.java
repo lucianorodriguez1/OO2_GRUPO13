@@ -1,11 +1,15 @@
 package com.oo2.grupo13.configuration;
 
 import com.oo2.grupo13.services.implementation.UsuarioService;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +18,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
 
 @Configuration
 @EnableWebSecurity
@@ -38,6 +43,20 @@ public class SecurityConfiguration {
 
                     auth.anyRequest().authenticated();
                 })
+                .exceptionHandling(exception -> exception
+                    .defaultAuthenticationEntryPointFor(
+                        new org.springframework.security.web.authentication.HttpStatusEntryPoint(org.springframework.http.HttpStatus.UNAUTHORIZED),
+                        new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/api/v1/**")
+                    ).defaultAccessDeniedHandlerFor(
+                            (request, response, accessDeniedException) -> {
+                                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                response.setContentType("application/json");
+                                response.getWriter().write("{\"error\": \"Acceso denegado\"}");
+                            },
+                            new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/api/v1/**")
+                        )
+                )
+                .httpBasic(Customizer.withDefaults())
                 .formLogin(login -> {
                     login.loginPage("/auth/login");
                     login.loginProcessingUrl("/auth/loginProcess");//POST
