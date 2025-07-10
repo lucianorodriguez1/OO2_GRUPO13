@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oo2.grupo13.dtos.SoporteDTO;
-import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.TURNO;
-import com.oo2.grupo13.repositories.ISoporteRepository;
 import com.oo2.grupo13.services.ISoporteService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema; 
 @RestController
 @RequestMapping("/api/v1/soporte")
 
@@ -34,6 +37,17 @@ public class SoporteRestController {
 
 	//GET /api/v1/soporte 
 	@GetMapping("/")
+	@Operation(
+			summary = "Obtener todos los soportes",
+			description = "Permite obtener una lista de todos los soportes registrados en el sistema"
+	)
+	@ApiResponses(value = {
+			 @ApiResponse(responseCode = "200", description = "OK - Soportes cargados correctamente"),
+	         @ApiResponse(responseCode = "500", description = "ERROR - Internal server error",  content = @Content(
+	                 mediaType = "application/json",
+	                 schema = @Schema(implementation = String.class)
+	             ))
+	})
 	public ResponseEntity<List<SoporteDTO>> index(){
 		List<SoporteDTO> soportesDTO = new ArrayList<SoporteDTO>();
 		soportesDTO = soporteService.getAll();
