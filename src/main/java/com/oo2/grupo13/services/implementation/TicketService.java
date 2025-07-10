@@ -1,6 +1,4 @@
 package com.oo2.grupo13.services.implementation;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,10 +9,8 @@ import com.oo2.grupo13.dtos.TicketDTOSoporte;
 import com.oo2.grupo13.entities.Cliente;
 import com.oo2.grupo13.entities.ESTADO;
 import com.oo2.grupo13.entities.PRIORIDAD;
-import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Tarea;
 import com.oo2.grupo13.entities.Ticket;
-import com.oo2.grupo13.entities.Usuario;
 import com.oo2.grupo13.services.ITicketService;
 
 import com.oo2.grupo13.repositories.ITicketRepository;

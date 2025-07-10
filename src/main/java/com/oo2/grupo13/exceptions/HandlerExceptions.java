@@ -3,11 +3,9 @@ package com.oo2.grupo13.exceptions;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.oo2.grupo13.dtos.SoporteDTO;
 import com.oo2.grupo13.dtos.TicketDTOSoporte;
-import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
 import com.oo2.grupo13.services.ISoporteService;
 import com.oo2.grupo13.services.ITicketService;
@@ -17,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.Model;
 
 
@@ -102,4 +101,9 @@ public class HandlerExceptions {
         return mAV;
 	}
 
+	@ExceptionHandler(AccessDeniedException.class)
+    public void handleAccessDenied(AccessDeniedException ex) throws AccessDeniedException{
+        ex.printStackTrace();
+        throw ex;
+    }
 }

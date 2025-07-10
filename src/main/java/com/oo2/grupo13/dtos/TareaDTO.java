@@ -1,6 +1,4 @@
 package com.oo2.grupo13.dtos;
-import com.oo2.grupo13.entities.Soporte;
-import com.oo2.grupo13.entities.Ticket;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,15 +9,19 @@ public class TareaDTO {
     private String descripcion;
     private String nombre; 
     private boolean completada;
-    private Soporte soporte;
-    private Ticket ticketAsociado;
+    private Long idSoporte;
+    private String soporte;
+    private Long idTicket;
+    private String asuntoTicket; 
 
-    public TareaDTO(long id, String descripcion, String nombre, boolean completada, Soporte soporte, Ticket ticket) {
+    public TareaDTO(long id, String descripcion, String nombre, boolean completada, Long idSoporte, String soporte, Long idTicket, String asuntoTicket) {
         this.id = id;
         this.descripcion = descripcion; 
         this.nombre = nombre; 
         this.completada = completada;
+        this.idSoporte = idSoporte;
         this.soporte = soporte;
-        this.ticketAsociado = ticket;
+        this.idTicket = idTicket;
+        this.asuntoTicket = asuntoTicket;
     }
 }
