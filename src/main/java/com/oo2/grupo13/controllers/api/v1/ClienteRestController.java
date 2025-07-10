@@ -20,7 +20,7 @@ import com.oo2.grupo13.services.IAreaService;
 import com.oo2.grupo13.services.IClienteService;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.MediaType;
 
 @RestController
@@ -44,14 +44,8 @@ public class ClienteRestController {
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ClienteCreateDTO> crearCliente(@RequestBody ClienteCreateDTO clienteDTO) {
-		System.out.println("JSON recibido:");
-	    System.out.println("Nombre: " + clienteDTO.nombre());
-	    System.out.println("Apellido: " + clienteDTO.apellido());
-	    System.out.println("Email: " + clienteDTO.email());
-	    System.out.println("Password: " + clienteDTO.password());
-	    System.out.println("Area IDs: " + clienteDTO.areaIds()); ;
-	   /* try {
+	public ResponseEntity<String> crearCliente(@RequestBody ClienteCreateDTO clienteDTO) {
+	   try {
 	        Cliente cliente = new Cliente();
 	        cliente.setNombre(clienteDTO.nombre());
 	        cliente.setApellido(clienteDTO.apellido());
@@ -73,8 +67,7 @@ public class ClienteRestController {
 	    } catch (Exception e) {
 	        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 	                .body("Error al crear cliente: " + e.getMessage());
-	    }*/
-	    return ResponseEntity.ok(clienteDTO);
+	    }
 	}
 
 	
