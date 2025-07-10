@@ -43,7 +43,8 @@ public class ClienteRestController {
 		return new ResponseEntity<List<ClienteDTO>>(clientes, HttpStatus.OK);
 	}
 	
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	// POST /api/v1/cliente
+	@PostMapping("")
 	public ResponseEntity<String> crearCliente(@RequestBody ClienteCreateDTO clienteDTO) {
 	   try {
 	        Cliente cliente = new Cliente();
