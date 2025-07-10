@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.security.core.Authentication;
-import org.springframework.ui.Model;
 import com.oo2.grupo13.dtos.TicketDTOCliente;
 import com.oo2.grupo13.dtos.TicketDTOSoporte;
 import com.oo2.grupo13.entities.Cliente;

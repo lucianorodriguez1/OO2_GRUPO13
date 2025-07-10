@@ -3,6 +3,7 @@ package com.oo2.grupo13.configuration;
 import com.oo2.grupo13.services.implementation.UsuarioService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -50,8 +51,12 @@ public class SecurityConfiguration {
                     logout.logoutUrl("/auth/logout");//POST
                     logout.logoutSuccessUrl("/auth/login");
                     logout.permitAll();
-                })
-                .build();
+                }).exceptionHandling(exception -> exception
+                    .defaultAuthenticationEntryPointFor(
+                        new org.springframework.security.web.authentication.HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
+                        new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/api/v1/**")
+                    )
+                ).build();
     }
 
     @Bean

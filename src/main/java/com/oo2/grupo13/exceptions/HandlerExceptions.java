@@ -3,11 +3,9 @@ package com.oo2.grupo13.exceptions;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.oo2.grupo13.dtos.SoporteDTO;
 import com.oo2.grupo13.dtos.TicketDTOSoporte;
-import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
 import com.oo2.grupo13.services.ISoporteService;
 import com.oo2.grupo13.services.ITicketService;
