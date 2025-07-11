@@ -17,6 +17,8 @@ import com.oo2.grupo13.exceptions.UsuarioNoEncontradoException;
 import com.oo2.grupo13.repositories.IUsuarioRepository;
 import com.oo2.grupo13.services.IUsuarioService;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service("usuarioService")
 public class UsuarioService implements UserDetailsService, IUsuarioService{
 	
