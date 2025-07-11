@@ -1,24 +1,18 @@
 package com.oo2.grupo13.controllers.api.v1;
 
 import com.oo2.grupo13.dtos.TareaDTO;
-import com.oo2.grupo13.entities.Soporte;
 import com.oo2.grupo13.entities.Tarea;
 import com.oo2.grupo13.services.ITareaService;
 import com.oo2.grupo13.services.ITicketService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 import com.oo2.grupo13.entities.Ticket;
 import com.oo2.grupo13.exceptions.TareaNoEncontradaException;
 import com.oo2.grupo13.exceptions.TicketNoExisteException;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
