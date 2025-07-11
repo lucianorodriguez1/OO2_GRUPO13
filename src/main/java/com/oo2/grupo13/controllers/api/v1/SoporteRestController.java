@@ -61,7 +61,8 @@ public class SoporteRestController {
 					                "especialidades": ["Redes", "Bases de datos"]
 					        	}
 					 ]"""))),
-			@ApiResponse(responseCode = "500", description = "ERROR - Internal server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))) })
+			@ApiResponse(responseCode = "500", description = "ERROR - Internal server error", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+					{"error": "Ocurrió un error inesperado al obtener los soportes"}"""))) })
 	public ResponseEntity<List<SoporteDTO>> index() {
 		List<SoporteDTO> soportesDTO = new ArrayList<SoporteDTO>();
 		soportesDTO = soporteService.getAll();
@@ -71,10 +72,42 @@ public class SoporteRestController {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping("/")
-	@Operation(
-		    summary = "Crear nuevo soporte",
-		    description = "Permite registrar un nuevo soporte en el sistema"
-		)
+	@Operation(summary = "Crear nuevo soporte", description = "Permite registrar un nuevo soporte en el sistema")
+	@ApiResponses(value = {
+			@ApiResponse(
+				    responseCode = "201",
+				    description = "CREATED - Soporte creado correctamente",
+				    content = @Content(
+				        mediaType = "application/json",
+				        examples = @ExampleObject(value = """
+				        {
+				          "id": 8,
+				          "nombre": "string",
+				          "apellido": "string",
+				          "email": "stringDeUsuario",
+				          "password": "$2a$07$c9aEzSUgI5iB.Pq6JKvZl.xvX85WRQgxguCsbDM5OWYs33rALUBnK",
+				          "fotoPerfil": "string",
+				          "rol": {
+				            "id": 3,
+				            "rol": "SOPORTE",
+				            "fechaCreacion": "2025-06-20T13:10:59.478123",
+				            "fechaActualizacion": "2025-06-20T13:10:59.478123"
+				          },
+				          "especialidades": null,
+				          "cuil": "stringprueba",
+				          "fechaIngreso": "2025-07-11",
+				          "turno": "MANANA"
+				        }
+				        """)
+				    )
+				),
+			@ApiResponse(responseCode = "400", description = "BAD REQUEST - CUIL duplicado o datos inválidos", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+					    {
+					      "error": "documento con cuil duplicado"
+					    }
+					"""))),
+			@ApiResponse(responseCode = "500", description = "ERROR - Internal server error", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+					{"error": "Ocurrió un error inesperado al crear un soporte"}"""))) })
 	public ResponseEntity create(@RequestBody SoporteRestDTO restDTO) {
 		if (restDTO == null)
 			return new ResponseEntity<String>("soporte no existe", HttpStatus.BAD_REQUEST);
