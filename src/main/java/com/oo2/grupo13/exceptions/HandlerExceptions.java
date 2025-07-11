@@ -3,19 +3,18 @@ package com.oo2.grupo13.exceptions;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
-
+import com.oo2.grupo13.dtos.ErrorResponseDTO;
 import com.oo2.grupo13.dtos.SoporteDTO;
 import com.oo2.grupo13.dtos.TicketDTOSoporte;
 import com.oo2.grupo13.helpers.ViewRouteHelper;
 import com.oo2.grupo13.services.ISoporteService;
 import com.oo2.grupo13.services.ITicketService;
-
 import jakarta.servlet.http.HttpServletRequest;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 
 
@@ -57,12 +56,12 @@ public class HandlerExceptions {
 	}
 
 	
-    @ExceptionHandler(TareaNoEncontradaException.class)
+    /*@ExceptionHandler(TareaNoEncontradaException.class)
     public ModelAndView manejarTareaNoEncontrada(TareaNoEncontradaException ex) {
         ModelAndView mAV = new ModelAndView(ViewRouteHelper.TAREA_NO_ENCONTRADA_ERROR);
     	mAV.addObject("mensaje", ex.getMessage());
         return mAV;
-    }
+    }*/
 
     @ExceptionHandler(ValoracionInvalidaException.class)
     public ModelAndView manejarValoracionInvalida(ValoracionInvalidaException ex) {
@@ -106,4 +105,17 @@ public class HandlerExceptions {
         ex.printStackTrace();
         throw ex;
     }
+	//para manejar la excepcion de ticket no encontrado en api
+	@ExceptionHandler(TicketNoExisteException.class)
+    public ResponseEntity<ErrorResponseDTO> handleTicketNotFound(TicketNoExisteException ex) {
+        ErrorResponseDTO error = new ErrorResponseDTO(ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+	//para manejar la excepcion de tarea no encontrada en api
+	@ExceptionHandler(TareaNoEncontradaException.class)
+	public ResponseEntity<ErrorResponseDTO> handleTareaNotFound(TareaNoEncontradaException ex) {
+    ErrorResponseDTO error = new ErrorResponseDTO(ex.getMessage());
+    return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
 }
