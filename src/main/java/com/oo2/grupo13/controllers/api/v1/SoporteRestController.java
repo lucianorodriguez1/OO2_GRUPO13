@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +41,8 @@ public class SoporteRestController {
 
 	// GET /api/v1/soporte
 	@GetMapping("/")
-	@Operation(summary = "Obtener todos los soportes", description = "Permite obtener una lista de todos los soportes registrados en el sistema")
+	@PreAuthorize("hasRole('ADMIN')")
+	@Operation(summary = "Obtener todos los soportes", description = "Permite obtener una lista de todos los soportes registrados en el sistema. Debe ser administrador para poder accederla.")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK - Lista de soportes", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
 					[
@@ -72,7 +75,8 @@ public class SoporteRestController {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping("/")
-	@Operation(summary = "Crear nuevo soporte", description = "Permite registrar un nuevo soporte en el sistema")
+	@PreAuthorize("hasRole('ADMIN')")
+	@Operation(summary = "Crear nuevo soporte", description = "Permite registrar un nuevo soporte en el sistema. Debe ser administrador para poder usar esta función.")
 	@ApiResponses(value = {
 			@ApiResponse(
 				    responseCode = "201",
