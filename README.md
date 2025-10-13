@@ -44,6 +44,6 @@ Este proyecto es una aplicación web construida con Java, Spring Boot y Thymelea
   
  6. Ejecutar el programa 
 
-   
+Equipo 13
    
    
